@@ -63,7 +63,7 @@ public class TunePanel extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if ("Apply".equals(event.getActionCommand())) {
 			tune.setName(nameBox.getText());
-			// Add the tune to the list of tunes if it's not already in it.
+			AllTunes.ALL_TUNES.add(tune);
 		} else if ("Revert".equals(event.getActionCommand())) {
 			nameBox.setText(tune.getName());
 		} else if ("Close".equals(event.getActionCommand())) {
