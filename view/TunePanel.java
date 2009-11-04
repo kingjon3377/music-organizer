@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.Tune;
+
 /**
  * A panel to create and edit tunes.
  * 
@@ -21,11 +23,23 @@ public class TunePanel extends JPanel {
 	 */
 	private final JTextField nameBox = new JTextField();
 	/**
+	 * The tune this panel is editing.
+	 */
+	private final Tune tune;
+	/**
 	 * Constructor.
 	 */
 	public TunePanel() {
+		this(new Tune());
+	}
+	/**
+	 * Explicit-value constructor
+	 * @param theTune The tune we're editing
+	 */
+	public TunePanel(final Tune theTune) {
 		super(new GridLayout(0, 2));
 		add(new JLabel("Tune name"));
 		add(nameBox);
+		tune = theTune;
 	}
 }
