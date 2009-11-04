@@ -1,19 +1,22 @@
 package view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Tune;
+import utils.ListenerButton;
 
 /**
  * A panel to create and edit tunes.
  * 
  * @author Jonathan Lovelace
  */
-public class TunePanel extends JPanel {
+public class TunePanel extends JPanel implements ActionListener {
 	/**
 	 * Version UID for serialization.
 	 */
@@ -40,6 +43,24 @@ public class TunePanel extends JPanel {
 		super(new GridLayout(0, 2));
 		add(new JLabel("Tune name"));
 		add(nameBox);
+		add(new ListenerButton("Apply",this));
+		add(new ListenerButton("Revert", this));
+		add(new ListenerButton("Close", this));
 		tune = theTune;
+	}
+	/**
+	 * Handle button presses
+	 * @param event The event we're handling
+	 */
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if ("Apply".equals(event.getActionCommand())) {
+			tune.setName(nameBox.getText());
+			// Add the tune to the list of tunes if it's not already in it.
+		} else if ("Revert".equals(event.getActionCommand())) {
+			nameBox.setText(tune.getName());
+		} else if ("Close".equals(event.getActionCommand())) {
+			this.setVisible(false);
+		}
 	}
 }
