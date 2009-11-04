@@ -14,22 +14,23 @@ public class Tune {
 	/**
 	 * Tune name.
 	 */
-	private String name;
+	private String name = "";
+	/**
+	 * Composer.
+	 */
+	private String composer = "";
 	/**
 	 * Explicit-value constructor.
 	 * @param idNum The tune's UUID number
-	 * @param newName The tune's name
 	 */
-	public Tune(final int idNum, final String newName) {
+	public Tune(final int idNum) {
 		id = UUIDManager.MANAGER.getId(idNum);
-		name = newName;
 	}
 	/**
 	 * Default constructor
 	 */
 	public Tune() {
 		id = UUIDManager.MANAGER.getId();
-		name = "";
 	}
 	/**
 	 * Accessor.
@@ -51,6 +52,18 @@ public class Tune {
 	 */
 	public void setName(final String newName) {
 		name = newName;
+	}
+	/**
+	 * @return the tune's composer
+	 */
+	public String getComposer() {
+		return composer;
+	}
+	/**
+	 * @param compos the tune's composer
+	 */
+	public void setComposer(final String compos) {
+		composer = compos;
 	}
 	/**
 	 * Hash based on ID.

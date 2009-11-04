@@ -34,7 +34,7 @@ public final class MusicGUIDriver extends JFrame implements ActionListener {
 	private MusicGUIDriver() {
 		super();
 		add(new ListenerButton("Add Tune", this));
-		setPreferredSize(new Dimension(100,100));
+		setPreferredSize(new Dimension(640,480));
 		pack();
 	}
 	/**

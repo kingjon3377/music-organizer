@@ -29,6 +29,10 @@ public class TunePanel extends JFrame implements ActionListener {
 	 */
 	private final JTextField nameBox = new JTextField();
 	/**
+	 * Text box for the composer name
+	 */
+	private final JTextField composerBox = new JTextField();
+	/**
 	 * The tune this panel is editing.
 	 */
 	private final Tune tune;
@@ -45,9 +49,11 @@ public class TunePanel extends JFrame implements ActionListener {
 	public TunePanel(final Tune theTune) {
 		super("Edit Tune");
 		final JPanel panel = new JPanel(new GridLayout(0, 2));
-		setPreferredSize(new Dimension(100,100));
+		setPreferredSize(new Dimension(640,480));
 		panel.add(new JLabel("Tune name"));
 		panel.add(nameBox);
+		panel.add(new JLabel("Composer"));
+		panel.add(composerBox);
 		panel.add(new ListenerButton("Apply",this));
 		panel.add(new ListenerButton("Revert", this));
 		panel.add(new ListenerButton("Close", this));
@@ -63,9 +69,11 @@ public class TunePanel extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if ("Apply".equals(event.getActionCommand())) {
 			tune.setName(nameBox.getText());
+			tune.setComposer(composerBox.getText());
 			AllTunes.ALL_TUNES.add(tune);
 		} else if ("Revert".equals(event.getActionCommand())) {
 			nameBox.setText(tune.getName());
+			composerBox.setText(tune.getComposer());
 		} else if ("Close".equals(event.getActionCommand())) {
 			this.setVisible(false);
 		}
