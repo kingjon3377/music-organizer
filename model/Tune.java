@@ -52,4 +52,21 @@ public class Tune {
 	public void setName(final String newName) {
 		name = newName;
 	}
+	/**
+	 * Hash based on ID.
+	 * @return the ID, to hash by.
+	 */
+	@Override
+	public int hashCode() {
+		return id;
+	}
+	/**
+	 * Equality based on ID.
+	 * @param obj Another object
+	 * @return true if that object is a Tune with the same ID.
+	 */
+	@Override
+	public boolean equals(final Object obj) {
+		return obj instanceof Tune && ((Tune) obj).id == id;
+	}
 }
