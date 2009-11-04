@@ -1,14 +1,17 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Tune;
+import model.collections.AllTunes;
 import utils.ListenerButton;
 
 /**
@@ -16,7 +19,7 @@ import utils.ListenerButton;
  * 
  * @author Jonathan Lovelace
  */
-public class TunePanel extends JPanel implements ActionListener {
+public class TunePanel extends JFrame implements ActionListener {
 	/**
 	 * Version UID for serialization.
 	 */
@@ -40,13 +43,17 @@ public class TunePanel extends JPanel implements ActionListener {
 	 * @param theTune The tune we're editing
 	 */
 	public TunePanel(final Tune theTune) {
-		super(new GridLayout(0, 2));
-		add(new JLabel("Tune name"));
-		add(nameBox);
-		add(new ListenerButton("Apply",this));
-		add(new ListenerButton("Revert", this));
-		add(new ListenerButton("Close", this));
+		super("Edit Tune");
+		final JPanel panel = new JPanel(new GridLayout(0, 2));
+		setPreferredSize(new Dimension(100,100));
+		panel.add(new JLabel("Tune name"));
+		panel.add(nameBox);
+		panel.add(new ListenerButton("Apply",this));
+		panel.add(new ListenerButton("Revert", this));
+		panel.add(new ListenerButton("Close", this));
 		tune = theTune;
+		add(panel);
+		pack();
 	}
 	/**
 	 * Handle button presses
