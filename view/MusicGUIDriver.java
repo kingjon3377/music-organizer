@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,7 +34,11 @@ public final class MusicGUIDriver extends JFrame implements ActionListener {
 	 */
 	private MusicGUIDriver() {
 		super();
+		setLayout(new FlowLayout());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setIgnoreRepaint(false);
 		add(new ListenerButton("Add Tune", this));
+		add(new ListenerButton("Add Book", this));
 		setPreferredSize(new Dimension(640,480));
 		pack();
 	}
@@ -45,6 +50,8 @@ public final class MusicGUIDriver extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if ("Add Tune".equals(event.getActionCommand())) {
 			new TunePanel().setVisible(true);
+		} else if ("Add Book".equals(event.getActionCommand())) {
+			new EditWindow("New Book",new BookPane(),null).setVisible(true);
 		}
 	}
 }
