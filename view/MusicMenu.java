@@ -2,9 +2,15 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import utils.XMLWriter;
 
 /**
  * A menu bar for the Save, Load, and Exit commands.
@@ -15,6 +21,14 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = -2123155356163135242L;
+	/**
+	 * The file-chooser dialog.
+	 */
+	private static final JFileChooser FILE_CHOOSER = new JFileChooser();
+	/**
+	 * Logger.
+	 */
+	private static final Logger LOGGER = Logger.getLogger(MusicMenu.class.getName());
 	/**
 	 * Constructor.
 	 */
@@ -39,7 +53,14 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 		if ("Exit".equals(event.getActionCommand())) {
 			MusicGUIDriver.DRIVER.dispose();
 		} else if ("Save".equals(event.getActionCommand())) {
-			// save();
+			if (FILE_CHOOSER.showSaveDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
+				try {
+					new XMLWriter(FILE_CHOOSER.getSelectedFile().getPath()).write();
+				} catch (IOException e) {
+					LOGGER.log(Level.SEVERE,
+							"I/O error when trying to write to XML file", e);
+				}
+			}
 		} else if ("Load".equals(event.getActionCommand())) {
 			// load();
 		}
