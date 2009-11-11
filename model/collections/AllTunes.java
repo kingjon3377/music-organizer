@@ -4,7 +4,7 @@ import model.Tune;
 import alm.ArrayListModel;
 
 /**
- * A ListModel set of all tunes.
+ * A List of all tunes.
  * 
  * @author Jonathan Lovelace
  */
