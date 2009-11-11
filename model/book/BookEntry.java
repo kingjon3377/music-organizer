@@ -16,12 +16,17 @@ public class BookEntry {
 	 */
 	private int page;
 	/**
+	 * What key the tune is in this book
+	 */
+	private String key;
+	/**
 	 * Constructor
 	 * @param theTune The tune in this entry
 	 */
 	public BookEntry(final Tune theTune) {
 		tune = theTune;
 		page = 0;
+		key = "";
 	}
 	/**
 	 * Accessor.
@@ -48,6 +53,18 @@ public class BookEntry {
 	 */
 	public void setPage(final int pageNum) {
 		page = pageNum;
+	}
+	/**
+	 * @return the key the tune is in in the book
+	 */
+	public String getKey() {
+		return key;
+	}
+	/**
+	 * @param newKey the key the tune is in in the book
+	 */
+	public void setKey(final String newKey) {
+		key = newKey;
 	}
 	/**
 	 * @return a String representation of the entry
