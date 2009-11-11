@@ -113,7 +113,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 			recording = new Recording();
 			recording.addAll(tunes);
 			recording.setTitle(titleField.getText());
-			firePropertyChange("recording", recording, recording);
+			firePropertyChange("recording", null, recording);
 		} else {
 			recording.setTitle(titleField.getText());
 			for (RecordingEntry entry : recording.getEntries()) {
