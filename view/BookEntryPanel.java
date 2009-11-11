@@ -96,6 +96,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	private void apply() {
 		if (entry == null) {
 			entry = new BookEntry((Tune)tuneList.getSelectedValue());
+			entry.setPage(Integer.parseInt(pageField.getText()));
 			firePropertyChange("entry",null,entry);
 		} else {
 			entry.setTune((Tune)tuneList.getSelectedValue());
