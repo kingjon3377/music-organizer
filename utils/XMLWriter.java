@@ -45,7 +45,7 @@ public class XMLWriter {
 		for (Book book : AllBooks.ALL_BOOKS) {
 			writeBook(book);
 		}
-		writer.println("\t</books");
+		writer.println("\t</books>");
 		writer.println("\t<records>");
 		for (Recording record : AllRecordings.ALL_RECORDINGS) {
 			writeRecording(record);
