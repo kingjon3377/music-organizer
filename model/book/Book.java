@@ -89,4 +89,11 @@ public class Book implements Serializable {
 			}
 		}
 	}
+	/**
+	 * @return a string representation of the book
+	 */
+	@Override
+	public String toString() {
+		return title;
+	}
 }
