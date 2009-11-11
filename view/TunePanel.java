@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Tune;
-import model.collections.AllTunes;
 import utils.ListenerButton;
 
 /**
@@ -33,44 +32,70 @@ public class TunePanel extends JPanel implements ActionListener {
 	/**
 	 * The tune this panel is editing.
 	 */
-	private final Tune tune;
+	private Tune tune;
+
 	/**
 	 * Constructor.
 	 */
 	public TunePanel() {
-		this(new Tune());
-	}
-	/**
-	 * Explicit-value constructor
-	 * @param theTune The tune we're editing
-	 */
-	public TunePanel(final Tune theTune) {
 		super(new GridLayout(0, 2));
 		add(new JLabel("Tune name"));
 		add(nameBox);
 		add(new JLabel("Composer"));
 		add(composerBox);
-		add(new ListenerButton("Apply",this));
+		add(new ListenerButton("Apply", this));
 		add(new ListenerButton("Revert", this));
 		add(new ListenerButton("Close", this));
 		actionPerformed(new ActionEvent(this, 0, "Revert"));
+	}
+
+	/**
+	 * Explicit-value constructor
+	 * 
+	 * @param theTune
+	 *            The tune we're editing
+	 */
+	public TunePanel(final Tune theTune) {
+		this();
 		tune = theTune;
 	}
+
 	/**
 	 * Handle button presses
-	 * @param event The event we're handling
+	 * 
+	 * @param event
+	 *            The event we're handling
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if ("Apply".equals(event.getActionCommand())) {
-			tune.setName(nameBox.getText());
-			tune.setComposer(composerBox.getText());
-			AllTunes.ALL_TUNES.add(tune);
+			apply();
 		} else if ("Revert".equals(event.getActionCommand())) {
-			nameBox.setText(tune.getName());
-			composerBox.setText(tune.getComposer());
+			if (tune == null) {
+				nameBox.setText("");
+				composerBox.setText("");
+			} else {
+				nameBox.setText(tune.getName());
+				composerBox.setText(tune.getComposer());
+			}
 		} else if ("Close".equals(event.getActionCommand())) {
 			this.setVisible(false);
+		}
+	}
+
+	/**
+	 * Called when the apply button is pressed.
+	 */
+	private void apply() {
+		if (tune == null) {
+			tune = new Tune();
+			tune.setName(nameBox.getText());
+			tune.setComposer(composerBox.getText());
+			firePropertyChange("tune",null,tune);
+		} else {
+			tune.setName(nameBox.getText());
+			tune.setComposer(composerBox.getText());
+			firePropertyChange("tune",tune,tune);
 		}
 	}
 }
