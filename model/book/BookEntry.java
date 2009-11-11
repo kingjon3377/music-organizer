@@ -4,7 +4,7 @@ import model.Tune;
 
 /**
  * An entry in a book, consisting of a tune and associated data.
- * @author kingjon
+ * @author Jonathan Lovelace
  */
 public class BookEntry {
 	/**
