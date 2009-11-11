@@ -33,8 +33,9 @@ public final class MusicGUIDriver extends JFrame {
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIgnoreRepaint(false);
-		add(new AllTunesPanel(), BorderLayout.WEST);
+		add(new MusicMenu(), BorderLayout.NORTH);
 		add(new AllRecordingsPanel(), BorderLayout.CENTER);
+		add(new AllTunesPanel(), BorderLayout.WEST);
 		add(new AllBooksPanel(), BorderLayout.EAST);
 		setPreferredSize(new Dimension(640,480));
 		pack();
