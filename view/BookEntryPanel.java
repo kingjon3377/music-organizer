@@ -80,6 +80,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	public BookEntryPanel(final BookEntry theEntry) {
 		this();
 		entry = theEntry;
+		actionPerformed(new ActionEvent(this, 0, "Revert"));
 	}
 
 	/**
