@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -16,6 +18,7 @@ import utils.ListenerButton;
 
 /**
  * A panel to edit an entry in a book
+ * 
  * @author Jonathan Lovelace
  */
 public class BookEntryPanel extends JPanel implements ActionListener {
@@ -36,6 +39,11 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	 */
 	private final JTextField pageField = new JTextField();
 	/**
+	 * A text box for the key
+	 */
+	private final JTextField keyField = new JTextField();
+
+	/**
 	 * Constructor.
 	 */
 	public BookEntryPanel() {
@@ -44,25 +52,46 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 		add(tuneList);
 		add(new JLabel("Page number"));
 		add(pageField);
+		add(new JLabel("Key"));
+		add(keyField);
+		keyField.setInputVerifier(new InputVerifier() {
+			@Override
+			public boolean verify(final JComponent input) {
+				return verify(((JTextField) input).getText());
+			}
+
+			private boolean verify(final String input) {
+				return input.length() < 3
+						&& (input.length() < 1 || Character.isLetter(input.charAt(0)))
+						&& (input.length() < 2 || input.charAt(1) == '#' || input
+								.charAt(1) == 'b');
+			}
+		});
 		add(new ListenerButton("Apply", this));
 		add(new ListenerButton("Revert", this));
 	}
+
 	/**
 	 * Constructor.
-	 * @param theEntry The BookEntry this panel allows the user to edit
+	 * 
+	 * @param theEntry
+	 *            The BookEntry this panel allows the user to edit
 	 */
 	public BookEntryPanel(final BookEntry theEntry) {
 		this();
 		entry = theEntry;
 	}
+
 	/**
 	 * @return the BookEntry this panel is editing
 	 */
 	public BookEntry getEntry() {
 		return entry;
 	}
+
 	/**
-	 * @param newEntry The BookEntry this panel is to edit
+	 * @param newEntry
+	 *            The BookEntry this panel is to edit
 	 */
 	public void setEntry(final BookEntry newEntry) {
 		if (!entry.equals(newEntry)) {
@@ -70,6 +99,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 			actionPerformed(new ActionEvent(this, 0, "Revert"));
 		}
 	}
+
 	/**
 	 * Handle a button press
 	 * 
@@ -84,24 +114,29 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 			if (entry != null) {
 				tuneList.setSelectedValue(entry.getTune(), true);
 				pageField.setText(Integer.toString(entry.getPage()));
+				keyField.setText(entry.getKey());
 			} else {
 				tuneList.setSelectedIndices(new int[0]);
 				pageField.setText("");
+				keyField.setText("");
 			}
 		}
 	}
+
 	/**
 	 * Called when the apply button is pressed.
 	 */
 	private void apply() {
 		if (entry == null) {
-			entry = new BookEntry((Tune)tuneList.getSelectedValue());
+			entry = new BookEntry((Tune) tuneList.getSelectedValue());
 			entry.setPage(Integer.parseInt(pageField.getText()));
-			firePropertyChange("entry",null,entry);
+			entry.setKey(keyField.getText());
+			firePropertyChange("entry", null, entry);
 		} else {
-			entry.setTune((Tune)tuneList.getSelectedValue());
+			entry.setTune((Tune) tuneList.getSelectedValue());
 			entry.setPage(Integer.parseInt(pageField.getText()));
-			firePropertyChange("entry",entry,entry);
+			entry.setKey(keyField.getText());
+			firePropertyChange("entry", entry, entry);
 		}
 	}
 }
