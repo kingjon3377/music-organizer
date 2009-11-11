@@ -60,6 +60,7 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Ensure new tunes get added to the AllTunes list.
+	 * @param evt the event we're handling
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
