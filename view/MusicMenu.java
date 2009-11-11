@@ -33,6 +33,7 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 	 * Logger.
 	 */
 	private static final Logger LOGGER = Logger.getLogger(MusicMenu.class.getName());
+
 	/**
 	 * Constructor.
 	 */
@@ -48,9 +49,12 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 		exitItem.addActionListener(this);
 		add(exitItem);
 	}
+
 	/**
 	 * Handle menu item selections.
-	 * @param event the event we're handling
+	 * 
+	 * @param event
+	 *            the event we're handling
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent event) {
