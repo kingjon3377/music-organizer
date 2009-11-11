@@ -10,10 +10,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import org.xml.sax.SAXException;
+
+import utils.MusicXMLReader;
 import utils.XMLWriter;
 
 /**
  * A menu bar for the Save, Load, and Exit commands.
+ * 
  * @author Jonathan Lovelace
  */
 public class MusicMenu extends JMenuBar implements ActionListener {
@@ -62,7 +66,19 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 				}
 			}
 		} else if ("Load".equals(event.getActionCommand())) {
-			// load();
+			if (FILE_CHOOSER.showOpenDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
+				try {
+					new MusicXMLReader(FILE_CHOOSER.getSelectedFile().getPath());
+				} catch (SAXException except) {
+					LOGGER.log(Level.SEVERE,
+							"XML parsing exception when trying to read from XML file",
+							except);
+				} catch (IOException except) {
+					LOGGER.log(Level.SEVERE,
+							"I/O error when trying to read from XML file", except);
+				}
+				MusicGUIDriver.DRIVER.repaint();
+			}
 		}
 	}
 }
