@@ -4,6 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.regex.Pattern;
 
 import javax.swing.JList;
@@ -20,7 +25,7 @@ import alm.ArrayListModel;
  * 
  * @author Jonathan Lovelace
  */
-public class TuneSearchPanel extends JPanel implements ActionListener {
+public class TuneSearchPanel extends JPanel implements ActionListener, PropertyChangeListener {
 	/**
 	 * Version UID for serialization.
 	 */
@@ -48,6 +53,10 @@ public class TuneSearchPanel extends JPanel implements ActionListener {
 		panel.add(new ListenerButton("Search", this));
 		add(panel, BorderLayout.NORTH);
 		add(list, BorderLayout.CENTER);
+		final JPanel panelTwo = new JPanel(new GridLayout(0, 2));
+		panelTwo.add(new ListenerButton("Edit Tune", this));
+		panelTwo.add(new ListenerButton("Close", this));
+		add(panelTwo, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -59,7 +68,9 @@ public class TuneSearchPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		if ("Search".equals(evt.getActionCommand())) {
-			results.clear();
+			if (!results.isEmpty()) {
+				results.clear();
+			}
 			for (Tune tune : AllTunes.ALL_TUNES) {
 				// the case-sensitive equivalent of
 				// tune.getName().contains(searchField.getText()) -- taken from
@@ -69,6 +80,22 @@ public class TuneSearchPanel extends JPanel implements ActionListener {
 					results.add(tune);
 				}
 			}
+		} else if ("Edit Tune".equals(evt.getActionCommand())) {
+			new EditWindow("Edit tune", new TunePanel((Tune) list.getSelectedValue()),
+					this).setVisible(true);
+		} else if ("Close".equals(evt.getActionCommand())) {
+			this.setVisible(false);
+			for (ContainerListener listener : getContainerListeners()) {
+				listener.componentRemoved(new ContainerEvent(this, 0, this));
+			}
 		}
+	}
+	/**
+	 * Handle events from spawned EditWindows. TODO: Implement?
+	 * @param evt the event to handle
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// Do nothing for now
 	}
 }

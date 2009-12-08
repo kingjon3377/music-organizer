@@ -45,6 +45,7 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 		JMenuItem loadItem = new JMenuItem("Load");
 		loadItem.addActionListener(this);
 		add(loadItem);
+		add(new SearchMenu());
 		JMenuItem exitItem = new JMenuItem("Exit");
 		exitItem.addActionListener(this);
 		add(exitItem);
