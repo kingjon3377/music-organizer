@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.CollectionEntry;
 import model.recording.Recording;
 import model.recording.RecordingEntry;
 import utils.ListenerButton;
@@ -116,7 +117,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 			firePropertyChange("recording", null, recording);
 		} else {
 			recording.setTitle(titleField.getText());
-			for (RecordingEntry entry : recording.getEntries()) {
+			for (CollectionEntry entry : recording.getEntries()) {
 				if (!tunes.contains(entry)) {
 					recording.removeEntry(entry);
 				}

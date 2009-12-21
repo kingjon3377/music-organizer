@@ -11,6 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.CollectionEntry;
+import model.TuneCollection;
 import model.book.Book;
 import model.book.BookEntry;
 import utils.ListenerButton;
@@ -116,7 +118,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 			firePropertyChange("book", null, book);
 		} else {
 			book.setTitle(titleField.getText());
-			for (BookEntry entry : book.getEntries()) {
+			for (CollectionEntry entry : book.getEntries()) {
 				if (!tunes.contains(entry)) {
 					book.removeEntry(entry);
 				}
@@ -129,7 +131,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	/**
 	 * @return the Book this frame is for editing
 	 */
-	public Book getBook() {
+	public TuneCollection getBook() {
 		return book;
 	}
 

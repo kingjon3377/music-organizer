@@ -1,5 +1,6 @@
 package model.recording;
 
+import model.CollectionEntry;
 import model.Tune;
 
 /**
@@ -8,7 +9,7 @@ import model.Tune;
  * @author Jonathan Lovelace
  * 
  */
-public class RecordingEntry {
+public class RecordingEntry implements CollectionEntry {
 	/**
 	 * The tune
 	 */
@@ -31,6 +32,7 @@ public class RecordingEntry {
 	 * 
 	 * @return the tune in the entry
 	 */
+	@Override
 	public final Tune getTune() {
 		return tune;
 	}

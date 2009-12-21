@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.CollectionEntry;
 import model.Tune;
 import model.collections.AllTunes;
 import model.recording.RecordingEntry;
@@ -58,7 +59,7 @@ public class RecordingEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * @return the RecordingEntry this panel is editing
 	 */
-	public RecordingEntry getEntry() {
+	public CollectionEntry getEntry() {
 		return entry;
 	}
 	/**

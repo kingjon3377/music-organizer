@@ -3,13 +3,19 @@ package model.recording;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import model.CollectionEntry;
+import model.Tune;
+import model.TuneCollection;
 
 /**
  * A list of tunes, representing a CD.
  * @author Jonathan Lovelace
  */
-public class Recording implements Serializable {
+public class Recording implements Serializable, TuneCollection {
 	/**
 	 * Version UID for serialization.
 	 */
@@ -58,7 +64,7 @@ public class Recording implements Serializable {
 	 * @param index an index into the list
 	 * @return the entry at that index
 	 */
-	public RecordingEntry getEntry(final int index) {
+	public CollectionEntry getEntry(final int index) {
 		return entries.get(index);
 	}
 	/**
@@ -72,7 +78,7 @@ public class Recording implements Serializable {
 	 * Remove an entry from the list.
 	 * @param entry the entry to remove
 	 */
-	public void removeEntry(final RecordingEntry entry) {
+	public void removeEntry(final CollectionEntry entry) {
 		entries.remove(entry);
 	}
 	/**
@@ -92,5 +98,17 @@ public class Recording implements Serializable {
 	@Override
 	public String toString() {
 		return title;
+	}
+	/**
+	 * @param tunes a collection of tunes
+	 * @return whether this recording contains all of them
+	 */
+	@Override
+	public boolean containsAll(Collection<? extends Tune> tunes) {
+		final Set<Tune> tunesInRecording = new HashSet<Tune>();
+		for (RecordingEntry entry : entries) {
+			tunesInRecording.add(entry.getTune());
+		}
+		return tunesInRecording.containsAll(tunes);
 	}
 }

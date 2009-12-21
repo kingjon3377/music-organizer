@@ -3,7 +3,13 @@ package model.book;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import model.CollectionEntry;
+import model.Tune;
+import model.TuneCollection;
 
 /**
  * A book is a collection of tunes, each with associated data, that is, a
@@ -12,7 +18,7 @@ import java.util.List;
  * @author Jonathan Lovelace
  * 
  */
-public class Book implements Serializable {
+public class Book implements Serializable, TuneCollection {
 	/**
 	 * Version UID for serialization.
 	 */
@@ -61,7 +67,8 @@ public class Book implements Serializable {
 	 * @param index an index into the list
 	 * @return the entry at that index
 	 */
-	public BookEntry getEntry(final int index) {
+	@Override
+	public CollectionEntry getEntry(final int index) {
 		return entries.get(index);
 	}
 	/**
@@ -75,7 +82,7 @@ public class Book implements Serializable {
 	 * Remove an entry from the list.
 	 * @param entry the entry to remove
 	 */
-	public void removeEntry(final BookEntry entry) {
+	public void removeEntry(final CollectionEntry entry) {
 		entries.remove(entry);
 	}
 	/**
@@ -95,5 +102,17 @@ public class Book implements Serializable {
 	@Override
 	public String toString() {
 		return title;
+	}
+	/**
+	 * @param tunes a collection of tunes
+	 * @return whether this book contains all of them.
+	 */
+	@Override
+	public boolean containsAll(final Collection<? extends Tune> tunes) {
+		final Set<Tune> tunesInBook = new HashSet<Tune>();
+		for (BookEntry entry : entries) {
+			tunesInBook.add(entry.getTune());
+		}
+		return tunesInBook.containsAll(tunes);
 	}
 }
