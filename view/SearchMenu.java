@@ -14,7 +14,8 @@ import javax.swing.JMenuItem;
  * @author Jonathan Lovelace
  * 
  */
-public final class SearchMenu extends JMenu implements ActionListener, PropertyChangeListener {
+public final class SearchMenu extends JMenu implements ActionListener,
+		PropertyChangeListener {
 	/**
 	 * Version UID for serialization.
 	 */
@@ -28,6 +29,9 @@ public final class SearchMenu extends JMenu implements ActionListener, PropertyC
 		JMenuItem tuneNameItem = new JMenuItem("Tune Name");
 		tuneNameItem.addActionListener(this);
 		add(tuneNameItem);
+		JMenuItem tuneItem = new JMenuItem("Tunes in Collection");
+		tuneItem.addActionListener(this);
+		add(tuneItem);
 	}
 
 	/**
@@ -41,11 +45,17 @@ public final class SearchMenu extends JMenu implements ActionListener, PropertyC
 		if ("Tune Name".equals(event.getActionCommand())) {
 			new EditWindow("Search by Tune Name", new TuneSearchPanel(), this)
 					.setVisible(true);
+		} else if ("Tunes in Collection".equals(event.getActionCommand())) {
+			new EditWindow("Search by Tunes in Collection", new CollectionSearchPanel(),
+					this).setVisible(true);
 		}
 	}
+
 	/**
 	 * Handle events from spawned EditWindows.
-	 * @param evt the event to handle.
+	 * 
+	 * @param evt
+	 *            the event to handle.
 	 * @todo Implement?
 	 */
 	@Override

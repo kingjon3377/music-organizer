@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.CollectionEntry;
 import model.Tune;
 import model.book.BookEntry;
 import model.collections.AllTunes;
@@ -86,7 +87,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * @return the BookEntry this panel is editing
 	 */
-	public BookEntry getEntry() {
+	public CollectionEntry getEntry() {
 		return entry;
 	}
 

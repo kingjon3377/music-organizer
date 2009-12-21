@@ -1,12 +1,13 @@
 package model.book;
 
+import model.CollectionEntry;
 import model.Tune;
 
 /**
  * An entry in a book, consisting of a tune and associated data.
  * @author Jonathan Lovelace
  */
-public class BookEntry {
+public class BookEntry implements CollectionEntry {
 	/**
 	 * The tune
 	 */
