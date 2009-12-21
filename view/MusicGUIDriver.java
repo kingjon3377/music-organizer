@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 /**
  * Main driver.
  * @author Jonathan Lovelace
@@ -30,13 +31,14 @@ public final class MusicGUIDriver extends JFrame {
 	 */
 	private MusicGUIDriver() {
 		super();
-		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIgnoreRepaint(false);
 		add(new MusicMenu(), BorderLayout.NORTH);
-		add(new AllRecordingsPanel(), BorderLayout.CENTER);
-		add(new AllTunesPanel(), BorderLayout.WEST);
-		add(new AllBooksPanel(), BorderLayout.EAST);
+		final JTabbedPane panel = new JTabbedPane();
+		panel.addTab("Tunes",new AllTunesPanel());
+		panel.addTab("Recordings", new AllRecordingsPanel());
+		panel.addTab("Books",new AllBooksPanel());
+		add(panel);
 		setPreferredSize(new Dimension(640,480));
 		pack();
 	}
