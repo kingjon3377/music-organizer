@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -86,7 +84,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 		} else if ("Close".equals(evt.getActionCommand())) {
 			this.setVisible(false);
 			for (ContainerListener listener : getContainerListeners()) {
-				listener.componentRemoved(new ContainerEvent(this, 0, this));
+				listener.componentRemoved(null);
 			}
 		}
 	}
