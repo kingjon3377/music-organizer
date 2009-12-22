@@ -55,6 +55,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	public BookPane(final Book theBook) {
 		this();
 		book = theBook;
+		actionPerformed(new ActionEvent(this, 0, "Revert"));
 	}
 
 	/**
@@ -91,7 +92,11 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 				titleField.setText("");
 			} else {
 				titleField.setText(book.getTitle());
+				try {
 				tunes.addAll(book.getEntries());
+				} catch (IndexOutOfBoundsException except) {
+					// ignore it ...
+				}
 			}
 		} else if ("Apply".equals(actEvent.getActionCommand())) {
 			apply();
