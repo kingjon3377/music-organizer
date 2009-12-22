@@ -3,6 +3,7 @@ package view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ContainerListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -89,6 +90,9 @@ public class TunePanel extends JPanel implements ActionListener {
 			}
 		} else if ("Close".equals(event.getActionCommand())) {
 			this.setVisible(false);
+			for (ContainerListener listener : getContainerListeners()) {
+				listener.componentRemoved(null);
+			}
 		}
 	}
 
