@@ -15,11 +15,16 @@ public class Tune {
 	 */
 	private String composer;
 	/**
+	 * Time signature
+	 */
+	private String timeSignature;
+	/**
 	 * Default constructor
 	 */
 	public Tune() {
 		name = "";
 		composer = "";
+		timeSignature = "";
 	}
 	/**
 	 * Accessor.
@@ -46,6 +51,18 @@ public class Tune {
 	 */
 	public void setComposer(final String compos) {
 		composer = compos;
+	}
+	/**
+	 * @return the tune's time signature
+	 */
+	public String getTimeSignature() {
+		return timeSignature;
+	}
+	/**
+	 * @param tsig the tune's time signature
+	 */
+	public void setTimeSignature(final String tsig) {
+		timeSignature = tsig;
 	}
 	/**
 	 * @return a string representation of the tune

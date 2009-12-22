@@ -30,6 +30,10 @@ public class TunePanel extends JPanel implements ActionListener {
 	 */
 	private final JTextField composerBox = new JTextField();
 	/**
+	 * Text box for the time signature
+	 */
+	private final JTextField timeBox = new JTextField();
+	/**
 	 * The tune this panel is editing.
 	 */
 	private Tune tune;
@@ -43,6 +47,8 @@ public class TunePanel extends JPanel implements ActionListener {
 		add(nameBox);
 		add(new JLabel("Composer"));
 		add(composerBox);
+		add(new JLabel("Time signature"));
+		add(timeBox);
 		add(new ListenerButton("Apply", this));
 		add(new ListenerButton("Revert", this));
 		add(new ListenerButton("Close", this));
@@ -74,9 +80,11 @@ public class TunePanel extends JPanel implements ActionListener {
 			if (tune == null) {
 				nameBox.setText("");
 				composerBox.setText("");
+				timeBox.setText("");
 			} else {
 				nameBox.setText(tune.getName());
 				composerBox.setText(tune.getComposer());
+				timeBox.setText(tune.getTimeSignature());
 			}
 		} else if ("Close".equals(event.getActionCommand())) {
 			this.setVisible(false);
@@ -91,10 +99,12 @@ public class TunePanel extends JPanel implements ActionListener {
 			tune = new Tune();
 			tune.setName(nameBox.getText());
 			tune.setComposer(composerBox.getText());
+			tune.setTimeSignature(timeBox.getText());
 			firePropertyChange("tune",null,tune);
 		} else {
 			tune.setName(nameBox.getText());
 			tune.setComposer(composerBox.getText());
+			tune.setTimeSignature(timeBox.getText());
 			firePropertyChange("tune",tune,tune);
 		}
 	}
