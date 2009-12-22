@@ -137,6 +137,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 		Tune tune = new Tune();
 		tune.setName(atts.getValue("name"));
 		tune.setComposer(atts.getValue("composer"));
+		tune.setTimeSignature(atts.getValue("time"));
 		AllTunes.ALL_TUNES.add(Integer.parseInt(atts.getValue("id")), tune);
 	}
 
