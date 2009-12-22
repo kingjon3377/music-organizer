@@ -63,6 +63,10 @@ public class XMLWriter {
 		writer.print(tune.getName());
 		writer.print("\" composer=\"");
 		writer.print(tune.getComposer());
+		if (!"".equals(tune.getTimeSignature()) && tune.getTimeSignature() != null) {
+			writer.print("\" time=\"");
+			writer.print(tune.getTimeSignature());
+		}
 		writer.print("\" id=\"");
 		writer.print(AllTunes.ALL_TUNES.indexOf(tune));
 		writer.println("\" />");
