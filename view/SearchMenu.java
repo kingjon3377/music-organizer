@@ -32,6 +32,9 @@ public final class SearchMenu extends JMenu implements ActionListener,
 		JMenuItem tuneItem = new JMenuItem("Tunes in Collection");
 		tuneItem.addActionListener(this);
 		add(tuneItem);
+		JMenuItem keyItem = new JMenuItem("Key of Tunes in Book");
+		keyItem.addActionListener(this);
+		add(keyItem);
 	}
 
 	/**
@@ -48,6 +51,9 @@ public final class SearchMenu extends JMenu implements ActionListener,
 		} else if ("Tunes in Collection".equals(event.getActionCommand())) {
 			new EditWindow("Search by Tunes in Collection", new CollectionSearchPanel(),
 					this).setVisible(true);
+		} else if ("Key of Tunes in Book".equals(event.getActionCommand())) {
+			new EditWindow("Search for Books containing Tunes in a Key",
+					new KeySearchPanel(), this).setVisible(true);
 		}
 	}
 
