@@ -35,6 +35,9 @@ public final class SearchMenu extends JMenu implements ActionListener,
 		JMenuItem keyItem = new JMenuItem("Key of Tunes in Book");
 		keyItem.addActionListener(this);
 		add(keyItem);
+		JMenuItem timeItem = new JMenuItem("Time signature");
+		timeItem.addActionListener(this);
+		add(timeItem);
 	}
 
 	/**
@@ -54,6 +57,9 @@ public final class SearchMenu extends JMenu implements ActionListener,
 		} else if ("Key of Tunes in Book".equals(event.getActionCommand())) {
 			new EditWindow("Search for Books containing Tunes in a Key",
 					new KeySearchPanel(), this).setVisible(true);
+		} else if ("Time signature".equals(event.getActionCommand())) {
+			new EditWindow("Search by Time Signature", new TimeSearchPanel(), this)
+					.setVisible(true);
 		}
 	}
 
