@@ -19,8 +19,7 @@ import utils.ListenerButton;
 import alm.ArrayListModel;
 /**
  * A panel to search for tunes in books by key.
- * @author kingjon
- *
+ * @author Jonathan Lovelace
  */
 public class KeySearchPanel extends JPanel implements ActionListener, PropertyChangeListener {
 	/**
@@ -28,7 +27,7 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 	 */
 	private static final long serialVersionUID = 502479920471260131L;
 	/**
-	 * A t4ext box to enter the search term.
+	 * A text box to enter the search term.
 	 */
 	private final JTextField searchField = new JTextField();
 	/**
