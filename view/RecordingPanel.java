@@ -54,6 +54,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 	public RecordingPanel(final Recording record) {
 		this();
 		recording = record;
+		actionPerformed(new ActionEvent(this, 0, "Revert"));
 	}
 
 	/**
@@ -90,7 +91,11 @@ public class RecordingPanel extends JPanel implements ActionListener,
 				titleField.setText("");
 			} else {
 				titleField.setText(recording.getTitle());
-				tunes.addAll(recording.getEntries());
+				try {
+					tunes.addAll(recording.getEntries());
+				} catch (IndexOutOfBoundsException except) {
+					// ignore it ...
+				}
 			}
 		} else if ("Apply".equals(actEvent.getActionCommand())) {
 			apply();
