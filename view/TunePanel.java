@@ -64,6 +64,7 @@ public class TunePanel extends JPanel implements ActionListener {
 	public TunePanel(final Tune theTune) {
 		this();
 		tune = theTune;
+		actionPerformed(new ActionEvent(this, 0, "Revert"));
 	}
 
 	/**
