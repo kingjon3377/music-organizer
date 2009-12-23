@@ -1,4 +1,4 @@
-package view;
+package view.search;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -25,6 +25,9 @@ import model.collections.AllRecordings;
 import model.collections.AllTunes;
 import model.recording.Recording;
 import utils.ListenerButton;
+import view.BookPane;
+import view.EditWindow;
+import view.RecordingPanel;
 import alm.ArrayListModel;
 
 /**

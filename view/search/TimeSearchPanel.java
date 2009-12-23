@@ -1,4 +1,4 @@
-package view;
+package view.search;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import model.Tune;
 import model.collections.AllTunes;
 import utils.ListenerButton;
+import view.EditWindow;
+import view.TunePanel;
 import alm.ArrayListModel;
 
 /**

@@ -1,4 +1,4 @@
-package view;
+package view.collections;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import model.book.Book;
 import model.collections.AllBooks;
 import utils.ListenerButton;
+import view.BookPane;
+import view.EditWindow;
 
 /**
  * A panel to create and edit books.

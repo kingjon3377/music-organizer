@@ -5,6 +5,10 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
+
+import view.collections.AllBooksPanel;
+import view.collections.AllRecordingsPanel;
+import view.collections.AllTunesPanel;
 /**
  * Main driver.
  * @author Jonathan Lovelace

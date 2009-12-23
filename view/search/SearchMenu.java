@@ -1,4 +1,4 @@
-package view;
+package view.search;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +7,8 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import view.EditWindow;
 
 /**
  * A menu from which to launch search dialogs.

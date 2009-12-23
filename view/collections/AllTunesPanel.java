@@ -1,4 +1,4 @@
-package view;
+package view.collections;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import model.Tune;
 import model.collections.AllTunes;
 import utils.ListenerButton;
+import view.EditWindow;
+import view.TunePanel;
 
 /**
  * A panel to allow the user to select a tune to edit.
