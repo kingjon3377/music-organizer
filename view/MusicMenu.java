@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import utils.MusicXMLReader;
 import utils.XMLWriter;
+import view.search.SearchMenu;
 
 /**
  * A menu bar for the Save, Load, and Exit commands.

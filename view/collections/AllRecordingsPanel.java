@@ -1,4 +1,4 @@
-package view;
+package view.collections;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import model.collections.AllRecordings;
 import model.recording.Recording;
 import utils.ListenerButton;
+import view.EditWindow;
+import view.RecordingPanel;
 
 /**
  * A panel to create and edit recordings.
