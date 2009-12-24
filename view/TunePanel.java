@@ -18,21 +18,24 @@ import utils.ListenerButton;
  * @author Jonathan Lovelace
  */
 public final class TunePanel extends JPanel implements ActionListener {
+	/**
+	 * The "revert" action string.
+	 */
 	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = -1818025890818661076L;
 	/**
-	 * Text box for the tune name
+	 * Text box for the tune name.
 	 */
 	private final transient JTextField nameBox = new JTextField();
 	/**
-	 * Text box for the composer name
+	 * Text box for the composer name.
 	 */
 	private final transient JTextField composerBox = new JTextField();
 	/**
-	 * Text box for the time signature
+	 * Text box for the time signature.
 	 */
 	private final transient JTextField timeBox = new JTextField();
 	/**
@@ -58,7 +61,7 @@ public final class TunePanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Explicit-value constructor
+	 * Explicit-value constructor.
 	 * 
 	 * @param theTune
 	 *            The tune we're editing
@@ -70,7 +73,7 @@ public final class TunePanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param event
 	 *            The event we're handling
@@ -106,12 +109,12 @@ public final class TunePanel extends JPanel implements ActionListener {
 			tune.setName(nameBox.getText());
 			tune.setComposer(composerBox.getText());
 			tune.setTimeSignature(timeBox.getText());
-			firePropertyChange("tune",null,tune);
+			firePropertyChange("tune", null, tune);
 		} else {
 			tune.setName(nameBox.getText());
 			tune.setComposer(composerBox.getText());
 			tune.setTimeSignature(timeBox.getText());
-			firePropertyChange("tune",tune,tune);
+			firePropertyChange("tune", tune, tune);
 		}
 	}
 }

@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- * A JButton that takes its ActionListener as a constructor parameter
+ * A JButton that takes its ActionListener as a constructor parameter.
  * 
  * @author kingjon
  */
 public class ListenerButton extends JButton {
 	/**
-	 * Version UID for serialization
+	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = 7050897114145426560L;
 

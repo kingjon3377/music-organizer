@@ -20,7 +20,7 @@ import view.TunePanel;
 import alm.ArrayListModel;
 
 /**
- * A panel for searching by time signature
+ * A panel for searching by time signature.
  * 
  * @author Jonathan Lovelace
  * 
@@ -36,16 +36,16 @@ public class TimeSearchPanel extends JPanel implements ActionListener,
 	 */
 	private final transient JTextField searchField = new JTextField();
 	/**
-	 * A list-model to back the list of search results
+	 * A list-model to back the list of search results.
 	 */
 	private final transient ArrayListModel<Tune> results = new ArrayListModel<Tune>();
 	/**
-	 * The list of search results
+	 * The list of search results.
 	 */
 	private final transient JList list = new JList(results);
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public TimeSearchPanel() {
 		super(new BorderLayout());
@@ -61,7 +61,7 @@ public class TimeSearchPanel extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param evt
 	 *            the event to handle

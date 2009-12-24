@@ -4,7 +4,7 @@ import model.recording.Recording;
 import alm.ArrayListModel;
 
 /**
- * A list of all Recordings
+ * A list of all Recordings.
  * @author Jonathan Lovelace
  */
 public final class AllRecordings extends ArrayListModel<Recording> {

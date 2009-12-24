@@ -9,19 +9,19 @@ import model.Tune;
  */
 public class BookEntry implements CollectionEntry {
 	/**
-	 * The tune
+	 * The tune.
 	 */
 	private Tune tune;
 	/**
-	 * The page number the tune is on
+	 * The page number the tune is on.
 	 */
 	private int page;
 	/**
-	 * What key the tune is in this book
+	 * What key the tune is in this book.
 	 */
 	private String key;
 	/**
-	 * Constructor
+	 * Constructor.
 	 * @param theTune The tune in this entry
 	 */
 	public BookEntry(final Tune theTune) {

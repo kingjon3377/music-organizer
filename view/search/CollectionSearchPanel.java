@@ -42,7 +42,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	 */
 	private static final long serialVersionUID = -19316879878099148L;
 	/**
-	 * A list of all tunes
+	 * A list of all tunes.
 	 */
 	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
 	/**
@@ -50,7 +50,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	 */
 	private final transient ArrayListModel<TuneCollection> results = new ArrayListModel<TuneCollection>();
 	/**
-	 * The list of search results
+	 * The list of search results.
 	 */
 	private final transient JList list = new JList(results);
 
@@ -74,7 +74,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param evt
 	 *            the event to handle
@@ -127,7 +127,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 		// Do nothing for now
 	}
 	/**
-	 * Converts an Object[] containing only Tunes to a List<Tune>
+	 * Converts an Object[] containing only Tunes to a List<Tune>.
 	 * @param array an array of Objects that are all Tunes
 	 * @return an equivalent List of the Tunes.
 	 */

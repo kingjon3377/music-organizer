@@ -15,11 +15,11 @@ public class Tune {
 	 */
 	private String composer;
 	/**
-	 * Time signature
+	 * Time signature.
 	 */
 	private String timeSignature;
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public Tune() {
 		name = "";
@@ -34,7 +34,7 @@ public class Tune {
 		return name;
 	}
 	/**
-	 * Mutator
+	 * Mutator.
 	 * @param newName the tune's new name
 	 */
 	public void setName(final String newName) {

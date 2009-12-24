@@ -2,8 +2,9 @@ package model;
 
 /**
  * An interface for entries in books and recordings.
+ * 
  * @author kingjon
- *
+ * 
  */
 public interface CollectionEntry {
 

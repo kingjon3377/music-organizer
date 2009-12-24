@@ -4,23 +4,23 @@ import model.CollectionEntry;
 import model.Tune;
 
 /**
- * A track on a recording
+ * A track on a recording.
  * 
  * @author Jonathan Lovelace
  * 
  */
 public class RecordingEntry implements CollectionEntry {
 	/**
-	 * The tune
+	 * The tune.
 	 */
 	private Tune tune;
 	/**
-	 * The track number
+	 * The track number.
 	 */
 	private int track;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public RecordingEntry() {
 		setTune(null);

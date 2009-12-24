@@ -9,29 +9,43 @@ import javax.swing.JTabbedPane;
 import view.collections.AllBooksPanel;
 import view.collections.AllRecordingsPanel;
 import view.collections.AllTunesPanel;
+
 /**
  * Main driver.
+ * 
  * @author Jonathan Lovelace
- *
+ * 
  */
 public final class MusicGUIDriver extends JFrame {
 	/**
-	 * Version UID for serialization. 
+	 * The starting width of the window.
+	 */
+	private static final int WINDOW_WIDTH = 640;
+	/**
+	 * The starting height of the window.
+	 */
+	private static final int WINDOW_HEIGHT = 480;
+	/**
+	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = 5859543985029073215L;
 	/**
 	 * This is singleton.
 	 */
 	public static final MusicGUIDriver DRIVER = new MusicGUIDriver();
+
 	/**
 	 * Entry point.
-	 * @param args command-line arguments
+	 * 
+	 * @param args
+	 *            command-line arguments
 	 */
 	public static void main(final String[] args) {
 		DRIVER.setVisible(true);
 	}
+
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	private MusicGUIDriver() {
 		super();
@@ -39,11 +53,11 @@ public final class MusicGUIDriver extends JFrame {
 		setIgnoreRepaint(false);
 		add(new MusicMenu(), BorderLayout.NORTH);
 		final JTabbedPane panel = new JTabbedPane();
-		panel.addTab("Tunes",new AllTunesPanel());
+		panel.addTab("Tunes", new AllTunesPanel());
 		panel.addTab("Recordings", new AllRecordingsPanel());
-		panel.addTab("Books",new AllBooksPanel());
+		panel.addTab("Books", new AllBooksPanel());
 		add(panel);
-		setPreferredSize(new Dimension(640,480));
+		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 		pack();
 	}
 }

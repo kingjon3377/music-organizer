@@ -20,12 +20,15 @@ import utils.ListenerButton;
 import alm.ArrayListModel;
 
 /**
- * A panel to add or edit a CD
+ * A panel to add or edit a CD.
  * 
  * @author Jonathan Lovelace
  */
 public final class RecordingPanel extends JPanel implements ActionListener,
 		PropertyChangeListener {
+	/**
+	 * The "revert" action string.
+	 */
 	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
@@ -44,7 +47,7 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 */
 	private final transient JTextField titleField = new JTextField();
 	/**
-	 * The intermediate model of the tunes, used to back the list
+	 * The intermediate model of the tunes, used to back the list.
 	 */
 	private final transient ArrayListModel<RecordingEntry> tunes = new ArrayListModel<RecordingEntry>();
 	/**
@@ -83,7 +86,7 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param actEvent
 	 *            The button-press event we're handling
@@ -160,6 +163,7 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle a spawned panel's "apply" event.
+	 * @param evt An event from a spawned panel.
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
