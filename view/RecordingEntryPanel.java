@@ -14,14 +14,19 @@ import model.Tune;
 import model.collections.AllTunes;
 import model.recording.RecordingEntry;
 import utils.ListenerButton;
+
 /**
- * A panel to edit an entry in a recording
+ * A panel to edit an entry in a recording.
+ * 
  * @author Jonathan Lovelace
  */
 public final class RecordingEntryPanel extends JPanel implements ActionListener {
+	/**
+	 * The "revert" action string.
+	 */
 	private static final String REVERT = "Revert";
 	/**
-	 * Version UID for serialization 
+	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = -936277429156304813L;
 	/**
@@ -36,11 +41,12 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	 * A text box for the track number.
 	 */
 	private final transient JTextField trackField = new JTextField();
+
 	/**
 	 * Constructor.
 	 */
 	public RecordingEntryPanel() {
-		super(new GridLayout(0,2));
+		super(new GridLayout(0, 2));
 		add(new JLabel("Tune"));
 		add(tuneList);
 		add(new JLabel("Track number"));
@@ -48,23 +54,29 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 		add(new ListenerButton("Apply", this));
 		add(new ListenerButton(REVERT, this));
 	}
+
 	/**
 	 * Constructor.
-	 * @param theEntry The RecordingEntry this panel allows the user to edit
+	 * 
+	 * @param theEntry
+	 *            The RecordingEntry this panel allows the user to edit
 	 */
 	public RecordingEntryPanel(final RecordingEntry theEntry) {
 		this();
 		entry = theEntry;
 		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
+
 	/**
 	 * @return the RecordingEntry this panel is editing
 	 */
 	public CollectionEntry getEntry() {
 		return entry;
 	}
+
 	/**
-	 * @param newEntry the RecordingEntry this panel is to edit
+	 * @param newEntry
+	 *            the RecordingEntry this panel is to edit
 	 */
 	public void setEntry(final RecordingEntry newEntry) {
 		if (!entry.equals(newEntry)) {
@@ -72,8 +84,9 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
 	}
+
 	/**
-	 * Handle a button press
+	 * Handle a button press.
 	 * 
 	 * @param event
 	 *            The event we're handling
@@ -92,6 +105,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 			}
 		}
 	}
+
 	/**
 	 * Called when the apply button is pressed.
 	 */

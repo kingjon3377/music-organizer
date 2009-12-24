@@ -19,7 +19,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
- * A SAX parser for the music organization XML
+ * A SAX parser for the music organization XML.
  * 
  * @author Jonathan Lovelace
  * 
@@ -30,11 +30,11 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 */
 	private static final long serialVersionUID = 5253135372738553184L;
 	/**
-	 * The recording we're currently filling
+	 * The recording we're currently filling.
 	 */
 	private transient Recording currentRecording;
 	/**
-	 * The book we're currently filling
+	 * The book we're currently filling.
 	 */
 	private transient Book currentBook;
 
@@ -164,7 +164,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	}
 
 	/**
-	 * Parse a book entry
+	 * Parse a book entry.
 	 * 
 	 * @param atts
 	 *            the XML tag's attributes
@@ -179,7 +179,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	}
 
 	/**
-	 * Parse a recording
+	 * Parse a recording.
 	 * 
 	 * @param atts
 	 *            the XML tag's attributes

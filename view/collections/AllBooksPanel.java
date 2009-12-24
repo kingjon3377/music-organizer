@@ -33,7 +33,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	private final transient JList bookList = new JList(AllBooks.ALL_BOOKS);
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public AllBooksPanel() {
 		super(new GridLayout(0, 2));
@@ -65,7 +65,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Ensure new books get added to the AllBooks list
+	 * Ensure new books get added to the AllBooks list.
 	 * @param evt the event we're handling
 	 */
 	@Override

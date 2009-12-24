@@ -19,13 +19,16 @@ import utils.ListenerButton;
 import view.BookPane;
 import view.EditWindow;
 import alm.ArrayListModel;
+
 /**
  * A panel to search for tunes in books by key.
+ * 
  * @author Jonathan Lovelace
  */
-public class KeySearchPanel extends JPanel implements ActionListener, PropertyChangeListener {
+public class KeySearchPanel extends JPanel implements ActionListener,
+		PropertyChangeListener {
 	/**
-	 * Version UID for serialization. 
+	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = 502479920471260131L;
 	/**
@@ -33,30 +36,32 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 	 */
 	private final transient JTextField searchField = new JTextField();
 	/**
-	 * A list-model to back the list of search results
+	 * A list-model to back the list of search results.
 	 */
 	private final transient ArrayListModel<Book> results = new ArrayListModel<Book>();
 	/**
-	 * The list of search results
+	 * The list of search results.
 	 */
 	private final transient JList list = new JList(results);
+
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public KeySearchPanel() {
-		super (new BorderLayout());
-		final JPanel panel = new JPanel(new GridLayout(0,2));
+		super(new BorderLayout());
+		final JPanel panel = new JPanel(new GridLayout(0, 2));
 		panel.add(searchField);
-		panel.add(new ListenerButton("Search",this));
+		panel.add(new ListenerButton("Search", this));
 		add(panel, BorderLayout.NORTH);
 		add(list, BorderLayout.CENTER);
-		final JPanel panelTwo = new JPanel(new GridLayout(0,2));
+		final JPanel panelTwo = new JPanel(new GridLayout(0, 2));
 		panelTwo.add(new ListenerButton("View Book", this));
 		panelTwo.add(new ListenerButton("Close", this));
 		add(panelTwo, BorderLayout.SOUTH);
 	}
+
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param evt
 	 *            the event to handle
@@ -76,7 +81,8 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 				}
 			}
 		} else if ("View Book".equals(evt.getActionCommand())) {
-			new EditWindow("View Book", new BookPane((Book) list.getSelectedValue()),this).setVisible(true);
+			new EditWindow("View Book", new BookPane((Book) list
+					.getSelectedValue()), this).setVisible(true);
 		} else if ("Close".equals(evt.getActionCommand())) {
 			this.setVisible(false);
 			for (ContainerListener listener : getContainerListeners()) {
@@ -84,9 +90,12 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 			}
 		}
 	}
+
 	/**
 	 * Handle events from spawned EditWindows. TODO: Implement?
-	 * @param evt the event to handle
+	 * 
+	 * @param evt
+	 *            the event to handle
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {

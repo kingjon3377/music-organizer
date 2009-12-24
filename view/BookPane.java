@@ -28,13 +28,16 @@ import alm.ArrayListModel;
  */
 public final class BookPane extends JPanel implements ActionListener,
 		PropertyChangeListener {
+	/**
+	 * The "revert" action string.
+	 */
 	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = 8657213337590334699L;
 	/**
-	 * The book we're dealing with
+	 * The book we're dealing with.
 	 */
 	private Book book;
 	/**
@@ -43,11 +46,11 @@ public final class BookPane extends JPanel implements ActionListener,
 	private static final Logger LOGGER = Logger.getLogger(BookPane.class
 			.getName());
 	/**
-	 * A text box for the book's title
+	 * A text box for the book's title.
 	 */
 	private final transient JTextField titleField = new JTextField();
 	/**
-	 * The intermediate model of the tunes, used to back the list
+	 * The intermediate model of the tunes, used to back the list.
 	 */
 	private final transient ArrayListModel<BookEntry> tunes = new ArrayListModel<BookEntry>();
 	/**
@@ -86,7 +89,7 @@ public final class BookPane extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param actEvent
 	 *            The button-press event we're handling
@@ -163,6 +166,7 @@ public final class BookPane extends JPanel implements ActionListener,
 
 	/**
 	 * Handle a spawned panel's "apply" event.
+	 * @param evt An event from a spawned panel.
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {

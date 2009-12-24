@@ -55,7 +55,7 @@ public class XMLWriter {
 		writer.close();
 	}
 	/**
-	 * Write a tune to XML
+	 * Write a tune to XML.
 	 * @param tune the tune to write
 	 */
 	private void writeTune(final Tune tune) {
@@ -72,7 +72,7 @@ public class XMLWriter {
 		writer.println("\" />");
 	}
 	/**
-	 * Write a book to XML
+	 * Write a book to XML.
 	 * @param book the book to write
 	 */
 	private void writeBook(final Book book) {
@@ -102,7 +102,7 @@ public class XMLWriter {
 		writer.println("\t\t</recording>");
 	}
 	/**
-	 * Write a BookEntry to XML
+	 * Write a BookEntry to XML.
 	 * @param entry the entry to write
 	 */
 	private void writeBookEntry(final BookEntry entry) {
@@ -115,7 +115,7 @@ public class XMLWriter {
 		writer.println("\" />");
 	}
 	/**
-	 * Write a RecordingEntry to XML
+	 * Write a RecordingEntry to XML.
 	 * @param entry the entry to write
 	 */
 	private void writeRecordingEntry(final RecordingEntry entry) {

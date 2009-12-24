@@ -21,15 +21,15 @@ public class Recording implements Serializable, TuneCollection {
 	 */
 	private static final long serialVersionUID = 1046321508108731146L;
 	/**
-	 * The title of the CD
+	 * The title of the CD.
 	 */
 	private String title;
 	/**
-	 * The entries in the recording
+	 * The entries in the recording.
 	 */
 	private final List<RecordingEntry> entries = new ArrayList<RecordingEntry>(); // NOPMD
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public Recording() {
 		super();

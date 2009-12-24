@@ -10,12 +10,12 @@ import java.util.Set;
  */
 public final class UUIDManager {
 	/**
-	 * The singleton object
+	 * The singleton object.
 	 */
 	public static final UUIDManager MANAGER = new UUIDManager();
 
 	/**
-	 * Singleton constructor
+	 * Singleton constructor.
 	 */
 	private UUIDManager() {
 		super();
@@ -27,7 +27,7 @@ public final class UUIDManager {
 	 */
 	private final Set<Integer> givenIds = new HashSet<Integer>(); // NOPMD
 	/**
-	 * The highest ID we've given out
+	 * The highest ID we've given out.
 	 */
 	private int maxId; // NOPMD
 

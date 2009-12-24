@@ -15,7 +15,15 @@ import javax.swing.JPanel;
  */
 public class EditWindow extends JFrame implements ContainerListener {
 	/**
-	 * Version UID for serialization
+	 * The starting width of the window.
+	 */
+	private static final int WINDOW_WIDTH = 640;
+	/**
+	 * The starting height of the window.
+	 */
+	private static final int WINDOW_HEIGHT = 480;
+	/**
+	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = 3045048240354105063L;
 
@@ -36,18 +44,22 @@ public class EditWindow extends JFrame implements ContainerListener {
 		add(panel);
 		panel.addPropertyChangeListener(list);
 		panel.addContainerListener(this);
-		setPreferredSize(new Dimension(640,480));
+		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 		pack();
 	}
+
 	/**
-	 * Do nothing
+	 * Do nothing.
+	 * @param event ignored
 	 */
 	@Override
 	public void componentAdded(final ContainerEvent event) {
 		// Do nothing
 	}
+
 	/**
 	 * Handle the fake event intended to close this window.
+	 * @param event If null, close the window.
 	 */
 	@Override
 	public void componentRemoved(final ContainerEvent event) {

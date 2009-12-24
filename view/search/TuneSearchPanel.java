@@ -21,7 +21,7 @@ import view.TunePanel;
 import alm.ArrayListModel;
 
 /**
- * A panel to search for tunes by name
+ * A panel to search for tunes by name.
  * 
  * @author Jonathan Lovelace
  */
@@ -31,7 +31,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	 */
 	private static final long serialVersionUID = -6012429142002267887L;
 	/**
-	 * A text box to enter the search term
+	 * A text box to enter the search term.
 	 */
 	private final transient JTextField searchField = new JTextField();
 	/**
@@ -39,7 +39,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	 */
 	private final transient ArrayListModel<Tune> results = new ArrayListModel<Tune>();
 	/**
-	 * The list of search results
+	 * The list of search results.
 	 */
 	private final transient JList list = new JList(results);
 
@@ -60,7 +60,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	}
 
 	/**
-	 * Handle button presses
+	 * Handle button presses.
 	 * 
 	 * @param evt
 	 *            the event to handle

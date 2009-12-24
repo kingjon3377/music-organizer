@@ -18,11 +18,14 @@ import model.collections.AllTunes;
 import utils.ListenerButton;
 
 /**
- * A panel to edit an entry in a book
+ * A panel to edit an entry in a book.
  * 
  * @author Jonathan Lovelace
  */
 public final class BookEntryPanel extends JPanel implements ActionListener {
+	/**
+	 * The "revert" action string.
+	 */
 	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
@@ -33,15 +36,15 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	 */
 	private BookEntry entry;
 	/**
-	 * A list of tunes, of which one can be selected
+	 * A list of tunes, of which one can be selected.
 	 */
 	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
 	/**
-	 * A text box for the page number
+	 * A text box for the page number.
 	 */
 	private final transient JTextField pageField = new JTextField();
 	/**
-	 * A text box for the key
+	 * A text box for the key.
 	 */
 	private final transient JTextField keyField = new JTextField();
 
@@ -57,13 +60,17 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 		add(new JLabel("Key"));
 		add(keyField);
 		keyField.setInputVerifier(new InputVerifier() {
+			/**
+			 * If a Key is this long, it's too long to be right.
+			 */
+			private static final int TOO_LONG = 3; // NOPMD
 			@Override
 			public boolean verify(final JComponent input) {
 				return verify(((JTextField) input).getText());
 			}
 
 			private boolean verify(final String input) {
-				return input.length() < 3
+				return input.length() < TOO_LONG
 						&& (input.length() < 1 || Character.isLetter(input.charAt(0)))
 						&& (input.length() < 2 || input.charAt(1) == '#' || input
 								.charAt(1) == 'b');
@@ -104,7 +111,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Handle a button press
+	 * Handle a button press.
 	 * 
 	 * @param event
 	 *            The event we're handling

@@ -14,7 +14,7 @@ public final class AllBooks extends ArrayListModel<Book> {
 	 */
 	private static final long serialVersionUID = 4529117699433560416L;
 	/**
-	 * Singleton
+	 * Singleton.
 	 */
 	public static final AllBooks ALL_BOOKS = new AllBooks();
 	/**

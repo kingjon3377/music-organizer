@@ -32,7 +32,7 @@ public class Book implements Serializable, TuneCollection {
 	 */
 	private final List<BookEntry> entries = new ArrayList<BookEntry>(); // NOPMD
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public Book() {
 		super();

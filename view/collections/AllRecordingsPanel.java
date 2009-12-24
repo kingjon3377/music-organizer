@@ -28,12 +28,12 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	 */
 	private static final long serialVersionUID = -785663569301003616L;
 	/**
-	 * A list of recordings, of which one can be selected to be edited
+	 * A list of recordings, of which one can be selected to be edited.
 	 */
 	private final transient JList recordList = new JList(AllRecordings.ALL_RECORDINGS);
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public AllRecordingsPanel() {
 		super(new GridLayout(0, 2));
@@ -64,7 +64,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Ensure new recordings get added to the AllRecordings list
+	 * Ensure new recordings get added to the AllRecordings list.
 	 * 
 	 * @param evt
 	 *            the event we're handling
