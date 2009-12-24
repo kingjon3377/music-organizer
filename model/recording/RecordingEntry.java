@@ -23,7 +23,7 @@ public class RecordingEntry implements CollectionEntry {
 	 * Constructor
 	 */
 	public RecordingEntry() {
-		tune = null;
+		setTune(null);
 		track = 0;
 	}
 
@@ -43,14 +43,14 @@ public class RecordingEntry implements CollectionEntry {
 	 * @param newTune
 	 *            the new tune in the entry
 	 */
-	public void setTune(final Tune newTune) {
+	public final void setTune(final Tune newTune) {
 		tune = newTune;
 	}
 
 	/**
 	 * @return the track number
 	 */
-	public int getTrack() {
+	public final int getTrack() {
 		return track;
 	}
 
@@ -58,7 +58,7 @@ public class RecordingEntry implements CollectionEntry {
 	 * @param trackNum
 	 *            the track the tune is on this recording
 	 */
-	public void setTrack(final int trackNum) {
+	public final void setTrack(final int trackNum) {
 		track = trackNum;
 	}
 

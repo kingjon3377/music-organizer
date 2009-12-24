@@ -40,14 +40,14 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 	 */
 	public MusicMenu() {
 		super();
-		JMenuItem saveItem = new JMenuItem("Save");
+		final JMenuItem saveItem = new JMenuItem("Save");
 		saveItem.addActionListener(this);
 		add(saveItem);
-		JMenuItem loadItem = new JMenuItem("Load");
+		final JMenuItem loadItem = new JMenuItem("Load");
 		loadItem.addActionListener(this);
 		add(loadItem);
 		add(new SearchMenu());
-		JMenuItem exitItem = new JMenuItem("Exit");
+		final JMenuItem exitItem = new JMenuItem("Exit");
 		exitItem.addActionListener(this);
 		add(exitItem);
 	}
@@ -71,20 +71,19 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 							"I/O error when trying to write to XML file", e);
 				}
 			}
-		} else if ("Load".equals(event.getActionCommand())) {
-			if (FILE_CHOOSER.showOpenDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
-				try {
-					new MusicXMLReader(FILE_CHOOSER.getSelectedFile().getPath());
-				} catch (SAXException except) {
-					LOGGER.log(Level.SEVERE,
-							"XML parsing exception when trying to read from XML file",
-							except);
-				} catch (IOException except) {
-					LOGGER.log(Level.SEVERE,
-							"I/O error when trying to read from XML file", except);
-				}
-				MusicGUIDriver.DRIVER.repaint();
+		} else if ("Load".equals(event.getActionCommand())
+				&& FILE_CHOOSER.showOpenDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
+			try {
+				new MusicXMLReader(FILE_CHOOSER.getSelectedFile().getPath());
+			} catch (SAXException except) {
+				LOGGER.log(Level.SEVERE,
+						"XML parsing exception when trying to read from XML file",
+						except);
+			} catch (IOException except) {
+				LOGGER.log(Level.SEVERE,
+						"I/O error when trying to read from XML file", except);
 			}
+			MusicGUIDriver.DRIVER.repaint();
 		}
 	}
 }

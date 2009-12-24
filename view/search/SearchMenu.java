@@ -28,16 +28,16 @@ public final class SearchMenu extends JMenu implements ActionListener,
 	 */
 	public SearchMenu() {
 		super("Search by ...");
-		JMenuItem tuneNameItem = new JMenuItem("Tune Name");
+		final JMenuItem tuneNameItem = new JMenuItem("Tune Name");
 		tuneNameItem.addActionListener(this);
 		add(tuneNameItem);
-		JMenuItem tuneItem = new JMenuItem("Tunes in Collection");
+		final JMenuItem tuneItem = new JMenuItem("Tunes in Collection");
 		tuneItem.addActionListener(this);
 		add(tuneItem);
-		JMenuItem keyItem = new JMenuItem("Key of Tunes in Book");
+		final JMenuItem keyItem = new JMenuItem("Key of Tunes in Book");
 		keyItem.addActionListener(this);
 		add(keyItem);
-		JMenuItem timeItem = new JMenuItem("Time signature");
+		final JMenuItem timeItem = new JMenuItem("Time signature");
 		timeItem.addActionListener(this);
 		add(timeItem);
 	}
@@ -49,7 +49,7 @@ public final class SearchMenu extends JMenu implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(final ActionEvent event) {
 		if ("Tune Name".equals(event.getActionCommand())) {
 			new EditWindow("Search by Tune Name", new TuneSearchPanel(), this)
 					.setVisible(true);
@@ -73,7 +73,7 @@ public final class SearchMenu extends JMenu implements ActionListener,
 	 * @todo Implement?
 	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(final PropertyChangeEvent evt) {
 		// Do nothing at present
 	}
 }

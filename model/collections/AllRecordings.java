@@ -7,7 +7,7 @@ import alm.ArrayListModel;
  * A list of all Recordings
  * @author Jonathan Lovelace
  */
-public class AllRecordings extends ArrayListModel<Recording> {
+public final class AllRecordings extends ArrayListModel<Recording> {
 	/**
 	 * Version UID for serialization. 
 	 */

@@ -25,11 +25,11 @@ public final class UUIDManager {
 	/**
 	 * A set of IDs we've given out.
 	 */
-	private final Set<Integer> givenIds = new HashSet<Integer>();
+	private final Set<Integer> givenIds = new HashSet<Integer>(); // NOPMD
 	/**
 	 * The highest ID we've given out
 	 */
-	private int maxId;
+	private int maxId; // NOPMD
 
 	/**
 	 * @return a new UUID
@@ -43,20 +43,20 @@ public final class UUIDManager {
 	 * If the given ID hasn't been used, register it and return it. If it has,
 	 * return a new one.
 	 * 
-	 * @param id
+	 * @param wantedId
 	 *            the ID the caller would like to have
 	 * @return an ID that hasn't previously been used, the one given if it
 	 *         qualifies.
 	 */
-	public int getId(final int id) {
-		if (givenIds.contains(Integer.valueOf(id))) {
+	public int getId(final int wantedId) {
+		if (givenIds.contains(Integer.valueOf(wantedId))) {
 			return getId(); // NOPMD
 		} else {
-			if (id > maxId) {
-				maxId = id;
+			if (wantedId > maxId) {
+				maxId = wantedId;
 			}
-			givenIds.add(Integer.valueOf(id));
-			return id;
+			givenIds.add(Integer.valueOf(wantedId));
+			return wantedId;
 		}
 	}
 }

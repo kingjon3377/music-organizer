@@ -31,15 +31,15 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 	/**
 	 * A text box to enter the search term.
 	 */
-	private final JTextField searchField = new JTextField();
+	private final transient JTextField searchField = new JTextField();
 	/**
 	 * A list-model to back the list of search results
 	 */
-	private final ArrayListModel<Book> results = new ArrayListModel<Book>();
+	private final transient ArrayListModel<Book> results = new ArrayListModel<Book>();
 	/**
 	 * The list of search results
 	 */
-	private final JList list = new JList(results);
+	private final transient JList list = new JList(results);
 	/**
 	 * Constructor
 	 */
@@ -62,7 +62,7 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 	 *            the event to handle
 	 */
 	@Override
-	public void actionPerformed(ActionEvent evt) {
+	public void actionPerformed(final ActionEvent evt) {
 		if ("Search".equals(evt.getActionCommand())) {
 			if (!results.isEmpty()) {
 				results.clear();
@@ -89,7 +89,7 @@ public class KeySearchPanel extends JPanel implements ActionListener, PropertyCh
 	 * @param evt the event to handle
 	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(final PropertyChangeEvent evt) {
 		// Do nothing for now
 	}
 }

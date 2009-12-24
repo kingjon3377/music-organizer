@@ -33,15 +33,15 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	/**
 	 * A text box to enter the search term
 	 */
-	private final JTextField searchField = new JTextField();
+	private final transient JTextField searchField = new JTextField();
 	/**
 	 * A list-model to back the list of search results.
 	 */
-	private final ArrayListModel<Tune> results = new ArrayListModel<Tune>();
+	private final transient ArrayListModel<Tune> results = new ArrayListModel<Tune>();
 	/**
 	 * The list of search results
 	 */
-	private final JList list = new JList(results);
+	private final transient JList list = new JList(results);
 
 	/**
 	 * Constructor.
@@ -66,7 +66,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	 *            the event to handle
 	 */
 	@Override
-	public void actionPerformed(ActionEvent evt) {
+	public void actionPerformed(final ActionEvent evt) {
 		if ("Search".equals(evt.getActionCommand())) {
 			if (!results.isEmpty()) {
 				results.clear();
@@ -95,7 +95,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	 * @param evt the event to handle
 	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(final PropertyChangeEvent evt) {
 		// Do nothing for now
 	}
 }

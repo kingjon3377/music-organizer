@@ -27,7 +27,7 @@ public class Recording implements Serializable, TuneCollection {
 	/**
 	 * The entries in the recording
 	 */
-	private List<RecordingEntry> entries = new ArrayList<RecordingEntry>();
+	private final List<RecordingEntry> entries = new ArrayList<RecordingEntry>(); // NOPMD
 	/**
 	 * Constructor
 	 */
@@ -104,7 +104,7 @@ public class Recording implements Serializable, TuneCollection {
 	 * @return whether this recording contains all of them
 	 */
 	@Override
-	public boolean containsAll(Collection<? extends Tune> tunes) {
+	public boolean containsAll(final Collection<? extends Tune> tunes) {
 		final Set<Tune> tunesInRecording = new HashSet<Tune>();
 		for (RecordingEntry entry : entries) {
 			tunesInRecording.add(entry.getTune());

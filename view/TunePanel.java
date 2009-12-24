@@ -17,7 +17,8 @@ import utils.ListenerButton;
  * 
  * @author Jonathan Lovelace
  */
-public class TunePanel extends JPanel implements ActionListener {
+public final class TunePanel extends JPanel implements ActionListener {
+	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
 	 */
@@ -25,19 +26,19 @@ public class TunePanel extends JPanel implements ActionListener {
 	/**
 	 * Text box for the tune name
 	 */
-	private final JTextField nameBox = new JTextField();
+	private final transient JTextField nameBox = new JTextField();
 	/**
 	 * Text box for the composer name
 	 */
-	private final JTextField composerBox = new JTextField();
+	private final transient JTextField composerBox = new JTextField();
 	/**
 	 * Text box for the time signature
 	 */
-	private final JTextField timeBox = new JTextField();
+	private final transient JTextField timeBox = new JTextField();
 	/**
 	 * The tune this panel is editing.
 	 */
-	private Tune tune;
+	private transient Tune tune;
 
 	/**
 	 * Constructor.
@@ -51,9 +52,9 @@ public class TunePanel extends JPanel implements ActionListener {
 		add(new JLabel("Time signature"));
 		add(timeBox);
 		add(new ListenerButton("Apply", this));
-		add(new ListenerButton("Revert", this));
+		add(new ListenerButton(REVERT, this));
 		add(new ListenerButton("Close", this));
-		actionPerformed(new ActionEvent(this, 0, "Revert"));
+		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class TunePanel extends JPanel implements ActionListener {
 	public TunePanel(final Tune theTune) {
 		this();
 		tune = theTune;
-		actionPerformed(new ActionEvent(this, 0, "Revert"));
+		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
 
 	/**
@@ -75,10 +76,10 @@ public class TunePanel extends JPanel implements ActionListener {
 	 *            The event we're handling
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(final ActionEvent event) {
 		if ("Apply".equals(event.getActionCommand())) {
 			apply();
-		} else if ("Revert".equals(event.getActionCommand())) {
+		} else if (REVERT.equals(event.getActionCommand())) {
 			if (tune == null) {
 				nameBox.setText("");
 				composerBox.setText("");

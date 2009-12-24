@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,12 +24,17 @@ import alm.ArrayListModel;
  * 
  * @author Jonathan Lovelace
  */
-public class RecordingPanel extends JPanel implements ActionListener,
+public final class RecordingPanel extends JPanel implements ActionListener,
 		PropertyChangeListener {
+	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = -4055552130521585980L;
+	/**
+	 * Logger.
+	 */
+	private static final Logger LOGGER = Logger.getLogger(RecordingPanel.class.getName());
 	/**
 	 * The recording we're dealing with.
 	 */
@@ -35,15 +42,15 @@ public class RecordingPanel extends JPanel implements ActionListener,
 	/**
 	 * A text box for the recording's title.
 	 */
-	private final JTextField titleField = new JTextField();
+	private final transient JTextField titleField = new JTextField();
 	/**
 	 * The intermediate model of the tunes, used to back the list
 	 */
-	private final ArrayListModel<RecordingEntry> tunes = new ArrayListModel<RecordingEntry>();
+	private final transient ArrayListModel<RecordingEntry> tunes = new ArrayListModel<RecordingEntry>();
 	/**
 	 * The list of tunes.
 	 */
-	private final JList tunesList = new JList(tunes);
+	private final transient JList tunesList = new JList(tunes);
 
 	/**
 	 * Constructor.
@@ -54,7 +61,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 	public RecordingPanel(final Recording record) {
 		this();
 		recording = record;
-		actionPerformed(new ActionEvent(this, 0, "Revert"));
+		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
 
 	/**
@@ -72,7 +79,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 		add(new ListenerButton("Edit entry", this));
 		add(new JLabel());
 		add(new ListenerButton("Apply", this));
-		add(new ListenerButton("Revert", this));
+		add(new ListenerButton(REVERT, this));
 	}
 
 	/**
@@ -83,7 +90,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent actEvent) {
-		if ("Revert".equals(actEvent.getActionCommand())) {
+		if (REVERT.equals(actEvent.getActionCommand())) {
 			if (!tunes.isEmpty()) {
 				tunes.clear();
 			}
@@ -94,7 +101,8 @@ public class RecordingPanel extends JPanel implements ActionListener,
 				try {
 					tunes.addAll(recording.getEntries());
 				} catch (IndexOutOfBoundsException except) {
-					// ignore it ...
+					LOGGER.log(Level.INFO,
+							"Expected IndexOutOfBoundsException", except);
 				}
 			}
 		} else if ("Apply".equals(actEvent.getActionCommand())) {
@@ -146,7 +154,7 @@ public class RecordingPanel extends JPanel implements ActionListener,
 	public void setRecording(final Recording record) {
 		if (!recording.equals(record)) {
 			recording = record;
-			actionPerformed(new ActionEvent(this, 0, "Revert"));
+			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
 	}
 
@@ -155,10 +163,8 @@ public class RecordingPanel extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
-		if ("entry".equals(evt.getPropertyName())) {
-			if (evt.getOldValue() == null) {
-				tunes.add((RecordingEntry) evt.getNewValue());
-			}
+		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
+			tunes.add((RecordingEntry) evt.getNewValue());
 		}
 	}
 

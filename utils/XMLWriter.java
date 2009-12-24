@@ -22,7 +22,7 @@ public class XMLWriter {
 	/**
 	 * What we'll delegate real I/O to.
 	 */
-	private final PrintWriter writer;
+	private final PrintWriter writer; // NOPMD
 	/**
 	 * Constructor.
 	 * @param filename the file to write to

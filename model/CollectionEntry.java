@@ -12,7 +12,7 @@ public interface CollectionEntry {
 	 * 
 	 * @return the tune in the entry
 	 */
-	public abstract Tune getTune();
+	Tune getTune();
 
 	/**
 	 * Mutator.
@@ -20,6 +20,6 @@ public interface CollectionEntry {
 	 * @param newTune
 	 *            the new tune in the entry
 	 */
-	public abstract void setTune(final Tune newTune);
+	void setTune(final Tune newTune);
 
 }

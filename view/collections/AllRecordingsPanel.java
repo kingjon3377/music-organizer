@@ -30,7 +30,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of recordings, of which one can be selected to be edited
 	 */
-	private final JList recordList = new JList(AllRecordings.ALL_RECORDINGS);
+	private final transient JList recordList = new JList(AllRecordings.ALL_RECORDINGS);
 
 	/**
 	 * Constructor
@@ -52,7 +52,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(final ActionEvent event) {
 		if ("Add Recording".equals(event.getActionCommand())) {
 			new EditWindow("Add recording", new RecordingPanel(), this).setVisible(true);
 		} else if ("Edit Recording".equals(event.getActionCommand())) {
@@ -70,11 +70,9 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if ("recording".equals(evt.getPropertyName())) {
-			if (evt.getOldValue() == null) {
-				AllRecordings.ALL_RECORDINGS.add((Recording) evt.getNewValue());
-			}
+	public void propertyChange(final PropertyChangeEvent evt) {
+		if ("recording".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
+			AllRecordings.ALL_RECORDINGS.add((Recording) evt.getNewValue());
 		}
 	}
 }
