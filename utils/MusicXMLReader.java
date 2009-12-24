@@ -81,9 +81,9 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	public void endElement(final String namespaceURI, final String localName,
 			final String qualifiedName) throws SAXException {
 		if ("recording".equals(localName)) {
-			currentRecording = null;
+			currentRecording = null; // NOPMD
 		} else if ("book".equals(localName)) {
-			currentBook = null;
+			currentBook = null; // NOPMD
 		}
 	}
 
@@ -134,7 +134,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 *            The XML tag's attributes
 	 */
 	private static void parseTune(final Attributes atts) {
-		Tune tune = new Tune();
+		final Tune tune = new Tune();
 		tune.setName(atts.getValue("name"));
 		tune.setComposer(atts.getValue("composer"));
 		tune.setTimeSignature(atts.getValue("time"));
@@ -149,7 +149,15 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 * @return the book
 	 */
 	private static Book parseBook(final Attributes atts) {
-		Book book = new Book();
+		return parseBook(new Book(), atts);
+	}
+	/**
+	 * Parse a book.
+	 * @param book The book to assign the values in the tag
+	 * @param atts the XML tag's attributes
+	 * @return the book, with its data initialized.
+	 */
+	private static Book parseBook(final Book book, final Attributes atts) {
 		book.setTitle(atts.getValue("title"));
 		AllBooks.ALL_BOOKS.add(Integer.parseInt(atts.getValue("id")), book);
 		return book;
@@ -163,7 +171,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 * @return the entry
 	 */
 	private static BookEntry parseBookEntry(final Attributes atts) {
-		BookEntry entry = new BookEntry(AllTunes.ALL_TUNES.get(Integer.parseInt(atts
+		final BookEntry entry = new BookEntry(AllTunes.ALL_TUNES.get(Integer.parseInt(atts
 				.getValue("tune"))));
 		entry.setKey(atts.getValue("key"));
 		entry.setPage(Integer.parseInt(atts.getValue("page")));
@@ -178,7 +186,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 * @return the recording
 	 */
 	private static Recording parseRecording(final Attributes atts) {
-		Recording record = new Recording();
+		final Recording record = new Recording();
 		record.setTitle(atts.getValue("title"));
 		AllRecordings.ALL_RECORDINGS.add(Integer.parseInt(atts.getValue("id")), record);
 		return record;
@@ -192,7 +200,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 * @return the recording entry
 	 */
 	private static RecordingEntry parseRecordEntry(final Attributes atts) {
-		RecordingEntry entry = new RecordingEntry();
+		final RecordingEntry entry = new RecordingEntry();
 		entry.setTune(AllTunes.ALL_TUNES.get(Integer.parseInt(atts.getValue("tune"))));
 		entry.setTrack(Integer.parseInt(atts.getValue("track")));
 		return entry;

@@ -22,7 +22,8 @@ import utils.ListenerButton;
  * 
  * @author Jonathan Lovelace
  */
-public class BookEntryPanel extends JPanel implements ActionListener {
+public final class BookEntryPanel extends JPanel implements ActionListener {
+	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
 	 */
@@ -34,15 +35,15 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * A list of tunes, of which one can be selected
 	 */
-	private final JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
 	/**
 	 * A text box for the page number
 	 */
-	private final JTextField pageField = new JTextField();
+	private final transient JTextField pageField = new JTextField();
 	/**
 	 * A text box for the key
 	 */
-	private final JTextField keyField = new JTextField();
+	private final transient JTextField keyField = new JTextField();
 
 	/**
 	 * Constructor.
@@ -69,7 +70,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 			}
 		});
 		add(new ListenerButton("Apply", this));
-		add(new ListenerButton("Revert", this));
+		add(new ListenerButton(REVERT, this));
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	public BookEntryPanel(final BookEntry theEntry) {
 		this();
 		entry = theEntry;
-		actionPerformed(new ActionEvent(this, 0, "Revert"));
+		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
 
 	/**
@@ -98,7 +99,7 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	public void setEntry(final BookEntry newEntry) {
 		if (!entry.equals(newEntry)) {
 			entry = newEntry;
-			actionPerformed(new ActionEvent(this, 0, "Revert"));
+			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
 	}
 
@@ -112,15 +113,15 @@ public class BookEntryPanel extends JPanel implements ActionListener {
 	public void actionPerformed(final ActionEvent event) {
 		if ("Apply".equals(event.getActionCommand())) {
 			apply();
-		} else if ("Revert".equals(event.getActionCommand())) {
-			if (entry != null) {
-				tuneList.setSelectedValue(entry.getTune(), true);
-				pageField.setText(Integer.toString(entry.getPage()));
-				keyField.setText(entry.getKey());
-			} else {
+		} else if (REVERT.equals(event.getActionCommand())) {
+			if (entry == null) {
 				tuneList.setSelectedIndices(new int[0]);
 				pageField.setText("");
 				keyField.setText("");
+			} else {
+				tuneList.setSelectedValue(entry.getTune(), true);
+				pageField.setText(Integer.toString(entry.getPage()));
+				keyField.setText(entry.getKey());
 			}
 		}
 	}

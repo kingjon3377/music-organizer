@@ -8,7 +8,7 @@ import alm.ArrayListModel;
  * 
  * @author Jonathan Lovelace
  */
-public class AllTunes extends ArrayListModel<Tune> {
+public final class AllTunes extends ArrayListModel<Tune> {
 	/**
 	 * Version UID for serialization.
 	 */

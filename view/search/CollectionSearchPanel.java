@@ -44,15 +44,15 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of all tunes
 	 */
-	private final JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
 	/**
 	 * A list-model to back the list of search results.
 	 */
-	private final ArrayListModel<TuneCollection> results = new ArrayListModel<TuneCollection>();
+	private final transient ArrayListModel<TuneCollection> results = new ArrayListModel<TuneCollection>();
 	/**
 	 * The list of search results
 	 */
-	private final JList list = new JList(results);
+	private final transient JList list = new JList(results);
 
 	/**
 	 * Constructor.
@@ -82,18 +82,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	@Override
 	public void actionPerformed(final ActionEvent evt) {
 		if ("Search".equals(evt.getActionCommand())) {
-			if (!results.isEmpty()) {
-				results.clear();
-			}
-			Set<TuneCollection> collections = new HashSet<TuneCollection>();
-			collections.addAll(AllBooks.ALL_BOOKS);
-			collections.addAll(AllRecordings.ALL_RECORDINGS);
-			for (TuneCollection coll : collections) {
-				if (coll
-						.containsAll(convertArray(tuneList.getSelectedValues()))) {
-					results.add(coll);
-				}
-			}
+			search();
 		} else if ("Edit Collection".equals(evt.getActionCommand())) {
 			if (list.getSelectedValue() instanceof Book) {
 				new EditWindow("Edit book", new BookPane((Book) list.getSelectedValue()),
@@ -111,12 +100,30 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 			}
 		}
 	}
+
+	/**
+	 * Search for collections containing the tunes.
+	 */
+	private void search() {
+		if (!results.isEmpty()) {
+			results.clear();
+		}
+		final Set<TuneCollection> collections = new HashSet<TuneCollection>();
+		collections.addAll(AllBooks.ALL_BOOKS);
+		collections.addAll(AllRecordings.ALL_RECORDINGS);
+		for (TuneCollection coll : collections) {
+			if (coll
+					.containsAll(convertArray(tuneList.getSelectedValues()))) {
+				results.add(coll);
+			}
+		}
+	}
 	/**
 	 * Handle events from spawned EditWindows. TODO: Implement?
 	 * @param evt the event to handle
 	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(final PropertyChangeEvent evt) {
 		// Do nothing for now
 	}
 	/**
@@ -124,13 +131,13 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	 * @param array an array of Objects that are all Tunes
 	 * @return an equivalent List of the Tunes.
 	 */
-	private List<Tune> convertArray(final Object[] array) {
-		final List<Tune> tunes = new ArrayList<Tune>();
+	private static List<Tune> convertArray(final Object[] array) {
+		final List<Tune> tunes = new ArrayList<Tune>(); // NOPMD
 		for (Object o : array) {
-			if (!(o instanceof Tune)) {
-				throw new IllegalStateException("Array member wasn't a Tune");
-			} else {
+			if ((o instanceof Tune)) {
 				tunes.add((Tune) o);
+			} else {
+				throw new IllegalStateException("Array member wasn't a Tune");
 			}
 		}
 		return tunes;

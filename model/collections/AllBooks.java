@@ -8,7 +8,7 @@ import alm.ArrayListModel;
  * @author Jonathan Lovelace
  *
  */
-public class AllBooks extends ArrayListModel<Book> {
+public final class AllBooks extends ArrayListModel<Book> {
 	/**
 	 * Version UID for serialization. 
 	 */

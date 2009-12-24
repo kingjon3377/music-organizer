@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,7 +26,9 @@ import alm.ArrayListModel;
  * @author Jonathan Lovelace
  * 
  */
-public class BookPane extends JPanel implements ActionListener, PropertyChangeListener {
+public final class BookPane extends JPanel implements ActionListener,
+		PropertyChangeListener {
+	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization.
 	 */
@@ -34,17 +38,22 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	 */
 	private Book book;
 	/**
+	 * Logger.
+	 */
+	private static final Logger LOGGER = Logger.getLogger(BookPane.class
+			.getName());
+	/**
 	 * A text box for the book's title
 	 */
-	private final JTextField titleField = new JTextField();
+	private final transient JTextField titleField = new JTextField();
 	/**
 	 * The intermediate model of the tunes, used to back the list
 	 */
-	private final ArrayListModel<BookEntry> tunes = new ArrayListModel<BookEntry>();
+	private final transient ArrayListModel<BookEntry> tunes = new ArrayListModel<BookEntry>();
 	/**
 	 * The list of tunes.
 	 */
-	private final JList tunesList = new JList(tunes);
+	private final transient JList tunesList = new JList(tunes);
 
 	/**
 	 * Constructor.
@@ -55,7 +64,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	public BookPane(final Book theBook) {
 		this();
 		book = theBook;
-		actionPerformed(new ActionEvent(this, 0, "Revert"));
+		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
 
 	/**
@@ -73,7 +82,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 		add(new ListenerButton("Edit entry", this));
 		add(new JLabel());
 		add(new ListenerButton("Apply", this));
-		add(new ListenerButton("Revert", this));
+		add(new ListenerButton(REVERT, this));
 	}
 
 	/**
@@ -84,7 +93,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent actEvent) {
-		if ("Revert".equals(actEvent.getActionCommand())) {
+		if (REVERT.equals(actEvent.getActionCommand())) {
 			if (!tunes.isEmpty()) {
 				tunes.clear();
 			}
@@ -93,16 +102,17 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 			} else {
 				titleField.setText(book.getTitle());
 				try {
-				tunes.addAll(book.getEntries());
+					tunes.addAll(book.getEntries());
 				} catch (IndexOutOfBoundsException except) {
-					// ignore it ...
+					LOGGER.log(Level.INFO,
+							"Expected IndexOutOfBoundsException", except);
 				}
 			}
 		} else if ("Apply".equals(actEvent.getActionCommand())) {
 			apply();
 		} else if ("Edit entry".equals(actEvent.getActionCommand())) {
-			new EditWindow("Edit tune entry", new BookEntryPanel(tunes.get(tunesList
-					.getSelectedIndex())), this).setVisible(true);
+			new EditWindow("Edit tune entry", new BookEntryPanel(tunes
+					.get(tunesList.getSelectedIndex())), this).setVisible(true);
 		} else if ("Remove entry".equals(actEvent.getActionCommand())) {
 			tunes.remove(tunesList.getSelectedIndex());
 		} else if ("Add tune entry".equals(actEvent.getActionCommand())) {
@@ -147,7 +157,7 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	public void setBook(final Book theBook) {
 		if (!book.equals(theBook)) {
 			book = theBook;
-			actionPerformed(new ActionEvent(this, 0, "Revert"));
+			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
 	}
 
@@ -156,10 +166,8 @@ public class BookPane extends JPanel implements ActionListener, PropertyChangeLi
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
-		if ("entry".equals(evt.getPropertyName())) {
-			if (evt.getOldValue() == null) {
-				tunes.add((BookEntry) evt.getNewValue());
-			}
+		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
+			tunes.add((BookEntry) evt.getNewValue());
 		}
 	}
 }

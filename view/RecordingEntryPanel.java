@@ -18,7 +18,8 @@ import utils.ListenerButton;
  * A panel to edit an entry in a recording
  * @author Jonathan Lovelace
  */
-public class RecordingEntryPanel extends JPanel implements ActionListener {
+public final class RecordingEntryPanel extends JPanel implements ActionListener {
+	private static final String REVERT = "Revert";
 	/**
 	 * Version UID for serialization 
 	 */
@@ -30,11 +31,11 @@ public class RecordingEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * A list of the tunes that the entry might include.
 	 */
-	private final JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
 	/**
 	 * A text box for the track number.
 	 */
-	private final JTextField trackField = new JTextField();
+	private final transient JTextField trackField = new JTextField();
 	/**
 	 * Constructor.
 	 */
@@ -45,7 +46,7 @@ public class RecordingEntryPanel extends JPanel implements ActionListener {
 		add(new JLabel("Track number"));
 		add(trackField);
 		add(new ListenerButton("Apply", this));
-		add(new ListenerButton("Revert", this));
+		add(new ListenerButton(REVERT, this));
 	}
 	/**
 	 * Constructor.
@@ -54,7 +55,7 @@ public class RecordingEntryPanel extends JPanel implements ActionListener {
 	public RecordingEntryPanel(final RecordingEntry theEntry) {
 		this();
 		entry = theEntry;
-		actionPerformed(new ActionEvent(this, 0, "Revert"));
+		actionPerformed(new ActionEvent(this, 0, REVERT));
 	}
 	/**
 	 * @return the RecordingEntry this panel is editing
@@ -68,7 +69,7 @@ public class RecordingEntryPanel extends JPanel implements ActionListener {
 	public void setEntry(final RecordingEntry newEntry) {
 		if (!entry.equals(newEntry)) {
 			entry = newEntry;
-			actionPerformed(new ActionEvent(this, 0, "Revert"));
+			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
 	}
 	/**
@@ -78,16 +79,16 @@ public class RecordingEntryPanel extends JPanel implements ActionListener {
 	 *            The event we're handling
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(final ActionEvent event) {
 		if ("Apply".equals(event.getActionCommand())) {
 			apply();
-		} else if ("Revert".equals(event.getActionCommand())) {
-			if (entry != null) {
-				tuneList.setSelectedValue(entry.getTune(), true);
-				trackField.setText(Integer.toString(entry.getTrack()));
-			} else {
+		} else if (REVERT.equals(event.getActionCommand())) {
+			if (entry == null) {
 				tuneList.setSelectedIndices(new int[0]);
 				trackField.setText("");
+			} else {
+				tuneList.setSelectedValue(entry.getTune(), true);
+				trackField.setText(Integer.toString(entry.getTrack()));
 			}
 		}
 	}

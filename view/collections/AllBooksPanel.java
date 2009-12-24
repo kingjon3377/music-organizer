@@ -30,7 +30,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of books, of which one can be selected.
 	 */
-	private final JList bookList = new JList(AllBooks.ALL_BOOKS);
+	private final transient JList bookList = new JList(AllBooks.ALL_BOOKS);
 
 	/**
 	 * Constructor
@@ -52,7 +52,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(final ActionEvent event) {
 		if ("Add Book".equals(event.getActionCommand())) {
 			new EditWindow("Add book", new BookPane(), this).setVisible(true);
 		} else if ("Edit Book".equals(event.getActionCommand())) {
@@ -69,11 +69,9 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	 * @param evt the event we're handling
 	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if ("book".equals(evt.getPropertyName())) {
-			if (evt.getOldValue() == null) {
-				AllBooks.ALL_BOOKS.add((Book) evt.getNewValue());
-			}
+	public void propertyChange(final PropertyChangeEvent evt) {
+		if ("book".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
+			AllBooks.ALL_BOOKS.add((Book) evt.getNewValue());
 		}
 	}
 
