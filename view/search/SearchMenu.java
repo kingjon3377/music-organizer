@@ -31,6 +31,9 @@ public final class SearchMenu extends JMenu implements ActionListener,
 		final JMenuItem tuneNameItem = new JMenuItem("Tune Name");
 		tuneNameItem.addActionListener(this);
 		add(tuneNameItem);
+		final JMenuItem composerItem = new JMenuItem("Composer");
+		composerItem.addActionListener(this);
+		add(composerItem);
 		final JMenuItem tuneItem = new JMenuItem("Tunes in Collection");
 		tuneItem.addActionListener(this);
 		add(tuneItem);
@@ -54,14 +57,17 @@ public final class SearchMenu extends JMenu implements ActionListener,
 			new EditWindow("Search by Tune Name", new TuneSearchPanel(), this)
 					.setVisible(true);
 		} else if ("Tunes in Collection".equals(event.getActionCommand())) {
-			new EditWindow("Search by Tunes in Collection", new CollectionSearchPanel(),
-					this).setVisible(true);
+			new EditWindow("Search by Tunes in Collection",
+					new CollectionSearchPanel(), this).setVisible(true);
 		} else if ("Key of Tunes in Book".equals(event.getActionCommand())) {
 			new EditWindow("Search for Books containing Tunes in a Key",
 					new KeySearchPanel(), this).setVisible(true);
 		} else if ("Time signature".equals(event.getActionCommand())) {
-			new EditWindow("Search by Time Signature", new TimeSearchPanel(), this)
-					.setVisible(true);
+			new EditWindow("Search by Time Signature", new TimeSearchPanel(),
+					this).setVisible(true);
+		} else if ("Composer".equals(event.getActionCommand())) {
+			new EditWindow("Search by Composer", new ComposerSearchPanel(),
+					this).setVisible(true);
 		}
 	}
 
