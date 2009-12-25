@@ -1,7 +1,6 @@
 package view.collections;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -40,10 +39,9 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 		super(new BorderLayout());
 		add(new JLabel("Recordings"), BorderLayout.WEST);
 		add(recordList, BorderLayout.CENTER);
-		final JPanel panel = new JPanel(new GridLayout(0, 2));
+		final JPanel panel = new JPanel();
 		panel.add(new ListenerButton("Add Recording", this));
 		panel.add(new ListenerButton("Edit Recording", this));
-		panel.add(new JLabel(""));
 		panel.add(new ListenerButton("Remove Recording", this));
 		add(panel, BorderLayout.SOUTH);
 	}
