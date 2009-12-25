@@ -1,5 +1,6 @@
 package view.collections;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,13 +37,15 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	 * Constructor.
 	 */
 	public AllBooksPanel() {
-		super(new GridLayout(0, 2));
-		add(new JLabel("Books"));
-		add(bookList);
-		add(new ListenerButton("Add Book", this));
-		add(new ListenerButton("Edit Book", this));
-		add(new JLabel(""));
-		add(new ListenerButton("Remove Book", this));
+		super(new BorderLayout());
+		add(new JLabel("Books"), BorderLayout.WEST);
+		add(bookList, BorderLayout.CENTER);
+		final JPanel panel = new JPanel(new GridLayout(0, 2));
+		panel.add(new ListenerButton("Add Book", this));
+		panel.add(new ListenerButton("Edit Book", this));
+		panel.add(new JLabel(""));
+		panel.add(new ListenerButton("Remove Book", this));
+		add(panel, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -56,9 +59,8 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 		if ("Add Book".equals(event.getActionCommand())) {
 			new EditWindow("Add book", new BookPane(), this).setVisible(true);
 		} else if ("Edit Book".equals(event.getActionCommand())) {
-			new EditWindow("Edit book",
-					new BookPane((Book) bookList.getSelectedValue()), this)
-					.setVisible(true);
+			new EditWindow("Edit book", new BookPane((Book) bookList
+					.getSelectedValue()), this).setVisible(true);
 		} else if ("Remove Book".equals(event.getActionCommand())) {
 			AllBooks.ALL_BOOKS.remove(bookList.getSelectedIndex());
 		}
@@ -66,7 +68,9 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Ensure new books get added to the AllBooks list.
-	 * @param evt the event we're handling
+	 * 
+	 * @param evt
+	 *            the event we're handling
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
