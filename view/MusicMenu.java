@@ -62,6 +62,8 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 	public void actionPerformed(final ActionEvent event) {
 		if ("Exit".equals(event.getActionCommand())) {
 			MusicGUIDriver.DRIVER.setVisible(false);
+			MusicGUIDriver.DRIVER.dispose();
+			System.exit(0);
 		} else if ("Save".equals(event.getActionCommand())) {
 			if (FILE_CHOOSER.showSaveDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
 				try {
