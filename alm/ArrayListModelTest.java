@@ -150,11 +150,11 @@ public class ArrayListModelTest {
 		// The data models.
 		ArrayListModel<ColorItem> model = new ArrayListModel<>();
 		populateList(model);
-		ArrayListComboBoxModel listModel = new ArrayListComboBoxModel();
+		ArrayListComboBoxModel<ColorItem> listModel = new ArrayListComboBoxModel<>();
 
 		// JComboBox and JList views of the model
-		JComboBox comboBox = new JComboBox(listModel);
-		JList list = new JList(listModel);
+		JComboBox<ColorItem> comboBox = new JComboBox<>(listModel);
+		JList<ColorItem> list = new JList<>(listModel);
 		list.setCellRenderer(new ColorItemCellRenderer());
 		JScrollPane sp = new JScrollPane(list);
 
