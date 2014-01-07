@@ -21,27 +21,50 @@ public class UIElementFactory {
 	 * This class shows a panel of the specified color as it's view.
 	 */
 	private static class ColorUIElement extends JPanel implements UIElement {
-		private Color color;
+		/**
+		 * The element's color.
+		 */
+		protected Color color;
+		/**
+		 * The name of the color.
+		 */
 		private String colorName;
+		/**
+		 * The small icon of the element.
+		 */
 		private Icon smallIcon;
+		/**
+		 * The large icon of the element.
+		 */
 		private Icon largeIcon;
-		public ColorUIElement(final String colorName, final Color color) {
-			this.color = color;
-			this.colorName = colorName;
+		/**
+		 * @param name the name of the color
+		 * @param colr the color
+		 */
+		protected ColorUIElement(final String name, final Color colr) {
+			this.color = colr;
+			this.colorName = name;
 		}
+		/**
+		 * @return the element
+		 */
 		@Override
 		public Object getItem() {
 			return this;
 		}
-
+		/**
+		 * @return a description of the element
+		 */
 		@Override
 		public String getDescription() {
 			StringBuffer buf = new StringBuffer(colorName);
-			buf.append(": "); //$NON-NLS-1$
+			buf.append(": ");
 			buf.append(Integer.toHexString(color.getRGB()));
 			return buf.toString();
 		}
-
+		/**
+		 * @return a small icon for the element
+		 */
 		@Override
 		public Icon getSmallIcon() {
 			if (smallIcon == null) {
@@ -55,17 +78,21 @@ public class UIElementFactory {
 						return 12;
 					}
 					@Override
-					public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
-						g.setColor(color);
-						g.fillRect(x, y, getIconWidth(), getIconHeight());
-						g.setColor(Color.BLACK);
-						g.drawRect(x, y, getIconWidth(), getIconHeight());
+					public void paintIcon(final Component cmp,
+							final Graphics pen, final int xCoord,
+							final int yCoord) {
+						pen.setColor(color);
+						pen.fillRect(xCoord, yCoord, getIconWidth(), getIconHeight());
+						pen.setColor(Color.BLACK);
+						pen.drawRect(xCoord, yCoord, getIconWidth(), getIconHeight());
 					}
 				};
 			}
 			return smallIcon;
 		}
-
+		/**
+		 * @return a large icon for the element
+		 */
 		@Override
 		public Icon getLargeIcon() {
 			if (largeIcon == null) {
@@ -79,30 +106,38 @@ public class UIElementFactory {
 						return 24;
 					}
 					@Override
-					public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
-						g.setColor(color);
-						g.fillRect(x, y, getIconWidth(), getIconHeight());
-						g.setColor(Color.BLACK);
-						g.drawRect(x, y, getIconWidth(), getIconHeight());
+					public void paintIcon(final Component cmp,
+							final Graphics pen, final int xCoord,
+							final int yCoord) {
+						pen.setColor(color);
+						pen.fillRect(xCoord, yCoord, getIconWidth(), getIconHeight());
+						pen.setColor(Color.BLACK);
+						pen.drawRect(xCoord, yCoord, getIconWidth(), getIconHeight());
 					}
 				};
 			}
 			return largeIcon;
 		}
-
+		/**
+		 * @return this
+		 */
 		@Override
 		public JComponent getComponent() {
 			return this;
 		}
-
+		/**
+		 * @param pen the graphics context
+		 */
 		@Override
-		public void paintComponent(final Graphics g) {
-			super.paintComponent(g);
-			g.setColor(color);
+		public void paintComponent(final Graphics pen) {
+			super.paintComponent(pen);
+			pen.setColor(color);
 			Dimension size = getSize();
-			g.fillRect(0, 0, size.width, size.height);
+			pen.fillRect(0, 0, size.width, size.height);
 		}
-
+		/**
+		 * @return the name of the color
+		 */
 		@Override
 		public String toString() {
 			return colorName;
@@ -114,7 +149,9 @@ public class UIElementFactory {
 	 */
 	private UIElementFactory() {
 	}
-
+	/**
+	 * @param list the list to add elements to
+	 */
 	public static void addElementsToList(final List<UIElement> list) {
 		list.add(new ColorUIElement("Red", Color.RED));         //$NON-NLS-1$
 		list.add(new ColorUIElement("Yellow", Color.YELLOW));   //$NON-NLS-1$

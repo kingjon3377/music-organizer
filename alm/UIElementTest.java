@@ -33,15 +33,36 @@ import javax.swing.event.ListSelectionListener;
  * @author Phil Herold
  */
 public class UIElementTest {
+	/**
+	 * Whether to use large rather than small icons.
+	 */
 	private static boolean useLargeIcons;
+	/**
+	 * The panel used by the test.
+	 */
 	private static JPanel componentPanel;
 
 	/**
 	 * CellRenderer for a UIElement in a JList.
 	 */
 	private static class UIElementCellRenderer extends DefaultListCellRenderer {
-	    @Override
-		public Component getListCellRendererComponent(final JList list,
+		/**
+		 * Needed to fix access warning.
+		 */
+		protected UIElementCellRenderer() {
+			// nothing
+		}
+		/**
+		 * @param list the list being rendered
+		 * @param value the item being rendered
+		 * @param index its index
+		 * @param isSelected whether it's selected
+		 * @param hasFocus whether the list has the focus
+		 * @return a component to draw the item
+		 */
+		@Override
+		public Component getListCellRendererComponent(
+				@SuppressWarnings("rawtypes") final JList list,
 				final Object value, final int index, final boolean isSelected,
 				final boolean hasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list,
@@ -66,7 +87,7 @@ public class UIElementTest {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 				// The data models.
-				final ArrayListModel<UIElement> model = new ArrayListModel<UIElement>();
+				final ArrayListModel<UIElement> model = new ArrayListModel<>();
 				UIElementFactory.addElementsToList(model);
 				ArrayListComboBoxModel listModel = new ArrayListComboBoxModel();
 
@@ -130,7 +151,8 @@ public class UIElementTest {
 		        c.anchor = GridBagConstraints.NORTHWEST;
 		        c.insets = new Insets(2, 4, 0, 4);
 		        c.weightx = 1.0;
-		        c.gridwidth = c.gridheight = 1;
+		        c.gridwidth = 1;
+		        c.gridheight = 1;
 		        c.weightx = 1;
 		        panel.add(useLargeIconsCB, c);
 		        c.gridy = 1;
@@ -153,9 +175,9 @@ public class UIElementTest {
 	/**
 	 * Creates a JToolBar of toggle buttons using the given list of color items. The list
 	 * (our model) is updated when a toggle button is pressed/un-pressed.
-	 * @param colorItems Iterator
-	 * @param list ArrayList
-	 * @return
+	 * @param elements TODO: document
+	 * @param list TODO: document
+	 * @return the populated toolbar
 	 */
 	private static JToolBar getToolBar(final Iterator<UIElement> elements, final ArrayList<UIElement> list) {
 		JToolBar toolBar = new JToolBar();
