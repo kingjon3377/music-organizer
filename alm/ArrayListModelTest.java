@@ -195,7 +195,7 @@ public class ArrayListModelTest {
 		panel.add(sp, c);
 
 		// add components to content pane and show the window
-		frame.getContentPane().add(getToolBar(model.iterator(), listModel), BorderLayout.NORTH);
+		frame.getContentPane().add(getToolBar(model, listModel), BorderLayout.NORTH);
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 
 		frame.setSize(new Dimension(500, 300));
@@ -223,15 +223,14 @@ public class ArrayListModelTest {
 	/**
 	 * Creates a JToolBar of toggle buttons using the given list of color items. The list
 	 * (our model) is updated when a toggle button is pressed/un-pressed.
-	 * @param colorItems TODO: document
-	 * @param list TODO: document
+	 * @param colorItems the color items to put in the toolbar
+	 * @param list the list to update as the toolbar is used
 	 * @return the populated toolbar
 	 */
-	private static JToolBar getToolBar(final Iterator<ColorItem> colorItems, final List<ColorItem> list) {
+	private static JToolBar getToolBar(final Iterable<ColorItem> colorItems, final List<ColorItem> list) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		while (colorItems.hasNext()) {
-			final ColorItem item = colorItems.next();
+		for (final ColorItem item : colorItems) {
 			final JToggleButton toggle = new JToggleButton(item.getIcon());
 			toolBar.add(toggle);
 			toggle.addActionListener(new ActionListener() {
