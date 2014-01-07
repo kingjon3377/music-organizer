@@ -21,9 +21,9 @@ import alm.ArrayListModel;
 
 /**
  * A panel for searching by time signature.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public class TimeSearchPanel extends JPanel implements ActionListener,
 		PropertyChangeListener {
@@ -42,7 +42,7 @@ public class TimeSearchPanel extends JPanel implements ActionListener,
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList list = new JList(results);
+	private final transient JList<Tune> list = new JList<Tune>(results);
 
 	/**
 	 * Constructor.
@@ -62,7 +62,7 @@ public class TimeSearchPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */
@@ -78,7 +78,7 @@ public class TimeSearchPanel extends JPanel implements ActionListener,
 				}
 			}
 		} else if ("Edit Tune".equals(evt.getActionCommand())) {
-			new EditWindow("Edit Tune", new TunePanel((Tune) list.getSelectedValue()),
+			new EditWindow("Edit Tune", new TunePanel(list.getSelectedValue()),
 					this).setVisible(true);
 		} else if ("Close".equals(evt.getActionCommand())) {
 			this.setVisible(false);
@@ -90,7 +90,7 @@ public class TimeSearchPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle events from spawned EditWindows. TODO: Implement?
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */

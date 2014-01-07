@@ -32,7 +32,7 @@ import alm.ArrayListModel;
 
 /**
  * A panel to search for collections containing specified tunes.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class CollectionSearchPanel extends JPanel implements ActionListener,
@@ -44,7 +44,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of all tunes.
 	 */
-	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
 	/**
 	 * A list-model to back the list of search results.
 	 */
@@ -52,7 +52,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList list = new JList(results);
+	private final transient JList<TuneCollection> list = new JList<TuneCollection>(results);
 
 	/**
 	 * Constructor.
@@ -75,7 +75,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */
@@ -134,7 +134,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	private static List<Tune> convertArray(final Object[] array) {
 		final List<Tune> tunes = new ArrayList<Tune>(); // NOPMD
 		for (Object o : array) {
-			if ((o instanceof Tune)) {
+			if (o instanceof Tune) {
 				tunes.add((Tune) o);
 			} else {
 				throw new IllegalStateException("Array member wasn't a Tune");

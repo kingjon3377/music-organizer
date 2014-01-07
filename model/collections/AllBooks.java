@@ -10,7 +10,7 @@ import alm.ArrayListModel;
  */
 public final class AllBooks extends ArrayListModel<Book> {
 	/**
-	 * Version UID for serialization. 
+	 * Version UID for serialization.
 	 */
 	private static final long serialVersionUID = 4529117699433560416L;
 	/**

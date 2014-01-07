@@ -36,7 +36,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	/**
 	 * A list of the tunes that the entry might include.
 	 */
-	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
 	/**
 	 * A text box for the track number.
 	 */
@@ -112,11 +112,11 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	private void apply() {
 		if (entry == null) {
 			entry = new RecordingEntry();
-			entry.setTune((Tune) tuneList.getSelectedValue());
+			entry.setTune(tuneList.getSelectedValue());
 			entry.setTrack(Integer.parseInt(trackField.getText()));
 			firePropertyChange("entry", null, entry);
 		} else {
-			entry.setTune((Tune) tuneList.getSelectedValue());
+			entry.setTune(tuneList.getSelectedValue());
 			entry.setTrack(Integer.parseInt(trackField.getText()));
 			firePropertyChange("entry", entry, entry);
 		}

@@ -19,7 +19,7 @@ import utils.ListenerButton;
 
 /**
  * A panel to edit an entry in a book.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public final class BookEntryPanel extends JPanel implements ActionListener {
@@ -38,7 +38,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * A list of tunes, of which one can be selected.
 	 */
-	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
 	/**
 	 * A text box for the page number.
 	 */
@@ -82,7 +82,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param theEntry
 	 *            The BookEntry this panel allows the user to edit
 	 */
@@ -112,7 +112,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Handle a button press.
-	 * 
+	 *
 	 * @param event
 	 *            The event we're handling
 	 */
@@ -138,12 +138,12 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	 */
 	private void apply() {
 		if (entry == null) {
-			entry = new BookEntry((Tune) tuneList.getSelectedValue());
+			entry = new BookEntry(tuneList.getSelectedValue());
 			entry.setPage(Integer.parseInt(pageField.getText()));
 			entry.setKey(keyField.getText());
 			firePropertyChange("entry", null, entry);
 		} else {
-			entry.setTune((Tune) tuneList.getSelectedValue());
+			entry.setTune(tuneList.getSelectedValue());
 			entry.setPage(Integer.parseInt(pageField.getText()));
 			entry.setKey(keyField.getText());
 			firePropertyChange("entry", entry, entry);

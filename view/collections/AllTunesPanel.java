@@ -30,7 +30,7 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of tunes, of which one can be selected.
 	 */
-	private final transient JList tuneList = new JList(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
 
 	/**
 	 * Constructor.
@@ -57,7 +57,7 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 			new EditWindow("Add tune", new TunePanel(), this).setVisible(true);
 		} else if ("Edit Tune".equals(event.getActionCommand())) {
 			new EditWindow("Edit tune",
-					new TunePanel((Tune) tuneList.getSelectedValue()), this)
+					new TunePanel(tuneList.getSelectedValue()), this)
 					.setVisible(true);
 		}
 	}

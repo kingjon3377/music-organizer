@@ -50,6 +50,7 @@ public class Recording implements Serializable, TuneCollection {
 	/**
 	 * @return a copy of the list of entries
 	 */
+	@Override
 	public List<RecordingEntry> getEntries() {
 		return new ArrayList<RecordingEntry>(entries);
 	}
@@ -64,6 +65,7 @@ public class Recording implements Serializable, TuneCollection {
 	 * @param index an index into the list
 	 * @return the entry at that index
 	 */
+	@Override
 	public CollectionEntry getEntry(final int index) {
 		return entries.get(index);
 	}

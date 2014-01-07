@@ -43,6 +43,7 @@ public class RecordingEntry implements CollectionEntry {
 	 * @param newTune
 	 *            the new tune in the entry
 	 */
+	@Override
 	public final void setTune(final Tune newTune) {
 		tune = newTune;
 	}

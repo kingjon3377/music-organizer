@@ -22,7 +22,7 @@ import alm.ArrayListModel;
 
 /**
  * A panel to search for tunes by name.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class TuneSearchPanel extends JPanel implements ActionListener, PropertyChangeListener {
@@ -41,7 +41,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList list = new JList(results);
+	private final transient JList<Tune> list = new JList<Tune>(results);
 
 	/**
 	 * Constructor.
@@ -61,7 +61,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */
@@ -81,7 +81,7 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 				}
 			}
 		} else if ("Edit Tune".equals(evt.getActionCommand())) {
-			new EditWindow("Edit tune", new TunePanel((Tune) list.getSelectedValue()),
+			new EditWindow("Edit tune", new TunePanel(list.getSelectedValue()),
 					this).setVisible(true);
 		} else if ("Close".equals(evt.getActionCommand())) {
 			this.setVisible(false);
