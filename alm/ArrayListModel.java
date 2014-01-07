@@ -107,6 +107,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 		fireIntervalRemoved(0, lastIndex);
 	}
 
+	// ESCA-JAVA0132: Necessary consequence of implementing two similar but not identical interfaces
 	/**
 	 * Augments superclass method to fire an appropriate event when the element at the given index
 	 * is removed from the collection.

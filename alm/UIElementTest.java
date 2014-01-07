@@ -32,15 +32,15 @@ import javax.swing.event.ListSelectionListener;
  * implementations in the model.
  * @author Phil Herold
  */
-public class UIElementTest {
+public final class UIElementTest {
 	/**
 	 * Whether to use large rather than small icons.
 	 */
-	private static boolean useLargeIcons;
+	protected static boolean useLargeIcons;
 	/**
 	 * The panel used by the test.
 	 */
-	private static JPanel componentPanel;
+	protected static JPanel componentPanel;
 
 	/**
 	 * CellRenderer for a UIElement in a JList.
@@ -81,15 +81,14 @@ public class UIElementTest {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
-			@SuppressWarnings("unchecked") //$NON-NLS-1$
 			public void run() {
-				final JFrame frame = new JFrame("UIElement Test");        //$NON-NLS-1$
+				final JFrame frame = new JFrame("UIElement Test");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 				// The data models.
 				final ArrayListModel<UIElement> model = new ArrayListModel<>();
 				UIElementFactory.addElementsToList(model);
-				ArrayListComboBoxModel<UIElement> listModel = new ArrayListComboBoxModel<UIElement>();
+				ArrayListComboBoxModel<UIElement> listModel = new ArrayListComboBoxModel<>();
 
 				// The list is used to select a UIElement in the model, and show it's
 				// corresponding view

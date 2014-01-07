@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * Factory to create UIElements for testing.
  * @author Phil Herold
  */
-public class UIElementFactory {
+public final class UIElementFactory {
 
 	/**
 	 * This class shows a panel of the specified color as it's view.
@@ -63,6 +63,10 @@ public class UIElementFactory {
 			return buf.toString();
 		}
 		/**
+		 * The size of a small icon.
+		 */
+		protected static final int SMALL_ICON_SIZE = 12;
+		/**
 		 * @return a small icon for the element
 		 */
 		@Override
@@ -71,14 +75,15 @@ public class UIElementFactory {
 				smallIcon = new ImageIcon() {
 					@Override
 					public int getIconHeight() {
-						return 12;
+						return SMALL_ICON_SIZE;
 					}
 					@Override
 					public int getIconWidth() {
-						return 12;
+						return SMALL_ICON_SIZE;
 					}
+					// ESCA-JAVA0143: The superclass is this way, so we have to be too.
 					@Override
-					public void paintIcon(final Component cmp,
+					public synchronized void paintIcon(final Component cmp,
 							final Graphics pen, final int xCoord,
 							final int yCoord) {
 						pen.setColor(color);
@@ -91,6 +96,10 @@ public class UIElementFactory {
 			return smallIcon;
 		}
 		/**
+		 * The size of a large icon.
+		 */
+		protected static final int LARGE_ICON_SIZE = 24;
+		/**
 		 * @return a large icon for the element
 		 */
 		@Override
@@ -99,14 +108,15 @@ public class UIElementFactory {
 				largeIcon = new ImageIcon() {
 					@Override
 					public int getIconHeight() {
-						return 24;
+						return LARGE_ICON_SIZE;
 					}
 					@Override
 					public int getIconWidth() {
-						return 24;
+						return LARGE_ICON_SIZE;
 					}
+					// ESCA-JAVA0143: The superclass is this way, so we have to be too.
 					@Override
-					public void paintIcon(final Component cmp,
+					public synchronized void paintIcon(final Component cmp,
 							final Graphics pen, final int xCoord,
 							final int yCoord) {
 						pen.setColor(color);
