@@ -179,7 +179,7 @@ public class UIElementTest {
 	 * @param list TODO: document
 	 * @return the populated toolbar
 	 */
-	private static JToolBar getToolBar(final Iterator<UIElement> elements, final ArrayList<UIElement> list) {
+	protected static JToolBar getToolBar(final Iterator<UIElement> elements, final ArrayList<UIElement> list) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		while (elements.hasNext()) {
