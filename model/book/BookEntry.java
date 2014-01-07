@@ -33,6 +33,7 @@ public class BookEntry implements CollectionEntry {
 	 * Accessor.
 	 * @return the tune in the entry
 	 */
+	@Override
 	public final Tune getTune() {
 		return tune;
 	}
@@ -40,6 +41,7 @@ public class BookEntry implements CollectionEntry {
 	 * Mutator.
 	 * @param newTune the new tune in the entry
 	 */
+	@Override
 	public void setTune(final Tune newTune) {
 		tune = newTune;
 	}

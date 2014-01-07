@@ -22,14 +22,14 @@ import alm.ArrayListModel;
 
 /**
  * A panel to search by composer.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public class ComposerSearchPanel extends JPanel implements ActionListener,
 		PropertyChangeListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1353620881465119541L;
 	/**
@@ -43,7 +43,7 @@ public class ComposerSearchPanel extends JPanel implements ActionListener,
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList list = new JList(results);
+	private final transient JList<Tune> list = new JList<Tune>(results);
 
 	/**
 	 * Constructor.
@@ -62,7 +62,7 @@ public class ComposerSearchPanel extends JPanel implements ActionListener,
 	}
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */
@@ -82,7 +82,7 @@ public class ComposerSearchPanel extends JPanel implements ActionListener,
 				}
 			}
 		} else if ("Edit Tune".equals(evt.getActionCommand())) {
-			new EditWindow("Edit tune", new TunePanel((Tune) list.getSelectedValue()),
+			new EditWindow("Edit tune", new TunePanel(list.getSelectedValue()),
 					this).setVisible(true);
 		} else if ("Close".equals(evt.getActionCommand())) {
 			this.setVisible(false);

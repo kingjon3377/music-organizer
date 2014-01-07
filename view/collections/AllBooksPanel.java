@@ -18,7 +18,7 @@ import view.EditWindow;
 
 /**
  * A panel to create and edit books.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class AllBooksPanel extends JPanel implements ActionListener,
@@ -30,7 +30,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of books, of which one can be selected.
 	 */
-	private final transient JList bookList = new JList(AllBooks.ALL_BOOKS);
+	private final transient JList<Book> bookList = new JList<Book>(AllBooks.ALL_BOOKS);
 
 	/**
 	 * Constructor.
@@ -48,7 +48,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param event
 	 *            the event we're handling
 	 */
@@ -57,7 +57,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 		if ("Add Book".equals(event.getActionCommand())) {
 			new EditWindow("Add book", new BookPane(), this).setVisible(true);
 		} else if ("Edit Book".equals(event.getActionCommand())) {
-			new EditWindow("Edit book", new BookPane((Book) bookList
+			new EditWindow("Edit book", new BookPane(bookList
 					.getSelectedValue()), this).setVisible(true);
 		} else if ("Remove Book".equals(event.getActionCommand())) {
 			AllBooks.ALL_BOOKS.remove(bookList.getSelectedIndex());
@@ -66,7 +66,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Ensure new books get added to the AllBooks list.
-	 * 
+	 *
 	 * @param evt
 	 *            the event we're handling
 	 */

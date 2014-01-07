@@ -21,7 +21,7 @@ import alm.ArrayListModel;
 
 /**
  * A panel to add or edit a CD.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public final class RecordingPanel extends JPanel implements ActionListener,
@@ -53,11 +53,11 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	/**
 	 * The list of tunes.
 	 */
-	private final transient JList tunesList = new JList(tunes);
+	private final transient JList<RecordingEntry> tunesList = new JList<RecordingEntry>(tunes);
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param record
 	 *            The recording this window is editing
 	 */
@@ -87,7 +87,7 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param actEvent
 	 *            The button-press event we're handling
 	 */

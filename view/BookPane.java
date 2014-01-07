@@ -22,9 +22,9 @@ import alm.ArrayListModel;
 
 /**
  * A window to add or edit a book.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public final class BookPane extends JPanel implements ActionListener,
 		PropertyChangeListener {
@@ -56,11 +56,11 @@ public final class BookPane extends JPanel implements ActionListener,
 	/**
 	 * The list of tunes.
 	 */
-	private final transient JList tunesList = new JList(tunes);
+	private final transient JList<BookEntry> tunesList = new JList<BookEntry>(tunes);
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param theBook
 	 *            The book this window is editing
 	 */
@@ -90,7 +90,7 @@ public final class BookPane extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param actEvent
 	 *            The button-press event we're handling
 	 */

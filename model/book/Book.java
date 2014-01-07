@@ -14,9 +14,9 @@ import model.TuneCollection;
 /**
  * A book is a collection of tunes, each with associated data, that is, a
  * collection of BookEntries.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public class Book implements Serializable, TuneCollection {
 	/**
@@ -53,6 +53,7 @@ public class Book implements Serializable, TuneCollection {
 	/**
 	 * @return a copy of the list of entries
 	 */
+	@Override
 	public List<BookEntry> getEntries() {
 		return new ArrayList<BookEntry>(entries);
 	}

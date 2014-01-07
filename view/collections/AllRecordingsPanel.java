@@ -18,7 +18,7 @@ import view.RecordingPanel;
 
 /**
  * A panel to create and edit recordings.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class AllRecordingsPanel extends JPanel implements ActionListener,
@@ -30,7 +30,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of recordings, of which one can be selected to be edited.
 	 */
-	private final transient JList recordList = new JList(AllRecordings.ALL_RECORDINGS);
+	private final transient JList<Recording> recordList = new JList<Recording>(AllRecordings.ALL_RECORDINGS);
 
 	/**
 	 * Constructor.
@@ -48,7 +48,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param event
 	 *            the event we're handling
 	 */
@@ -57,7 +57,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 		if ("Add Recording".equals(event.getActionCommand())) {
 			new EditWindow("Add recording", new RecordingPanel(), this).setVisible(true);
 		} else if ("Edit Recording".equals(event.getActionCommand())) {
-			new EditWindow("Edit recording", new RecordingPanel((Recording) recordList
+			new EditWindow("Edit recording", new RecordingPanel(recordList
 					.getSelectedValue()), this).setVisible(true);
 		} else if ("Remove Book".equals(event.getActionCommand())) {
 			AllRecordings.ALL_RECORDINGS.remove(recordList.getSelectedIndex());
@@ -66,7 +66,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Ensure new recordings get added to the AllRecordings list.
-	 * 
+	 *
 	 * @param evt
 	 *            the event we're handling
 	 */

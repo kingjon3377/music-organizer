@@ -22,7 +22,7 @@ import alm.ArrayListModel;
 
 /**
  * A panel to search for tunes in books by key.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class KeySearchPanel extends JPanel implements ActionListener,
@@ -42,7 +42,7 @@ public class KeySearchPanel extends JPanel implements ActionListener,
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList list = new JList(results);
+	private final transient JList<Book> list = new JList<Book>(results);
 
 	/**
 	 * Constructor.
@@ -62,7 +62,7 @@ public class KeySearchPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */
@@ -81,7 +81,7 @@ public class KeySearchPanel extends JPanel implements ActionListener,
 				}
 			}
 		} else if ("View Book".equals(evt.getActionCommand())) {
-			new EditWindow("View Book", new BookPane((Book) list
+			new EditWindow("View Book", new BookPane(list
 					.getSelectedValue()), this).setVisible(true);
 		} else if ("Close".equals(evt.getActionCommand())) {
 			this.setVisible(false);
@@ -93,7 +93,7 @@ public class KeySearchPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle events from spawned EditWindows. TODO: Implement?
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle
 	 */
