@@ -18,7 +18,7 @@ import view.TunePanel;
 
 /**
  * A panel to allow the user to select a tune to edit.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class AllTunesPanel extends JPanel implements ActionListener,
@@ -30,7 +30,7 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of tunes, of which one can be selected.
 	 */
-	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<>(AllTunes.ALL_TUNES);
 
 	/**
 	 * Constructor.
@@ -47,7 +47,7 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param event
 	 *            the event we're handling
 	 */

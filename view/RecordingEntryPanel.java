@@ -17,7 +17,7 @@ import utils.ListenerButton;
 
 /**
  * A panel to edit an entry in a recording.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public final class RecordingEntryPanel extends JPanel implements ActionListener {
@@ -36,7 +36,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	/**
 	 * A list of the tunes that the entry might include.
 	 */
-	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<>(AllTunes.ALL_TUNES);
 	/**
 	 * A text box for the track number.
 	 */
@@ -57,7 +57,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param theEntry
 	 *            The RecordingEntry this panel allows the user to edit
 	 */
@@ -87,7 +87,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 
 	/**
 	 * Handle a button press.
-	 * 
+	 *
 	 * @param event
 	 *            The event we're handling
 	 */

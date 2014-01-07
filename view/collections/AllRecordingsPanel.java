@@ -30,7 +30,7 @@ public class AllRecordingsPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of recordings, of which one can be selected to be edited.
 	 */
-	private final transient JList<Recording> recordList = new JList<Recording>(AllRecordings.ALL_RECORDINGS);
+	private final transient JList<Recording> recordList = new JList<>(AllRecordings.ALL_RECORDINGS);
 
 	/**
 	 * Constructor.

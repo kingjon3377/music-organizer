@@ -52,11 +52,11 @@ public final class BookPane extends JPanel implements ActionListener,
 	/**
 	 * The intermediate model of the tunes, used to back the list.
 	 */
-	private final transient ArrayListModel<BookEntry> tunes = new ArrayListModel<BookEntry>();
+	private final transient ArrayListModel<BookEntry> tunes = new ArrayListModel<>();
 	/**
 	 * The list of tunes.
 	 */
-	private final transient JList<BookEntry> tunesList = new JList<BookEntry>(tunes);
+	private final transient JList<BookEntry> tunesList = new JList<>(tunes);
 
 	/**
 	 * Constructor.
