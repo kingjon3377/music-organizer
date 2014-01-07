@@ -30,7 +30,7 @@ public class Book implements Serializable, TuneCollection {
 	/**
 	 * The entries in the book.
 	 */
-	private final List<BookEntry> entries = new ArrayList<BookEntry>(); // NOPMD
+	private final List<BookEntry> entries = new ArrayList<>(); // NOPMD
 	/**
 	 * Constructor.
 	 */
@@ -55,7 +55,7 @@ public class Book implements Serializable, TuneCollection {
 	 */
 	@Override
 	public List<BookEntry> getEntries() {
-		return new ArrayList<BookEntry>(entries);
+		return new ArrayList<>(entries);
 	}
 	/**
 	 * Add an entry.
@@ -110,7 +110,7 @@ public class Book implements Serializable, TuneCollection {
 	 */
 	@Override
 	public boolean containsAll(final Collection<? extends Tune> tunes) {
-		final Set<Tune> tunesInBook = new HashSet<Tune>();
+		final Set<Tune> tunesInBook = new HashSet<>();
 		for (BookEntry entry : entries) {
 			tunesInBook.add(entry.getTune());
 		}

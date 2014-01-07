@@ -49,11 +49,11 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	/**
 	 * The intermediate model of the tunes, used to back the list.
 	 */
-	private final transient ArrayListModel<RecordingEntry> tunes = new ArrayListModel<RecordingEntry>();
+	private final transient ArrayListModel<RecordingEntry> tunes = new ArrayListModel<>();
 	/**
 	 * The list of tunes.
 	 */
-	private final transient JList<RecordingEntry> tunesList = new JList<RecordingEntry>(tunes);
+	private final transient JList<RecordingEntry> tunesList = new JList<>(tunes);
 
 	/**
 	 * Constructor.

@@ -38,7 +38,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * A list of tunes, of which one can be selected.
 	 */
-	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<>(AllTunes.ALL_TUNES);
 	/**
 	 * A text box for the page number.
 	 */

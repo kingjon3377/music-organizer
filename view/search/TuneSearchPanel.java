@@ -37,11 +37,11 @@ public class TuneSearchPanel extends JPanel implements ActionListener, PropertyC
 	/**
 	 * A list-model to back the list of search results.
 	 */
-	private final transient ArrayListModel<Tune> results = new ArrayListModel<Tune>();
+	private final transient ArrayListModel<Tune> results = new ArrayListModel<>();
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList<Tune> list = new JList<Tune>(results);
+	private final transient JList<Tune> list = new JList<>(results);
 
 	/**
 	 * Constructor.

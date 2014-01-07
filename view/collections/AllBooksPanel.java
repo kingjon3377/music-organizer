@@ -30,7 +30,7 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of books, of which one can be selected.
 	 */
-	private final transient JList<Book> bookList = new JList<Book>(AllBooks.ALL_BOOKS);
+	private final transient JList<Book> bookList = new JList<>(AllBooks.ALL_BOOKS);
 
 	/**
 	 * Constructor.

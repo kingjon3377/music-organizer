@@ -38,11 +38,11 @@ public class KeySearchPanel extends JPanel implements ActionListener,
 	/**
 	 * A list-model to back the list of search results.
 	 */
-	private final transient ArrayListModel<Book> results = new ArrayListModel<Book>();
+	private final transient ArrayListModel<Book> results = new ArrayListModel<>();
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList<Book> list = new JList<Book>(results);
+	private final transient JList<Book> list = new JList<>(results);
 
 	/**
 	 * Constructor.

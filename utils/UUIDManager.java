@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * A class to handle UUIDs.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public final class UUIDManager {
@@ -25,7 +25,7 @@ public final class UUIDManager {
 	/**
 	 * A set of IDs we've given out.
 	 */
-	private final Set<Integer> givenIds = new HashSet<Integer>(); // NOPMD
+	private final Set<Integer> givenIds = new HashSet<>(); // NOPMD
 	/**
 	 * The highest ID we've given out.
 	 */
@@ -42,7 +42,7 @@ public final class UUIDManager {
 	/**
 	 * If the given ID hasn't been used, register it and return it. If it has,
 	 * return a new one.
-	 * 
+	 *
 	 * @param wantedId
 	 *            the ID the caller would like to have
 	 * @return an ID that hasn't previously been used, the one given if it

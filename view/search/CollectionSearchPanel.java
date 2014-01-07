@@ -44,15 +44,15 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	/**
 	 * A list of all tunes.
 	 */
-	private final transient JList<Tune> tuneList = new JList<Tune>(AllTunes.ALL_TUNES);
+	private final transient JList<Tune> tuneList = new JList<>(AllTunes.ALL_TUNES);
 	/**
 	 * A list-model to back the list of search results.
 	 */
-	private final transient ArrayListModel<TuneCollection> results = new ArrayListModel<TuneCollection>();
+	private final transient ArrayListModel<TuneCollection> results = new ArrayListModel<>();
 	/**
 	 * The list of search results.
 	 */
-	private final transient JList<TuneCollection> list = new JList<TuneCollection>(results);
+	private final transient JList<TuneCollection> list = new JList<>(results);
 
 	/**
 	 * Constructor.
@@ -108,7 +108,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 		if (!results.isEmpty()) {
 			results.clear();
 		}
-		final Set<TuneCollection> collections = new HashSet<TuneCollection>();
+		final Set<TuneCollection> collections = new HashSet<>();
 		collections.addAll(AllBooks.ALL_BOOKS);
 		collections.addAll(AllRecordings.ALL_RECORDINGS);
 		for (TuneCollection coll : collections) {
@@ -132,7 +132,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	 * @return an equivalent List of the Tunes.
 	 */
 	private static List<Tune> convertArray(final Object[] array) {
-		final List<Tune> tunes = new ArrayList<Tune>(); // NOPMD
+		final List<Tune> tunes = new ArrayList<>(); // NOPMD
 		for (Object o : array) {
 			if (o instanceof Tune) {
 				tunes.add((Tune) o);
