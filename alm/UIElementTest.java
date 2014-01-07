@@ -170,7 +170,7 @@ public final class UIElementTest {
 				panel.add(componentPanel, c);
 
 				// add components to content pane and show the window
-				frame.getContentPane().add(getToolBar(model.iterator(), listModel), BorderLayout.NORTH);
+				frame.getContentPane().add(getToolBar(model, listModel), BorderLayout.NORTH);
 				frame.getContentPane().add(panel, BorderLayout.CENTER);
 
 				frame.setSize(new Dimension(500, 300));
@@ -182,15 +182,14 @@ public final class UIElementTest {
 	/**
 	 * Creates a JToolBar of toggle buttons using the given list of color items. The list
 	 * (our model) is updated when a toggle button is pressed/un-pressed.
-	 * @param elements TODO: document
-	 * @param list TODO: document
+	 * @param elements the items to add to the toolbar
+	 * @param list the list maintained as the toolbar is used.
 	 * @return the populated toolbar
 	 */
-	protected static JToolBar getToolBar(final Iterator<UIElement> elements, final ArrayList<UIElement> list) {
+	protected static JToolBar getToolBar(final Iterable<UIElement> elements, final ArrayList<UIElement> list) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		while (elements.hasNext()) {
-			final UIElement element = elements.next();
+		for (final UIElement element : elements) {
 			final JToggleButton toggle = new JToggleButton(element.getSmallIcon());
 			toolBar.add(toggle);
 			toggle.addActionListener(new ActionListener() {
