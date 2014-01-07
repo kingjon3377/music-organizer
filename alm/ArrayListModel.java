@@ -16,8 +16,9 @@ import javax.swing.event.ListDataListener;
 public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
     /**
      * This class implements an empty ArrayListModel.
+     * @param <E> the type of element there are none of
      */
-    private static class EmptyList extends ArrayListModel {
+    protected static class EmptyList<E> extends ArrayListModel<E> {
     	/**
     	 * @return 0, the size of the empty list
     	 */
@@ -38,13 +39,17 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
     	 * @return nothing; always throws
     	 */
     	@Override
-		public Object get(final int index) {
+		public E get(final int index) {
             throw new IndexOutOfBoundsException("Index: " + index);
         }
     }
-
-    /** The empty list (immutable).  This list is serializable. */
-    public static final ArrayListModel EMPTY_LIST = new EmptyList();
+    /**
+     * @param <E> the type of thing we want an immutable list of none of
+     * @return an empty and immutable list
+     */
+    public static <E> ArrayListModel<E> emptyList() {
+    	return new EmptyList<>();
+    }
     /** List of ListDataListeners. */
 	protected List<ListDataListener> listDataListeners;
 
