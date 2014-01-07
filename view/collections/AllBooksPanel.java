@@ -72,8 +72,11 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
-		if ("book".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
-			AllBooks.ALL_BOOKS.add((Book) evt.getNewValue());
+		final Object oldValue = evt.getOldValue();
+		final Object newValue = evt.getNewValue();
+		if ("book".equals(evt.getPropertyName()) && oldValue == null
+				&& newValue instanceof Book) {
+			AllBooks.ALL_BOOKS.add((Book) newValue);
 		}
 	}
 

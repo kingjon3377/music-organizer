@@ -68,8 +68,10 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
-		if ("tune".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
-			AllTunes.ALL_TUNES.add((Tune) evt.getNewValue());
+		final Object newValue = evt.getNewValue();
+		if ("tune".equals(evt.getPropertyName()) && evt.getOldValue() == null
+				&& newValue instanceof Tune) {
+			AllTunes.ALL_TUNES.add((Tune) newValue);
 		}
 	}
 }

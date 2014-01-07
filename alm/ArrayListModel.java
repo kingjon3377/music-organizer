@@ -8,6 +8,8 @@ import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * ArrayList which can be used as a ListModel in UI code.
  * @param <E> the type of item in the list
@@ -31,7 +33,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
     	 * @return false
     	 */
     	@Override
-		public boolean contains(final Object obj) {
+		public boolean contains(@Nullable final Object obj) {
             return false;
         }
     	/**
@@ -51,7 +53,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
     	return new EmptyList<>();
     }
     /** List of ListDataListeners. */
-	protected List<ListDataListener> listDataListeners;
+	protected List<ListDataListener> listDataListeners = new ArrayList<>();
 
 	/**
 	 * Augments superclass method to fire an appropriate event when an item is added to the
@@ -88,13 +90,17 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @return boolean true if obj was successfully added
 	 */
 	@Override
-	public boolean addAll(final Collection<? extends E> coll) {
-		int firstIndex = size() - 1;
-		boolean ok = super.addAll(coll);
-		if (ok) {
-			fireIntervalAdded(firstIndex, size() - 1);
+	public boolean addAll(@Nullable final Collection<? extends E> coll) {
+		if (coll == null) {
+			return false;
+		} else {
+			int firstIndex = size() - 1;
+			boolean ok = super.addAll(coll);
+			if (ok) {
+				fireIntervalAdded(firstIndex, size() - 1);
+			}
+			return ok;
 		}
-		return ok;
 	}
 
 	/**
@@ -115,6 +121,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @return the element removed from the list
 	 */
 	@Override
+	@Nullable
 	public E remove(final int index) {
 		E element = super.remove(index);
 		if (element != null) {
@@ -130,7 +137,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @return true if the element was removed, false otherwise
 	 */
 	@Override
-	public boolean remove(final Object obj) {
+	public boolean remove(@Nullable final Object obj) {
 		boolean ok = true;
 		int index = indexOf(obj);
 		if (index != -1) {
@@ -158,8 +165,8 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @return boolean true if the collection was successfully removed
 	 */
 	@Override
-	public boolean removeAll(final Collection<?> coll) {
-		int lastIndex = size() - 1;
+	public boolean removeAll(@Nullable final Collection<?> coll) {
+		final int lastIndex = size() - 1;
 		boolean ok = super.removeAll(coll);
 		if (ok) {
 			fireIntervalRemoved(0, lastIndex);
@@ -174,7 +181,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @return true if successful
 	 */
 	@Override
-	public boolean retainAll(final Collection<?> coll) {
+	public boolean retainAll(@Nullable final Collection<?> coll) {
 		int lastIndex = size() - 1;
 		boolean ok = super.retainAll(coll);
 		if (ok) {
@@ -192,6 +199,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @return the element previously at that position
 	 */
 	@Override
+	@Nullable
 	public E set(final int index, final E element) {
 		final E retval = super.set(index, element);
 		fireIntervalUpdated(index, index);
@@ -215,6 +223,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	@Override
+	@Nullable
 	public E getElementAt(final int index) {
 		return super.get(index);
 	}
@@ -225,11 +234,8 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @see javax.swing.ListModel#addListDataListener(javax.swing.event.ListDataListener)
 	 */
 	@Override
-	public void addListDataListener(final ListDataListener listener) {
-		if (listDataListeners == null) {
-			listDataListeners = new ArrayList<>();
-		}
-		if (!listDataListeners.contains(listener)) {
+	public void addListDataListener(@Nullable final ListDataListener listener) {
+		if (listener != null && !listDataListeners.contains(listener)) {
 			listDataListeners.add(listener);
 		}
 	}
@@ -240,8 +246,8 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @see javax.swing.ListModel#removeListDataListener(javax.swing.event.ListDataListener)
 	 */
 	@Override
-	public void removeListDataListener(final ListDataListener listener) {
-		if (listDataListeners != null) {
+	public void removeListDataListener(@Nullable final ListDataListener listener) {
+		if (listener != null) {
 			listDataListeners.remove(listener);
 		}
 	}
@@ -253,11 +259,10 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @param lastIndex int
 	 */
 	protected void fireIntervalAdded(final int firstIndex, final int lastIndex) {
-		if (listDataListeners != null) {
-			ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED, firstIndex, lastIndex);
-			for (ListDataListener listener: listDataListeners) {
-				listener.intervalAdded(e);
-			}
+		ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED,
+				firstIndex, lastIndex);
+		for (ListDataListener listener : listDataListeners) {
+			listener.intervalAdded(e);
 		}
 	}
 
@@ -268,11 +273,10 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @param lastIndex int
 	 */
 	protected void fireIntervalRemoved(final int firstIndex, final int lastIndex) {
-		if (listDataListeners != null) {
-			ListDataEvent e = new ListDataEvent(this, ListDataEvent.INTERVAL_REMOVED, firstIndex, lastIndex);
-			for (ListDataListener listener: listDataListeners) {
-				listener.intervalRemoved(e);
-			}
+		ListDataEvent e = new ListDataEvent(this,
+				ListDataEvent.INTERVAL_REMOVED, firstIndex, lastIndex);
+		for (ListDataListener listener : listDataListeners) {
+			listener.intervalRemoved(e);
 		}
 	}
 
@@ -283,11 +287,10 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 	 * @param lastIndex int
 	 */
 	protected void fireIntervalUpdated(final int firstIndex, final int lastIndex) {
-		if (listDataListeners != null) {
-			ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, firstIndex, lastIndex);
-			for (ListDataListener listener: listDataListeners) {
-				listener.contentsChanged(e);
-			}
+		ListDataEvent e = new ListDataEvent(this,
+				ListDataEvent.CONTENTS_CHANGED, firstIndex, lastIndex);
+		for (ListDataListener listener : listDataListeners) {
+			listener.contentsChanged(e);
 		}
 	}
 

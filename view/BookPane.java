@@ -170,8 +170,10 @@ public final class BookPane extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
-		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
-			tunes.add((BookEntry) evt.getNewValue());
+		final Object newValue = evt.getNewValue();
+		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null
+				&& newValue instanceof BookEntry) {
+			tunes.add((BookEntry) newValue);
 		}
 	}
 }

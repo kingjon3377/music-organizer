@@ -66,6 +66,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 			private static final int TOO_LONG = 3; // NOPMD
 			@Override
 			public boolean verify(final JComponent input) {
+				assert input instanceof JTextField;
 				return verify(((JTextField) input).getText());
 			}
 

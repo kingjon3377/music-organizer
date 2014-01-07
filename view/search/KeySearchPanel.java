@@ -73,6 +73,9 @@ public class KeySearchPanel extends JPanel implements ActionListener,
 				results.clear();
 			}
 			for (Book book : AllBooks.ALL_BOOKS) {
+				if (book == null) {
+					continue;
+				}
 				for (BookEntry entry : book.getEntries()) {
 					if (entry.getKey().equalsIgnoreCase(searchField.getText())) {
 						results.add(book);

@@ -26,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Tests the ArrayListModel and ArrayListComboBoxModel classes.
  * @author Phil Herold
@@ -66,7 +68,11 @@ public class ArrayListModelTest {
 		 * @param y the starting Y coordinate
 		 */
 		@Override
-		public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
+		public void paintIcon(@Nullable final Component c,
+				@Nullable final Graphics g, final int x, final int y) {
+			if (g == null) {
+				throw new IllegalStateException("Null graphics context");
+			}
 			g.setColor(color);
 			g.fillRect(x, y, getIconWidth(), getIconHeight());
 			g.setColor(Color.BLACK);
@@ -88,9 +94,10 @@ public class ArrayListModelTest {
 		private ColorIcon icon;
 		/**
 		 * @param itemName the name of the item.
-		 * @param itemColor the color of the item.
+		 * @param itemColor the color of the item. "Nullable" to avoid warnings when called with Color class constants
 		 */
-		protected ColorItem(final String itemName, final Color itemColor) {
+		protected ColorItem(final String itemName, @Nullable final Color itemColor) {
+			assert itemColor != null;
 			this.name = itemName;
 			icon = new ColorIcon(itemColor);
 		}
@@ -129,12 +136,19 @@ public class ArrayListModelTest {
 		 */
 		@Override
 		public Component getListCellRendererComponent(
-				@SuppressWarnings("rawtypes") final JList list,
-				final Object value, final int index, final boolean isSelected,
+				@SuppressWarnings("rawtypes") @Nullable final JList list,
+				@Nullable final Object value, final int index, final boolean isSelected,
 				final boolean hasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list,
+			if (list == null) {
+				throw new IllegalStateException("Called with null list");
+			}
+			final JLabel label = (JLabel) super.getListCellRendererComponent(list,
 					value, index, isSelected, hasFocus);
-			label.setIcon(((ColorItem) value).getIcon());
+			if (label == null) {
+				throw new IllegalStateException("Superclass renderer returned null");
+			} else if (value instanceof ColorItem) {
+				label.setIcon(((ColorItem) value).getIcon());
+			}
 	        return label;
 	    }
 	}
@@ -222,7 +236,7 @@ public class ArrayListModelTest {
 			toolBar.add(toggle);
 			toggle.addActionListener(new ActionListener() {
 				@Override
-				public void actionPerformed(final ActionEvent e) {
+				public void actionPerformed(@Nullable final ActionEvent e) {
 					if (toggle.isSelected()) {
 						list.add(item);
 					} else {
