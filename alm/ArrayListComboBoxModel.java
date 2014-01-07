@@ -3,6 +3,8 @@ package alm;
 
 import javax.swing.ComboBoxModel;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * This class extends ArrayListModel to support a collection as a model for a JComboBox.
  * @param <E> the type of item in the model.
@@ -13,7 +15,7 @@ public class ArrayListComboBoxModel<E> extends ArrayListModel<E> implements Comb
 	 * The selected item. According to the ComboBoxModel docs, this need not be
 	 * an item that can be in the underlying collection!
 	 */
-	private Object selectedItem;
+	@Nullable private Object selectedItem;
 
 	/**
 	 * Implements the method in the ComboBoxModel interface.
@@ -21,6 +23,7 @@ public class ArrayListComboBoxModel<E> extends ArrayListModel<E> implements Comb
 	 * @see javax.swing.ComboBoxModel#getSelectedItem()
 	 */
 	@Override
+	@Nullable
 	public Object getSelectedItem() {
 		return selectedItem;
 	}
@@ -30,7 +33,7 @@ public class ArrayListComboBoxModel<E> extends ArrayListModel<E> implements Comb
 	 * @param item the item to select
 	 */
 	@Override
-	public void setSelectedItem(final Object item) {
+	public void setSelectedItem(@Nullable final Object item) {
 		selectedItem = item;
 	    fireIntervalUpdated(-1, -1);
 	}

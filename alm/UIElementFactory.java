@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Factory to create UIElements for testing.
  * @author Phil Herold
@@ -32,16 +34,17 @@ public final class UIElementFactory {
 		/**
 		 * The small icon of the element.
 		 */
-		private Icon smallIcon;
+		@Nullable private Icon smallIcon;
 		/**
 		 * The large icon of the element.
 		 */
-		private Icon largeIcon;
+		@Nullable private Icon largeIcon;
 		/**
 		 * @param name the name of the color
-		 * @param colr the color
+		 * @param colr the color. "Nullable" to avoid warnings when called with Color class constants
 		 */
-		protected ColorUIElement(final String name, final Color colr) {
+		protected ColorUIElement(final String name, @Nullable final Color colr) {
+			assert colr != null;
 			this.color = colr;
 			this.colorName = name;
 		}
@@ -57,10 +60,12 @@ public final class UIElementFactory {
 		 */
 		@Override
 		public String getDescription() {
-			StringBuffer buf = new StringBuffer(colorName);
+			StringBuilder buf = new StringBuilder(colorName);
 			buf.append(": ");
 			buf.append(Integer.toHexString(color.getRGB()));
-			return buf.toString();
+			final String retval = buf.toString();
+			assert retval != null;
+			return retval;
 		}
 		/**
 		 * The size of a small icon.
@@ -83,9 +88,12 @@ public final class UIElementFactory {
 					}
 					// ESCA-JAVA0143: The superclass is this way, so we have to be too.
 					@Override
-					public synchronized void paintIcon(final Component cmp,
-							final Graphics pen, final int xCoord,
+					public synchronized void paintIcon(@Nullable final Component cmp,
+							@Nullable final Graphics pen, final int xCoord,
 							final int yCoord) {
+						if (pen == null) {
+							throw new IllegalStateException("Null graphics context");
+						}
 						pen.setColor(color);
 						pen.fillRect(xCoord, yCoord, getIconWidth(), getIconHeight());
 						pen.setColor(Color.BLACK);
@@ -93,6 +101,7 @@ public final class UIElementFactory {
 					}
 				};
 			}
+			assert smallIcon != null;
 			return smallIcon;
 		}
 		/**
@@ -116,9 +125,12 @@ public final class UIElementFactory {
 					}
 					// ESCA-JAVA0143: The superclass is this way, so we have to be too.
 					@Override
-					public synchronized void paintIcon(final Component cmp,
-							final Graphics pen, final int xCoord,
+					public synchronized void paintIcon(@Nullable final Component cmp,
+							@Nullable final Graphics pen, final int xCoord,
 							final int yCoord) {
+						if (pen == null) {
+							throw new IllegalStateException("Null graphics context");
+						}
 						pen.setColor(color);
 						pen.fillRect(xCoord, yCoord, getIconWidth(), getIconHeight());
 						pen.setColor(Color.BLACK);
@@ -126,6 +138,7 @@ public final class UIElementFactory {
 					}
 				};
 			}
+			assert largeIcon != null;
 			return largeIcon;
 		}
 		/**
@@ -139,7 +152,10 @@ public final class UIElementFactory {
 		 * @param pen the graphics context
 		 */
 		@Override
-		public void paintComponent(final Graphics pen) {
+		public void paintComponent(@Nullable final Graphics pen) {
+			if (pen == null) {
+				throw new IllegalStateException("Null graphics context");
+			}
 			super.paintComponent(pen);
 			pen.setColor(color);
 			Dimension size = getSize();

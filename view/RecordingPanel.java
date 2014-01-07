@@ -167,8 +167,10 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
-		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null) {
-			tunes.add((RecordingEntry) evt.getNewValue());
+		final Object newValue = evt.getNewValue();
+		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null
+				&& newValue instanceof RecordingEntry) {
+			tunes.add((RecordingEntry) newValue);
 		}
 	}
 

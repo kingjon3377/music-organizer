@@ -4,3 +4,4 @@ syntax: glob
 lmusorg.exe
 lmusorg.jar
 .sawja_prefs
+org.eclipse.jdt.annotation*.jar

@@ -27,6 +27,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Tests the ArrayListModel and ArrayListComboBoxModel classes, this time using UIElement
  * implementations in the model.
@@ -40,7 +42,7 @@ public final class UIElementTest {
 	/**
 	 * The panel used by the test.
 	 */
-	protected static JPanel componentPanel;
+	protected static JPanel componentPanel = new JPanel(new BorderLayout());
 
 	/**
 	 * CellRenderer for a UIElement in a JList.
@@ -62,13 +64,19 @@ public final class UIElementTest {
 		 */
 		@Override
 		public Component getListCellRendererComponent(
-				@SuppressWarnings("rawtypes") final JList list,
-				final Object value, final int index, final boolean isSelected,
+				@SuppressWarnings("rawtypes") @Nullable final JList list,
+				@Nullable final Object value, final int index, final boolean isSelected,
 				final boolean hasFocus) {
+			if (list == null) {
+				throw new IllegalStateException("Called with null list");
+			}
 			JLabel label = (JLabel) super.getListCellRendererComponent(list,
 					value, index, isSelected, hasFocus);
-			label.setIcon(useLargeIcons ? ((UIElement) value).getLargeIcon()
-					: ((UIElement) value).getSmallIcon());
+			assert label != null;
+			if (value instanceof UIElement) {
+				label.setIcon(useLargeIcons ? ((UIElement) value)
+						.getLargeIcon() : ((UIElement) value).getSmallIcon());
+			}
 	        return label;
 	    }
 	}
@@ -95,8 +103,9 @@ public final class UIElementTest {
 				final JList<UIElement> list = new JList<UIElement>(listModel) {
 			        // This method is called as the cursor moves within the list.
 			        @Override
-					public String getToolTipText(final MouseEvent e) {
-			            int index = locationToIndex(e.getPoint());
+					public String getToolTipText(@Nullable final MouseEvent e) {
+			            assert e != null;
+			        	int index = locationToIndex(e.getPoint());
 						UIElement element = getModel()
 								.getElementAt(index);
 			            return element.getDescription();
@@ -107,7 +116,7 @@ public final class UIElementTest {
 				sp.getViewport().setPreferredSize(new Dimension(100, 100));
 				list.addListSelectionListener(new ListSelectionListener() {
 					@Override
-					public void valueChanged(final ListSelectionEvent e) {
+					public void valueChanged(@Nullable final ListSelectionEvent e) {
 						final UIElement element = list
 								.getSelectedValue();
 						SwingUtilities.invokeLater(new Runnable() {
@@ -130,7 +139,7 @@ public final class UIElementTest {
 				final JCheckBox useLargeIconsCB = new JCheckBox("Use large icons"); //$NON-NLS-1$
 				useLargeIconsCB.addActionListener(new ActionListener() {
 					@Override
-					public void actionPerformed(final ActionEvent e) {
+					public void actionPerformed(@Nullable final ActionEvent e) {
 						useLargeIcons = useLargeIconsCB.isSelected();
 						list.setPrototypeCellValue(model.get(0)); //$NON-NLS-1$
 						list.revalidate();
@@ -139,7 +148,6 @@ public final class UIElementTest {
 				});
 
 				// componentPanel shows the component (view) from the UIElement
-				componentPanel = new JPanel(new BorderLayout());
 				componentPanel.setPreferredSize(new Dimension(200, 100));
 				componentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -187,7 +195,7 @@ public final class UIElementTest {
 			toolBar.add(toggle);
 			toggle.addActionListener(new ActionListener() {
 				@Override
-				public void actionPerformed(final ActionEvent e) {
+				public void actionPerformed(@Nullable final ActionEvent e) {
 					if (toggle.isSelected()) {
 						list.add(element);
 					} else {
