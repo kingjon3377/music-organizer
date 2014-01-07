@@ -1,10 +1,8 @@
 package alm;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.RandomAccess;
 
 import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
@@ -12,28 +10,41 @@ import javax.swing.event.ListDataListener;
 
 /**
  * ArrayList which can be used as a ListModel in UI code.
+ * @param <E> the type of item in the list
  * @author Phil Herold
  */
 public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
     /**
      * This class implements an empty ArrayListModel.
      */
-    private static class EmptyList extends ArrayListModel
-                                   implements RandomAccess, Serializable {
-        static final long serialVersionUID = 2480915318584543470L;
-        @Override
+    private static class EmptyList extends ArrayListModel {
+    	/**
+    	 * @return 0, the size of the empty list
+    	 */
+    	@Override
 		public int size() {
             return 0;
         }
-        @Override
+    	/**
+    	 * @param obj ignored
+    	 * @return false
+    	 */
+    	@Override
 		public boolean contains(final Object obj) {
             return false;
         }
-        @Override
+    	/**
+    	 * @param index ignored
+    	 * @return nothing; always throws
+    	 */
+    	@Override
 		public Object get(final int index) {
-            throw new IndexOutOfBoundsException("Index: " + index); //$NON-NLS-1$
+            throw new IndexOutOfBoundsException("Index: " + index);
         }
-        // Preserves singleton property
+        /**
+         * Preserves singleton property.
+         * @return the singleton.
+         */
         private Object readResolve() {
             return EMPTY_LIST;
         }
@@ -47,8 +58,8 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	/**
 	 * Augments superclass method to fire an appropriate event when an item is added to the
 	 * collection.
-	 * @param index int
-	 * @param obj Object
+	 * @param index the index to add it at
+	 * @param element the element to add
 	 */
 	@Override
 	public void add(final int index, final E element) {
@@ -160,13 +171,13 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	/**
 	 * Augments superclass method to fire an appropriate event when the given collection is
 	 * retained in this collection.
-	 * @param coll Collection
-	 * @param boolean true if successful
+	 * @param coll the collection we want to retain all of
+	 * @return true if successful
 	 */
 	@Override
-	public boolean retainAll(final Collection<?> c) {
+	public boolean retainAll(final Collection<?> coll) {
 		int lastIndex = size() - 1;
-		boolean ok = super.retainAll(c);
+		boolean ok = super.retainAll(coll);
 		if (ok) {
 			fireIntervalRemoved(0, lastIndex);
 			fireIntervalAdded(0, size() - 1);
@@ -177,14 +188,15 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	/**
 	 * Augments superclass method to fire an appropriate event when an item in the collection
 	 * is modified.
-	 * @param index int
-	 * @param element Object
+	 * @param index the index to set
+	 * @param element the element to set there
+	 * @return the element previously at that position
 	 */
 	@Override
-	public E set(final int index, E element) {
-		element = super.set(index, element);
+	public E set(final int index, final E element) {
+		final E retval = super.set(index, element);
 		fireIntervalUpdated(index, index);
-		return element;
+		return retval;
 	}
 
 	/**
@@ -216,7 +228,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	@Override
 	public void addListDataListener(final ListDataListener listener) {
 		if (listDataListeners == null) {
-			listDataListeners = new ArrayList<ListDataListener>();
+			listDataListeners = new ArrayList<>();
 		}
 		if (!listDataListeners.contains(listener)) {
 			listDataListeners.add(listener);

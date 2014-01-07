@@ -35,18 +35,36 @@ public class ArrayListModelTest {
 	 * Icon for rendering a color.
 	 */
 	private static class ColorIcon implements Icon {
+		/**
+		 * The color of the icon.
+		 */
 		private Color color;
-		public ColorIcon(final Color color) {
-			this.color = color;
+		/**
+		 * @param colr the color of the icon.
+		 */
+		protected ColorIcon(final Color colr) {
+			this.color = colr;
 		}
+		/**
+		 * @return the height of the icon.
+		 */
 		@Override
 		public int getIconHeight() {
 			return 12;
 		}
+		/**
+		 * @return the width of the icon
+		 */
 		@Override
 		public int getIconWidth() {
 			return 12;
 		}
+		/**
+		 * @param c source of properties useful for painting
+		 * @param g the drawing pen
+		 * @param x the starting X coordinate
+		 * @param y the starting Y coordinate
+		 */
 		@Override
 		public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
 			g.setColor(color);
@@ -60,16 +78,32 @@ public class ArrayListModelTest {
 	 * This class will represent items in the data model (added to the collection).
 	 */
 	private static class ColorItem {
+		/**
+		 * The name of the item.
+		 */
 		private String name;
+		/**
+		 * The item's icon.
+		 */
 		private ColorIcon icon;
-		public ColorItem(final String name, final Color color) {
-			this.name = name;
-			icon = new ColorIcon(color);
+		/**
+		 * @param itemName the name of the item.
+		 * @param itemColor the color of the item.
+		 */
+		protected ColorItem(final String itemName, final Color itemColor) {
+			this.name = itemName;
+			icon = new ColorIcon(itemColor);
 		}
+		/**
+		 * @return the item's name
+		 */
 		@Override
 		public String toString() {
 			return name;
 		}
+		/**
+		 * @return the item's icon
+		 */
 		public Icon getIcon() {
 			return icon;
 		}
@@ -79,8 +113,23 @@ public class ArrayListModelTest {
 	 * CellRenderer for a ColorItem in a JList.
 	 */
 	private static class ColorItemCellRenderer extends DefaultListCellRenderer {
-	    @Override
-		public Component getListCellRendererComponent(final JList list,
+		/**
+		 * Constructor,  needed to fix access warning.
+		 */
+		protected ColorItemCellRenderer() {
+			// nothing
+		}
+		/**
+		 * @param list the list being drawn
+		 * @param value the current value in the list being drawn
+		 * @param index its index
+		 * @param isSelected whether it's selected
+		 * @param hasFocus whether it has focus
+		 * @return a component that can draw the item
+		 */
+		@Override
+		public Component getListCellRendererComponent(
+				@SuppressWarnings("rawtypes") final JList list,
 				final Object value, final int index, final boolean isSelected,
 				final boolean hasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list,
@@ -95,12 +144,11 @@ public class ArrayListModelTest {
 	 * @param args String array of arguments (not used)
 	 */
 	public static void main(final String[] args) {
-
-		JFrame frame = new JFrame("ArrayListModel Test");        //$NON-NLS-1$
+		JFrame frame = new JFrame("ArrayListModel Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// The data models.
-		ArrayListModel<ColorItem> model = new ArrayListModel<ColorItem>();
+		ArrayListModel<ColorItem> model = new ArrayListModel<>();
 		populateList(model);
 		ArrayListComboBoxModel listModel = new ArrayListComboBoxModel();
 
@@ -117,7 +165,8 @@ public class ArrayListModelTest {
         c.anchor = GridBagConstraints.NORTHWEST;
         c.insets = new Insets(2, 4, 0, 4);
         c.weightx = 1.0;
-        c.gridwidth = c.gridheight = 1;
+        c.gridwidth = 1;
+        c.gridheight = 1;
         c.fill = GridBagConstraints.NONE;
         panel.add(new JLabel("Combo box:"), c);        //$NON-NLS-1$
         c.gridy = 1;
@@ -141,28 +190,28 @@ public class ArrayListModelTest {
 
 	/**
 	 * Helper method to populate the list of ColorItems for our data model.
-	 * @return ArrayListModel
+	 * @param list the list to populate
 	 */
 	private static void populateList(final ArrayList<ColorItem> list) {
-		list.add(new ColorItem("Red", Color.RED));         //$NON-NLS-1$
-		list.add(new ColorItem("Yellow", Color.YELLOW));   //$NON-NLS-1$
-		list.add(new ColorItem("Blue", Color.BLUE));       //$NON-NLS-1$
-		list.add(new ColorItem("Green", Color.GREEN));     //$NON-NLS-1$
-		list.add(new ColorItem("Cyan", Color.CYAN));       //$NON-NLS-1$
-		list.add(new ColorItem("Magenta", Color.MAGENTA)); //$NON-NLS-1$
-		list.add(new ColorItem("Orange", Color.ORANGE));   //$NON-NLS-1$
-		list.add(new ColorItem("Pink", Color.PINK));       //$NON-NLS-1$
-		list.add(new ColorItem("White", Color.WHITE));     //$NON-NLS-1$
-		list.add(new ColorItem("Gray", Color.GRAY));       //$NON-NLS-1$
-		list.add(new ColorItem("Black", Color.BLACK));     //$NON-NLS-1$
+		list.add(new ColorItem("Red", Color.RED));
+		list.add(new ColorItem("Yellow", Color.YELLOW));
+		list.add(new ColorItem("Blue", Color.BLUE));
+		list.add(new ColorItem("Green", Color.GREEN));
+		list.add(new ColorItem("Cyan", Color.CYAN));
+		list.add(new ColorItem("Magenta", Color.MAGENTA));
+		list.add(new ColorItem("Orange", Color.ORANGE));
+		list.add(new ColorItem("Pink", Color.PINK));
+		list.add(new ColorItem("White", Color.WHITE));
+		list.add(new ColorItem("Gray", Color.GRAY));
+		list.add(new ColorItem("Black", Color.BLACK));
 	}
 
 	/**
 	 * Creates a JToolBar of toggle buttons using the given list of color items. The list
 	 * (our model) is updated when a toggle button is pressed/un-pressed.
-	 * @param colorItems Iterator<ColorItem>
-	 * @param list List
-	 * @return
+	 * @param colorItems TODO: document
+	 * @param list TODO: document
+	 * @return the populated toolbar
 	 */
 	private static JToolBar getToolBar(final Iterator<ColorItem> colorItems, final List<ColorItem> list) {
 		JToolBar toolBar = new JToolBar();

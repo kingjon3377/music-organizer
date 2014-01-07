@@ -22,8 +22,7 @@ public class ArrayListComboBoxModel extends ArrayListModel implements ComboBoxMo
 
 	/**
 	 * Implements the method in the ComboBoxModel interface.
-	 * @parm item Object
-	 * @see javax.swing.ComboBoxModel#setSelectedItem(java.lang.Object)
+	 * @param item the item to select
 	 */
 	@Override
 	public void setSelectedItem(final Object item) {
