@@ -37,21 +37,23 @@ public class UIElementTest {
 	private static JPanel componentPanel;
 
 	/**
-	 * CellRenderer for a UIElement in a JList
+	 * CellRenderer for a UIElement in a JList.
 	 */
 	private static class UIElementCellRenderer extends DefaultListCellRenderer {
 	    @Override
-		public Component getListCellRendererComponent(final JList list, final Object value,
-	            final int index, final boolean isSelected, final boolean hasFocus) {
-	        JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-	        label.setIcon(useLargeIcons ? ((UIElement)value).getLargeIcon()
-	        		                    : ((UIElement)value).getSmallIcon());
+		public Component getListCellRendererComponent(final JList list,
+				final Object value, final int index, final boolean isSelected,
+				final boolean hasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list,
+					value, index, isSelected, hasFocus);
+			label.setIcon(useLargeIcons ? ((UIElement) value).getLargeIcon()
+					: ((UIElement) value).getSmallIcon());
 	        return label;
 	    }
 	}
 
 	/**
-	 * Entry point of application for JVM
+	 * Entry point of application for JVM.
 	 * @param args String array of arguments (not used)
 	 */
 	public static void main(final String[] args) {
@@ -75,7 +77,8 @@ public class UIElementTest {
 			        @Override
 					public String getToolTipText(final MouseEvent e) {
 			            int index = locationToIndex(e.getPoint());
-			            UIElement element = (UIElement)getModel().getElementAt(index);
+						UIElement element = (UIElement) getModel()
+								.getElementAt(index);
 			            return element.getDescription();
 			        }
 				};
@@ -85,7 +88,8 @@ public class UIElementTest {
 				list.addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(final ListSelectionEvent e) {
-						final UIElement element = (UIElement)list.getSelectedValue();
+						final UIElement element = (UIElement) list
+								.getSelectedValue();
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {

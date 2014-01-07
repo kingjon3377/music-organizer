@@ -32,7 +32,7 @@ import javax.swing.JToolBar;
  */
 public class ArrayListModelTest {
 	/**
-	 * Icon for rendering a color
+	 * Icon for rendering a color.
 	 */
 	private static class ColorIcon implements Icon {
 		private Color color;
@@ -57,7 +57,7 @@ public class ArrayListModelTest {
 	}
 
 	/**
-	 * This class will represent items in the data model (added to the collection)
+	 * This class will represent items in the data model (added to the collection).
 	 */
 	private static class ColorItem {
 		private String name;
@@ -76,20 +76,22 @@ public class ArrayListModelTest {
 	}
 
 	/**
-	 * CellRenderer for a ColorItem in a JList
+	 * CellRenderer for a ColorItem in a JList.
 	 */
 	private static class ColorItemCellRenderer extends DefaultListCellRenderer {
 	    @Override
-		public Component getListCellRendererComponent(final JList list, final Object value,
-	            final int index, final boolean isSelected, final boolean hasFocus) {
-	        JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-	        label.setIcon(((ColorItem)value).getIcon());
+		public Component getListCellRendererComponent(final JList list,
+				final Object value, final int index, final boolean isSelected,
+				final boolean hasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list,
+					value, index, isSelected, hasFocus);
+			label.setIcon(((ColorItem) value).getIcon());
 	        return label;
 	    }
 	}
 
 	/**
-	 * Entry point of application for JVM
+	 * Entry point of application for JVM.
 	 * @param args String array of arguments (not used)
 	 */
 	public static void main(final String[] args) {

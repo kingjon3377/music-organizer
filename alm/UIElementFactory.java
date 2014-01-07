@@ -110,7 +110,7 @@ public class UIElementFactory {
 	}
 
 	/**
-	 * Private constructor
+	 * Private constructor.
 	 */
 	private UIElementFactory() {
 	}
