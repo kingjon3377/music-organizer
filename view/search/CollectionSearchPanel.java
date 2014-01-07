@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ContainerListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JLabel;
@@ -112,8 +110,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 		collections.addAll(AllBooks.ALL_BOOKS);
 		collections.addAll(AllRecordings.ALL_RECORDINGS);
 		for (TuneCollection coll : collections) {
-			if (coll
-					.containsAll(convertArray(tuneList.getSelectedValues()))) {
+			if (coll.containsAll(tuneList.getSelectedValuesList())) {
 				results.add(coll);
 			}
 		}
@@ -125,21 +122,5 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	@Override
 	public void propertyChange(final PropertyChangeEvent evt) {
 		// Do nothing for now
-	}
-	/**
-	 * Converts an Object[] containing only Tunes to a List<Tune>.
-	 * @param array an array of Objects that are all Tunes
-	 * @return an equivalent List of the Tunes.
-	 */
-	private static List<Tune> convertArray(final Object[] array) {
-		final List<Tune> tunes = new ArrayList<>(); // NOPMD
-		for (Object o : array) {
-			if (o instanceof Tune) {
-				tunes.add((Tune) o);
-			} else {
-				throw new IllegalStateException("Array member wasn't a Tune");
-			}
-		}
-		return tunes;
 	}
 }
