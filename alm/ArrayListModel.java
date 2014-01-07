@@ -41,13 +41,6 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
 		public Object get(final int index) {
             throw new IndexOutOfBoundsException("Index: " + index);
         }
-        /**
-         * Preserves singleton property.
-         * @return the singleton.
-         */
-        private Object readResolve() {
-            return EMPTY_LIST;
-        }
     }
 
     /** The empty list (immutable).  This list is serializable. */
