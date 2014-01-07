@@ -19,26 +19,26 @@ public interface UIElement {
 	Object getItem();
 
 	/**
-	 * Gets a description of the UI element; this method may return null
+	 * Gets a description of the UI element; this method may return null.
 	 * @return String
 	 */
 	String getDescription();
 
 	/**
-	 * Gets the small icon for the UI element; this method may return null
+	 * Gets the small icon for the UI element; this method may return null.
 	 * @return Icon
 	 */
 	Icon   getSmallIcon();
 
 	/**
-	 * Gets the large icon for the UI element; this method may return null
+	 * Gets the large icon for the UI element; this method may return null.
 	 * @return Icon
 	 */
 	Icon   getLargeIcon();
 
 	/**
 	 * Gets the visual component associated with the UI element; this method must <em>not</em> return
-	 * null
+	 * null.
 	 * @return JComponent
 	 */
 	JComponent getComponent();

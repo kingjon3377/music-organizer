@@ -16,7 +16,7 @@ import javax.swing.event.ListDataListener;
  */
 public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
     /**
-     * This class implements an empty ArrayListModel
+     * This class implements an empty ArrayListModel.
      */
     private static class EmptyList extends ArrayListModel
                                    implements RandomAccess, Serializable {
@@ -41,7 +41,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
     /** The empty list (immutable).  This list is serializable. */
     public static final ArrayListModel EMPTY_LIST = new EmptyList();
-    /** List of ListDataListeners */
+    /** List of ListDataListeners. */
 	protected List<ListDataListener> listDataListeners;
 
 	/**
@@ -58,7 +58,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when an item is added to the
-	 * collection
+	 * collection.
 	 * @param o E
 	 * @return boolean true (as per the contract of <code>Collection.add()</code>)
 	 */
@@ -74,7 +74,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when a collection is added to
-	 * this collection
+	 * this collection.
 	 * @param coll Collection
 	 * @return boolean true if obj was successfully added
 	 */
@@ -89,7 +89,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	}
 
 	/**
-	 * Augments superclass method to fire an appropriate event when the collection is emptied
+	 * Augments superclass method to fire an appropriate event when the collection is emptied.
 	 */
 	@Override
 	public void clear() {
@@ -100,7 +100,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when the element at the given index
-	 * is removed from the collection
+	 * is removed from the collection.
 	 * @param index int
 	 * @return the element removed from the list
 	 */
@@ -131,7 +131,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when a range of items is removed
-	 * from the collection
+	 * from the collection.
 	 * @param fromIndex int
 	 * @param toIndex int
 	 */
@@ -143,7 +143,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when the given collection is
-	 * removed from this collection
+	 * removed from this collection.
 	 * @param coll Collection
 	 * @return boolean true if the collection was successfully removed
 	 */
@@ -159,7 +159,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when the given collection is
-	 * retained in this collection
+	 * retained in this collection.
 	 * @param coll Collection
 	 * @param boolean true if successful
 	 */
@@ -176,7 +176,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Augments superclass method to fire an appropriate event when an item in the collection
-	 * is modified
+	 * is modified.
 	 * @param index int
 	 * @param element Object
 	 */
@@ -188,7 +188,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	}
 
 	/**
-	 * Implementation of the method in the ListModel interface
+	 * Implementation of the method in the ListModel interface.
 	 * @return int
 	 * @see javax.swing.ListModel#getSize()
 	 */
@@ -198,7 +198,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	}
 
 	/**
-	 * Implementation of the method in the ListModel interface
+	 * Implementation of the method in the ListModel interface.
 	 * @param index int
 	 * @return Object
 	 * @see javax.swing.ListModel#getElementAt(int)
@@ -209,7 +209,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	}
 
 	/**
-	 * Implementation of the method in the ListModel interface
+	 * Implementation of the method in the ListModel interface.
 	 * @param listener ListDataListener
 	 * @see javax.swing.ListModel#addListDataListener(javax.swing.event.ListDataListener)
 	 */
@@ -224,7 +224,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	}
 
 	/**
-	 * Implementation of the method in the ListModel interface
+	 * Implementation of the method in the ListModel interface.
 	 * @param listener ListDataListener
 	 * @see javax.swing.ListModel#removeListDataListener(javax.swing.event.ListDataListener)
 	 */
@@ -237,7 +237,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Helper method to fire an event to all listeners when an interval in the collection
-	 * is added
+	 * is added.
 	 * @param firstIndex  int
 	 * @param lastIndex int
 	 */
@@ -252,7 +252,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Helper method to fire an event to all listeners when an interval in the collection
-	 * is removed
+	 * is removed.
 	 * @param firstIndex  int
 	 * @param lastIndex int
 	 */
@@ -267,7 +267,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 
 	/**
 	 * Helper method to fire an event to all listeners when an interval in the collection
-	 * is updated
+	 * is updated.
 	 * @param firstIndex  int
 	 * @param lastIndex int
 	 */

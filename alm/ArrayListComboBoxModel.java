@@ -11,7 +11,7 @@ public class ArrayListComboBoxModel extends ArrayListModel implements ComboBoxMo
 	private Object selectedItem;
 
 	/**
-	 * Implements the method in the ComboBoxModel interface
+	 * Implements the method in the ComboBoxModel interface.
 	 * @return Object
 	 * @see javax.swing.ComboBoxModel#getSelectedItem()
 	 */
@@ -21,7 +21,7 @@ public class ArrayListComboBoxModel extends ArrayListModel implements ComboBoxMo
 	}
 
 	/**
-	 * Implements the method in the ComboBoxModel interface
+	 * Implements the method in the ComboBoxModel interface.
 	 * @parm item Object
 	 * @see javax.swing.ComboBoxModel#setSelectedItem(java.lang.Object)
 	 */
