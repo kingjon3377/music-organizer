@@ -13,7 +13,7 @@ import javax.swing.event.ListDataListener;
  * @param <E> the type of item in the list
  * @author Phil Herold
  */
-public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
+public class ArrayListModel<E> extends ArrayList<E> implements ListModel<E> {
     /**
      * This class implements an empty ArrayListModel.
      */
@@ -159,7 +159,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	 * @return boolean true if the collection was successfully removed
 	 */
 	@Override
-	public boolean removeAll(final Collection coll) {
+	public boolean removeAll(final Collection<?> coll) {
 		int lastIndex = size() - 1;
 		boolean ok = super.removeAll(coll);
 		if (ok) {
@@ -216,7 +216,7 @@ public class ArrayListModel<E> extends ArrayList<E> implements ListModel {
 	 * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	@Override
-	public Object getElementAt(final int index) {
+	public E getElementAt(final int index) {
 		return super.get(index);
 	}
 

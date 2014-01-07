@@ -5,9 +5,14 @@ import javax.swing.ComboBoxModel;
 
 /**
  * This class extends ArrayListModel to support a collection as a model for a JComboBox.
+ * @param <E> the type of item in the model.
  * @author Phil Herold
  */
-public class ArrayListComboBoxModel extends ArrayListModel implements ComboBoxModel {
+public class ArrayListComboBoxModel<E> extends ArrayListModel<E> implements ComboBoxModel<E> {
+	/**
+	 * The selected item. According to the ComboBoxModel docs, this need not be
+	 * an item that can be in the underlying collection!
+	 */
 	private Object selectedItem;
 
 	/**

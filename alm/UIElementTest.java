@@ -89,16 +89,16 @@ public class UIElementTest {
 				// The data models.
 				final ArrayListModel<UIElement> model = new ArrayListModel<>();
 				UIElementFactory.addElementsToList(model);
-				ArrayListComboBoxModel listModel = new ArrayListComboBoxModel();
+				ArrayListComboBoxModel<UIElement> listModel = new ArrayListComboBoxModel<UIElement>();
 
 				// The list is used to select a UIElement in the model, and show it's
 				// corresponding view
-				final JList list = new JList(listModel) {
+				final JList<UIElement> list = new JList<UIElement>(listModel) {
 			        // This method is called as the cursor moves within the list.
 			        @Override
 					public String getToolTipText(final MouseEvent e) {
 			            int index = locationToIndex(e.getPoint());
-						UIElement element = (UIElement) getModel()
+						UIElement element = getModel()
 								.getElementAt(index);
 			            return element.getDescription();
 			        }
@@ -109,7 +109,7 @@ public class UIElementTest {
 				list.addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(final ListSelectionEvent e) {
-						final UIElement element = (UIElement) list
+						final UIElement element = list
 								.getSelectedValue();
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
