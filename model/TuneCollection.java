@@ -3,6 +3,8 @@ package model;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A collection of entries.
  * @author Jonathan Lovelace
@@ -23,5 +25,5 @@ public interface TuneCollection {
 	 * @param tunes a collection of tunes
 	 * @return whether this collection contains all of them
 	 */
-	boolean containsAll(final Collection<? extends Tune> tunes);
+	boolean containsAll(@Nullable final Collection<? extends Tune> tunes);
 }

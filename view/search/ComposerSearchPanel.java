@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 
 import model.Tune;
 import model.collections.AllTunes;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 import view.EditWindow;
 import view.TunePanel;
@@ -67,8 +70,10 @@ public class ComposerSearchPanel extends JPanel implements ActionListener,
 	 *            the event to handle
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent evt) {
-		if ("Search".equals(evt.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent evt) {
+		if (evt == null) {
+			return;
+		} else if ("Search".equals(evt.getActionCommand())) {
 			if (!results.isEmpty()) {
 				results.clear();
 			}
@@ -96,7 +101,7 @@ public class ComposerSearchPanel extends JPanel implements ActionListener,
 	 * @param evt the event to handle
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
 		// Do nothing for now
 	}
 }

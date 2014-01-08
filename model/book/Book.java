@@ -11,6 +11,8 @@ import model.CollectionEntry;
 import model.Tune;
 import model.TuneCollection;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A book is a collection of tunes, each with associated data, that is, a
  * collection of BookEntries.
@@ -70,7 +72,9 @@ public class Book implements Serializable, TuneCollection {
 	 */
 	@Override
 	public CollectionEntry getEntry(final int index) {
-		return entries.get(index);
+		final CollectionEntry retval = entries.get(index);
+		assert retval != null;
+		return retval;
 	}
 	/**
 	 * Remove an entry from the list.
@@ -109,7 +113,10 @@ public class Book implements Serializable, TuneCollection {
 	 * @return whether this book contains all of them.
 	 */
 	@Override
-	public boolean containsAll(final Collection<? extends Tune> tunes) {
+	public boolean containsAll(@Nullable final Collection<? extends Tune> tunes) {
+		if (tunes == null) {
+			return true;
+		}
 		final Set<Tune> tunesInBook = new HashSet<>();
 		for (BookEntry entry : entries) {
 			tunesInBook.add(entry.getTune());

@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.xml.sax.SAXException;
 
 import utils.MusicXMLReader;
@@ -18,7 +19,7 @@ import view.search.SearchMenu;
 
 /**
  * A menu bar for the Save, Load, and Exit commands.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class MusicMenu extends JMenuBar implements ActionListener {
@@ -33,6 +34,7 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 	/**
 	 * Logger.
 	 */
+	@SuppressWarnings("null")
 	private static final Logger LOGGER = Logger.getLogger(MusicMenu.class.getName());
 
 	/**
@@ -54,38 +56,51 @@ public class MusicMenu extends JMenuBar implements ActionListener {
 
 	/**
 	 * Handle menu item selections.
-	 * 
+	 *
 	 * @param event
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Exit".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event == null) {
+			return;
+		} else if ("Exit".equals(event.getActionCommand())) {
 			MusicGUIDriver.DRIVER.setVisible(false);
 			MusicGUIDriver.DRIVER.dispose();
 			System.exit(0); // NOPMD
-		} else if ("Save".equals(event.getActionCommand())) {
-			if (FILE_CHOOSER.showSaveDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
-				try {
-					new XMLWriter(FILE_CHOOSER.getSelectedFile().getPath()).write();
-				} catch (IOException e) {
-					LOGGER.log(Level.SEVERE,
-							"I/O error when trying to write to XML file", e);
+		} else {
+
+			if ("Save".equals(event.getActionCommand())) {
+				if (FILE_CHOOSER.showSaveDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
+					final String filename = FILE_CHOOSER.getSelectedFile().getPath();
+					if (filename == null) {
+						return;
+					}
+					try {
+						new XMLWriter(filename).write();
+					} catch (IOException e) {
+						LOGGER.log(Level.SEVERE,
+								"I/O error when trying to write to XML file", e);
+					}
 				}
+			} else if ("Load".equals(event.getActionCommand())
+					&& FILE_CHOOSER.showOpenDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
+				final String filename = FILE_CHOOSER.getSelectedFile().getPath();
+				if (filename == null) {
+					return;
+				}
+				try {
+					new MusicXMLReader(filename);
+				} catch (SAXException except) {
+					LOGGER.log(Level.SEVERE,
+							"XML parsing exception when trying to read from XML file",
+							except);
+				} catch (IOException except) {
+					LOGGER.log(Level.SEVERE,
+							"I/O error when trying to read from XML file", except);
+				}
+				MusicGUIDriver.DRIVER.repaint();
 			}
-		} else if ("Load".equals(event.getActionCommand())
-				&& FILE_CHOOSER.showOpenDialog(MusicGUIDriver.DRIVER) == JFileChooser.APPROVE_OPTION) {
-			try {
-				new MusicXMLReader(FILE_CHOOSER.getSelectedFile().getPath());
-			} catch (SAXException except) {
-				LOGGER.log(Level.SEVERE,
-						"XML parsing exception when trying to read from XML file",
-						except);
-			} catch (IOException except) {
-				LOGGER.log(Level.SEVERE,
-						"I/O error when trying to read from XML file", except);
-			}
-			MusicGUIDriver.DRIVER.repaint();
 		}
 	}
 }

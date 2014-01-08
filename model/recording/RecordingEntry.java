@@ -3,17 +3,19 @@ package model.recording;
 import model.CollectionEntry;
 import model.Tune;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A track on a recording.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public class RecordingEntry implements CollectionEntry {
 	/**
 	 * The tune.
 	 */
-	private Tune tune;
+	@Nullable private Tune tune;
 	/**
 	 * The track number.
 	 */
@@ -29,22 +31,23 @@ public class RecordingEntry implements CollectionEntry {
 
 	/**
 	 * Accessor.
-	 * 
+	 *
 	 * @return the tune in the entry
 	 */
 	@Override
+	@Nullable
 	public final Tune getTune() {
 		return tune;
 	}
 
 	/**
 	 * Mutator.
-	 * 
+	 *
 	 * @param newTune
 	 *            the new tune in the entry
 	 */
 	@Override
-	public final void setTune(final Tune newTune) {
+	public final void setTune(@Nullable final Tune newTune) {
 		tune = newTune;
 	}
 
@@ -68,6 +71,7 @@ public class RecordingEntry implements CollectionEntry {
 	 */
 	@Override
 	public String toString() {
-		return "Track " + track + ": " + (tune == null ? "No tune" : tune.toString());
+		final Tune cTune = tune;
+		return "Track " + track + ": " + (cTune == null ? "No tune" : cTune.toString());
 	}
 }

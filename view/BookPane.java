@@ -17,6 +17,9 @@ import model.CollectionEntry;
 import model.TuneCollection;
 import model.book.Book;
 import model.book.BookEntry;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 import alm.ArrayListModel;
 
@@ -39,10 +42,11 @@ public final class BookPane extends JPanel implements ActionListener,
 	/**
 	 * The book we're dealing with.
 	 */
-	private Book book;
+	@Nullable private Book book;
 	/**
 	 * Logger.
 	 */
+	@SuppressWarnings("null")
 	private static final Logger LOGGER = Logger.getLogger(BookPane.class
 			.getName());
 	/**
@@ -64,7 +68,7 @@ public final class BookPane extends JPanel implements ActionListener,
 	 * @param theBook
 	 *            The book this window is editing
 	 */
-	public BookPane(final Book theBook) {
+	public BookPane(@Nullable final Book theBook) {
 		this();
 		book = theBook;
 		actionPerformed(new ActionEvent(this, 0, REVERT));
@@ -95,17 +99,20 @@ public final class BookPane extends JPanel implements ActionListener,
 	 *            The button-press event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent actEvent) {
-		if (REVERT.equals(actEvent.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent actEvent) {
+		if (actEvent == null) {
+			return;
+		} else if (REVERT.equals(actEvent.getActionCommand())) {
 			if (!tunes.isEmpty()) {
 				tunes.clear();
 			}
-			if (book == null) {
+			final Book localBook = book;
+			if (localBook == null) {
 				titleField.setText("");
 			} else {
-				titleField.setText(book.getTitle());
+				titleField.setText(localBook.getTitle());
 				try {
-					tunes.addAll(book.getEntries());
+					tunes.addAll(localBook.getEntries());
 				} catch (IndexOutOfBoundsException except) {
 					LOGGER.log(Level.INFO,
 							"Expected IndexOutOfBoundsException", except);
@@ -129,26 +136,30 @@ public final class BookPane extends JPanel implements ActionListener,
 	 * made to the event this panel is editing.
 	 */
 	private void apply() {
-		if (book == null) {
+		final Book localBook = book;
+		final String title = titleField.getText();
+		if (localBook == null) {
 			book = new Book();
 			book.addAll(tunes);
-			book.setTitle(titleField.getText());
+			assert book != null;
+			book.setTitle(title == null ? "" : title);
 			firePropertyChange("book", null, book);
 		} else {
-			book.setTitle(titleField.getText());
-			for (CollectionEntry entry : book.getEntries()) {
-				if (!tunes.contains(entry)) {
-					book.removeEntry(entry);
+			localBook.setTitle(title == null ? "" : title);
+			for (CollectionEntry entry : localBook.getEntries()) {
+				if (entry != null && !tunes.contains(entry)) {
+					localBook.removeEntry(entry);
 				}
 			}
-			book.addAll(tunes);
-			firePropertyChange("book", book, book);
+			localBook.addAll(tunes);
+			firePropertyChange("book", book, localBook);
 		}
 	}
 
 	/**
 	 * @return the Book this frame is for editing
 	 */
+	@Nullable
 	public TuneCollection getBook() {
 		return book;
 	}
@@ -158,7 +169,8 @@ public final class BookPane extends JPanel implements ActionListener,
 	 *            The Book this frame will edit
 	 */
 	public void setBook(final Book theBook) {
-		if (!book.equals(theBook)) {
+		final Book old = book;
+		if (old == null || !old.equals(theBook)) {
 			book = theBook;
 			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
@@ -169,7 +181,10 @@ public final class BookPane extends JPanel implements ActionListener,
 	 * @param evt An event from a spawned panel.
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
+		if (evt == null) {
+			return;
+		}
 		final Object newValue = evt.getNewValue();
 		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null
 				&& newValue instanceof BookEntry) {

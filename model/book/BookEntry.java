@@ -3,6 +3,8 @@ package model.book;
 import model.CollectionEntry;
 import model.Tune;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * An entry in a book, consisting of a tune and associated data.
  * @author Jonathan Lovelace
@@ -11,7 +13,7 @@ public class BookEntry implements CollectionEntry {
 	/**
 	 * The tune.
 	 */
-	private Tune tune;
+	@Nullable private Tune tune;
 	/**
 	 * The page number the tune is on.
 	 */
@@ -24,7 +26,7 @@ public class BookEntry implements CollectionEntry {
 	 * Constructor.
 	 * @param theTune The tune in this entry
 	 */
-	public BookEntry(final Tune theTune) {
+	public BookEntry(@Nullable final Tune theTune) {
 		tune = theTune;
 		page = 0;
 		key = "";
@@ -34,6 +36,7 @@ public class BookEntry implements CollectionEntry {
 	 * @return the tune in the entry
 	 */
 	@Override
+	@Nullable
 	public final Tune getTune() {
 		return tune;
 	}
@@ -42,7 +45,7 @@ public class BookEntry implements CollectionEntry {
 	 * @param newTune the new tune in the entry
 	 */
 	@Override
-	public void setTune(final Tune newTune) {
+	public void setTune(@Nullable final Tune newTune) {
 		tune = newTune;
 	}
 	/**
@@ -74,6 +77,7 @@ public class BookEntry implements CollectionEntry {
 	 */
 	@Override
 	public String toString() {
-		return (tune == null ? "No tune" : tune.toString()) + " on page " + page;
+		final Tune lTune = tune;
+		return (lTune == null ? "No tune" : lTune.toString()) + " on page " + page;
 	}
 }

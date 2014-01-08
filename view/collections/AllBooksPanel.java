@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 
 import model.book.Book;
 import model.collections.AllBooks;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 import view.BookPane;
 import view.EditWindow;
@@ -53,8 +56,10 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Add Book".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event == null) {
+			return;
+		} else if ("Add Book".equals(event.getActionCommand())) {
 			new EditWindow("Add book", new BookPane(), this).setVisible(true);
 		} else if ("Edit Book".equals(event.getActionCommand())) {
 			new EditWindow("Edit book", new BookPane(bookList
@@ -71,7 +76,10 @@ public class AllBooksPanel extends JPanel implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
+		if (evt == null) {
+			return;
+		}
 		final Object oldValue = evt.getOldValue();
 		final Object newValue = evt.getNewValue();
 		if ("book".equals(evt.getPropertyName()) && oldValue == null

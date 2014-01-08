@@ -11,10 +11,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.CollectionEntry;
 import model.Tune;
 import model.book.BookEntry;
 import model.collections.AllTunes;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 
 /**
@@ -34,7 +36,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * The BookEntry we're dealing with.
 	 */
-	private BookEntry entry;
+	@Nullable private BookEntry entry;
 	/**
 	 * A list of tunes, of which one can be selected.
 	 */
@@ -65,9 +67,10 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 			 */
 			private static final int TOO_LONG = 3; // NOPMD
 			@Override
-			public boolean verify(final JComponent input) {
+			public boolean verify(@Nullable final JComponent input) {
 				assert input instanceof JTextField;
-				return verify(((JTextField) input).getText());
+				final String text = ((JTextField) input).getText();
+				return text != null && verify(text);
 			}
 
 			private boolean verify(final String input) {
@@ -87,7 +90,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	 * @param theEntry
 	 *            The BookEntry this panel allows the user to edit
 	 */
-	public BookEntryPanel(final BookEntry theEntry) {
+	public BookEntryPanel(@Nullable final BookEntry theEntry) {
 		this();
 		entry = theEntry;
 		actionPerformed(new ActionEvent(this, 0, REVERT));
@@ -96,7 +99,7 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	/**
 	 * @return the BookEntry this panel is editing
 	 */
-	public CollectionEntry getEntry() {
+	@Nullable public BookEntry getEntry() {
 		return entry;
 	}
 
@@ -104,8 +107,9 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	 * @param newEntry
 	 *            The BookEntry this panel is to edit
 	 */
-	public void setEntry(final BookEntry newEntry) {
-		if (!entry.equals(newEntry)) {
+	public void setEntry(@Nullable final BookEntry newEntry) {
+		final BookEntry lEntry = entry;
+		if (lEntry == null || !lEntry.equals(newEntry)) {
 			entry = newEntry;
 			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
@@ -118,18 +122,21 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	 *            The event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Apply".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event == null) {
+			return;
+		} else if ("Apply".equals(event.getActionCommand())) {
 			apply();
 		} else if (REVERT.equals(event.getActionCommand())) {
-			if (entry == null) {
+			final BookEntry lEntry = entry;
+			if (lEntry == null) {
 				tuneList.setSelectedIndices(new int[0]);
 				pageField.setText("");
 				keyField.setText("");
 			} else {
-				tuneList.setSelectedValue(entry.getTune(), true);
-				pageField.setText(Integer.toString(entry.getPage()));
-				keyField.setText(entry.getKey());
+				tuneList.setSelectedValue(lEntry.getTune(), true);
+				pageField.setText(Integer.toString(lEntry.getPage()));
+				keyField.setText(lEntry.getKey());
 			}
 		}
 	}
@@ -138,16 +145,19 @@ public final class BookEntryPanel extends JPanel implements ActionListener {
 	 * Called when the apply button is pressed.
 	 */
 	private void apply() {
-		if (entry == null) {
-			entry = new BookEntry(tuneList.getSelectedValue());
-			entry.setPage(Integer.parseInt(pageField.getText()));
-			entry.setKey(keyField.getText());
-			firePropertyChange("entry", null, entry);
+		final BookEntry lEntry = entry;
+		final String key = keyField.getText();
+		if (lEntry == null) {
+			final BookEntry nEntry = new BookEntry(tuneList.getSelectedValue());
+			nEntry.setPage(Integer.parseInt(pageField.getText()));
+			nEntry.setKey(key == null ? "" : key);
+			entry = nEntry;
+			firePropertyChange("entry", null, nEntry);
 		} else {
-			entry.setTune(tuneList.getSelectedValue());
-			entry.setPage(Integer.parseInt(pageField.getText()));
-			entry.setKey(keyField.getText());
-			firePropertyChange("entry", entry, entry);
+			lEntry.setTune(tuneList.getSelectedValue());
+			lEntry.setPage(Integer.parseInt(pageField.getText()));
+			lEntry.setKey(key == null ? "" : key);
+			firePropertyChange("entry", lEntry, lEntry);
 		}
 	}
 }
