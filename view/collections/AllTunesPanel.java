@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 
 import model.Tune;
 import model.collections.AllTunes;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 import view.EditWindow;
 import view.TunePanel;
@@ -52,8 +55,10 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Add Tune".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event == null) {
+			return;
+		} else if ("Add Tune".equals(event.getActionCommand())) {
 			new EditWindow("Add tune", new TunePanel(), this).setVisible(true);
 		} else if ("Edit Tune".equals(event.getActionCommand())) {
 			new EditWindow("Edit tune",
@@ -67,7 +72,10 @@ public class AllTunesPanel extends JPanel implements ActionListener,
 	 * @param evt the event we're handling
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
+		if (evt == null) {
+			return;
+		}
 		final Object newValue = evt.getNewValue();
 		if ("tune".equals(evt.getPropertyName()) && evt.getOldValue() == null
 				&& newValue instanceof Tune) {

@@ -9,10 +9,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.CollectionEntry;
 import model.Tune;
 import model.collections.AllTunes;
 import model.recording.RecordingEntry;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 
 /**
@@ -32,7 +34,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	/**
 	 * The entry we're dealing with.
 	 */
-	private RecordingEntry entry;
+	@Nullable private RecordingEntry entry;
 	/**
 	 * A list of the tunes that the entry might include.
 	 */
@@ -61,7 +63,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	 * @param theEntry
 	 *            The RecordingEntry this panel allows the user to edit
 	 */
-	public RecordingEntryPanel(final RecordingEntry theEntry) {
+	public RecordingEntryPanel(@Nullable final RecordingEntry theEntry) {
 		this();
 		entry = theEntry;
 		actionPerformed(new ActionEvent(this, 0, REVERT));
@@ -70,7 +72,7 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	/**
 	 * @return the RecordingEntry this panel is editing
 	 */
-	public CollectionEntry getEntry() {
+	@Nullable public RecordingEntry getEntry() {
 		return entry;
 	}
 
@@ -78,8 +80,9 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	 * @param newEntry
 	 *            the RecordingEntry this panel is to edit
 	 */
-	public void setEntry(final RecordingEntry newEntry) {
-		if (!entry.equals(newEntry)) {
+	public void setEntry(@Nullable final RecordingEntry newEntry) {
+		final RecordingEntry lEntry = entry;
+		if (lEntry == null || !lEntry.equals(newEntry)) {
 			entry = newEntry;
 			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
@@ -92,16 +95,19 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	 *            The event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Apply".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event ==  null) {
+			return;
+		} else if ("Apply".equals(event.getActionCommand())) {
 			apply();
 		} else if (REVERT.equals(event.getActionCommand())) {
-			if (entry == null) {
+			final RecordingEntry lEntry = entry;
+			if (lEntry == null) {
 				tuneList.setSelectedIndices(new int[0]);
 				trackField.setText("");
 			} else {
-				tuneList.setSelectedValue(entry.getTune(), true);
-				trackField.setText(Integer.toString(entry.getTrack()));
+				tuneList.setSelectedValue(lEntry.getTune(), true);
+				trackField.setText(Integer.toString(lEntry.getTrack()));
 			}
 		}
 	}
@@ -110,14 +116,16 @@ public final class RecordingEntryPanel extends JPanel implements ActionListener 
 	 * Called when the apply button is pressed.
 	 */
 	private void apply() {
-		if (entry == null) {
-			entry = new RecordingEntry();
-			entry.setTune(tuneList.getSelectedValue());
-			entry.setTrack(Integer.parseInt(trackField.getText()));
-			firePropertyChange("entry", null, entry);
+		final RecordingEntry lEntry = entry;
+		if (lEntry == null) {
+			final RecordingEntry nEntry = new RecordingEntry();
+			nEntry.setTune(tuneList.getSelectedValue());
+			nEntry.setTrack(Integer.parseInt(trackField.getText()));
+			entry = nEntry;
+			firePropertyChange("entry", null, nEntry);
 		} else {
-			entry.setTune(tuneList.getSelectedValue());
-			entry.setTrack(Integer.parseInt(trackField.getText()));
+			lEntry.setTune(tuneList.getSelectedValue());
+			lEntry.setTrack(Integer.parseInt(trackField.getText()));
 			firePropertyChange("entry", entry, entry);
 		}
 	}

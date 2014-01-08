@@ -8,9 +8,11 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A window to hold any of the edit panes.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public class EditWindow extends JFrame implements ContainerListener {
@@ -29,7 +31,7 @@ public class EditWindow extends JFrame implements ContainerListener {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param title
 	 *            The title of the window
 	 * @param panel
@@ -53,7 +55,7 @@ public class EditWindow extends JFrame implements ContainerListener {
 	 * @param event ignored
 	 */
 	@Override
-	public void componentAdded(final ContainerEvent event) {
+	public void componentAdded(@Nullable final ContainerEvent event) {
 		// Do nothing
 	}
 
@@ -62,7 +64,7 @@ public class EditWindow extends JFrame implements ContainerListener {
 	 * @param event If null, close the window.
 	 */
 	@Override
-	public void componentRemoved(final ContainerEvent event) {
+	public void componentRemoved(@Nullable final ContainerEvent event) {
 		if (event == null) {
 			setVisible(false);
 			setEnabled(false);

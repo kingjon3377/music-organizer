@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -42,7 +41,7 @@ public final class UIElementTest {
 	/**
 	 * The panel used by the test.
 	 */
-	protected static JPanel componentPanel = new JPanel(new BorderLayout());
+	protected static final JPanel componentPanel = new JPanel(new BorderLayout());
 
 	/**
 	 * CellRenderer for a UIElement in a JList.

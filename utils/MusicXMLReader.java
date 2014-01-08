@@ -12,6 +12,7 @@ import model.collections.AllTunes;
 import model.recording.Recording;
 import model.recording.RecordingEntry;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -20,9 +21,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
  * A SAX parser for the music organization XML.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public class MusicXMLReader extends DefaultHandler implements Serializable {
 	/**
@@ -32,15 +33,15 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	/**
 	 * The recording we're currently filling.
 	 */
-	private transient Recording currentRecording;
+	@Nullable private transient Recording currentRecording;
 	/**
 	 * The book we're currently filling.
 	 */
-	private transient Book currentBook;
+	@Nullable private transient Book currentBook;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param filename
 	 *            Filename of the XML file that contains a map.
 	 * @throws SAXException
@@ -48,6 +49,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 * @throws IOException
 	 *             when the parser encounters an I/O error
 	 */
+	@SuppressWarnings("null")
 	public MusicXMLReader(final String filename) throws SAXException, IOException {
 		super();
 		parserSetContentHandler(XMLReaderFactory.createXMLReader()).parse(filename);
@@ -55,7 +57,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 
 	/**
 	 * Avoids having an XMLReader local variable.
-	 * 
+	 *
 	 * @param reader
 	 *            An XMLReader
 	 * @return the XMLReader, with its ContentHandler having been set to this.
@@ -67,7 +69,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 
 	/**
 	 * Called when we've finished parsing an element.
-	 * 
+	 *
 	 * @param namespaceURI
 	 *            the Namespace URI
 	 * @param localName
@@ -78,8 +80,8 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 *             required by spec
 	 */
 	@Override
-	public void endElement(final String namespaceURI, final String localName,
-			final String qualifiedName) throws SAXException {
+	public void endElement(@Nullable final String namespaceURI, @Nullable final String localName,
+			@Nullable final String qualifiedName) throws SAXException {
 		if ("recording".equals(localName)) {
 			currentRecording = null; // NOPMD
 		} else if ("book".equals(localName)) {
@@ -89,7 +91,7 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 
 	/**
 	 * Start parsing an element.
-	 * 
+	 *
 	 * @param namespaceURI
 	 *            the namespace URI of the element
 	 * @param localName
@@ -102,48 +104,57 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 *             required by spec
 	 */
 	@Override
-	public void startElement(final String namespaceURI, final String localName,
-			final String qualifiedName, final Attributes atts) throws SAXException {
-		if ("tune".equals(localName)) {
+	public void startElement(@Nullable final String namespaceURI,
+			@Nullable final String localName,
+			@Nullable final String qualifiedName,
+			@Nullable final Attributes atts) throws SAXException {
+		if (atts == null) {
+			throw new IllegalArgumentException("Can't work with null Attributes");
+		} else if ("tune".equals(localName)) {
 			parseTune(atts);
 		} else if ("book".equals(localName)) {
 			currentBook = parseBook(atts);
 		} else if ("book_entry".equals(localName)) {
-			if (currentBook == null) {
+			final Book cbk = currentBook;
+			if (cbk == null) {
 				throw new SAXException(new IllegalStateException(
 						"book_entry tag outside of any book"));
 			} else {
-				currentBook.addEntry(parseBookEntry(atts));
+				cbk.addEntry(parseBookEntry(atts));
 			}
 		} else if ("recording".equals(localName)) {
 			currentRecording = parseRecording(atts);
 		} else if ("record_entry".equals(localName)) {
-			if (currentRecording == null) {
+			final Recording crec = currentRecording;
+			if (crec == null) {
 				throw new SAXException(new IllegalStateException(
 						"record_entry tag outside of any recording"));
 			} else {
-				currentRecording.addEntry(parseRecordEntry(atts));
+				crec.addEntry(parseRecordEntry(atts));
 			}
 		}
 	}
 
 	/**
 	 * Parse a tune.
-	 * 
+	 *
 	 * @param atts
 	 *            The XML tag's attributes
 	 */
 	private static void parseTune(final Attributes atts) {
 		final Tune tune = new Tune();
-		tune.setName(atts.getValue("name"));
-		tune.setComposer(atts.getValue("composer"));
-		tune.setTimeSignature(atts.getValue("time"));
+		final String name = atts.getValue("name");
+		tune.setName(name == null ? "" : name);
+		final String composer = atts.getValue("composer");
+		tune.setComposer(composer == null ? "" : composer);
+		final String time = atts.getValue("time");
+		tune.setTimeSignature(time == null ? "" : time);
 		AllTunes.ALL_TUNES.add(Integer.parseInt(atts.getValue("id")), tune);
 	}
 
 	/**
 	 * Parse a book.
-	 * 
+	 *
 	 * @param atts
 	 *            The XML tag's attributes
 	 * @return the book
@@ -158,14 +169,15 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	 * @return the book, with its data initialized.
 	 */
 	private static Book parseBook(final Book book, final Attributes atts) {
-		book.setTitle(atts.getValue("title"));
+		final String title = atts.getValue("title");
+		book.setTitle(title == null ? "" : title);
 		AllBooks.ALL_BOOKS.add(Integer.parseInt(atts.getValue("id")), book);
 		return book;
 	}
 
 	/**
 	 * Parse a book entry.
-	 * 
+	 *
 	 * @param atts
 	 *            the XML tag's attributes
 	 * @return the entry
@@ -173,28 +185,30 @@ public class MusicXMLReader extends DefaultHandler implements Serializable {
 	private static BookEntry parseBookEntry(final Attributes atts) {
 		final BookEntry entry = new BookEntry(AllTunes.ALL_TUNES.get(Integer.parseInt(atts
 				.getValue("tune"))));
-		entry.setKey(atts.getValue("key"));
+		final String key = atts.getValue("key");
+		entry.setKey(key == null ? "" : key);
 		entry.setPage(Integer.parseInt(atts.getValue("page")));
 		return entry;
 	}
 
 	/**
 	 * Parse a recording.
-	 * 
+	 *
 	 * @param atts
 	 *            the XML tag's attributes
 	 * @return the recording
 	 */
 	private static Recording parseRecording(final Attributes atts) {
 		final Recording record = new Recording();
-		record.setTitle(atts.getValue("title"));
+		final String title = atts.getValue("title");
+		record.setTitle(title == null ? "" : title);
 		AllRecordings.ALL_RECORDINGS.add(Integer.parseInt(atts.getValue("id")), record);
 		return record;
 	}
 
 	/**
 	 * Parse a recording entry.
-	 * 
+	 *
 	 * @param atts
 	 *            the XML tag's attributes
 	 * @return the recording entry

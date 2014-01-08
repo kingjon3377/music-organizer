@@ -38,17 +38,23 @@ public class XMLWriter {
 		writer.println("<music>");
 		writer.println("\t<tunes>");
 		for (Tune tune : AllTunes.ALL_TUNES) {
-			writeTune(tune);
+			if (tune != null) {
+				writeTune(tune);
+			}
 		}
 		writer.println("\t</tunes>");
 		writer.println("\t<books>");
 		for (Book book : AllBooks.ALL_BOOKS) {
-			writeBook(book);
+			if (book != null) {
+				writeBook(book);
+			}
 		}
 		writer.println("\t</books>");
 		writer.println("\t<records>");
 		for (Recording record : AllRecordings.ALL_RECORDINGS) {
-			writeRecording(record);
+			if (record != null) {
+				writeRecording(record);
+			}
 		}
 		writer.println("\t</records>");
 		writer.println("</music>");
@@ -63,7 +69,7 @@ public class XMLWriter {
 		writer.print(tune.getName());
 		writer.print("\" composer=\"");
 		writer.print(tune.getComposer());
-		if (!"".equals(tune.getTimeSignature()) && tune.getTimeSignature() != null) {
+		if (!"".equals(tune.getTimeSignature())) {
 			writer.print("\" time=\"");
 			writer.print(tune.getTimeSignature());
 		}
@@ -82,7 +88,9 @@ public class XMLWriter {
 		writer.print(AllBooks.ALL_BOOKS.indexOf(book));
 		writer.println("\">");
 		for (BookEntry entry : book.getEntries()) {
-			writeBookEntry(entry);
+			if (entry != null) {
+				writeBookEntry(entry);
+			}
 		}
 		writer.println("\t\t</book>");
 	}
@@ -97,7 +105,9 @@ public class XMLWriter {
 		writer.print(AllRecordings.ALL_RECORDINGS.indexOf(record));
 		writer.println("\">");
 		for (RecordingEntry entry : record.getEntries()) {
-			writeRecordingEntry(entry);
+			if (entry != null) {
+				writeRecordingEntry(entry);
+			}
 		}
 		writer.println("\t\t</recording>");
 	}

@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import model.CollectionEntry;
 import model.recording.Recording;
 import model.recording.RecordingEntry;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 import alm.ArrayListModel;
 
@@ -37,11 +40,12 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	/**
 	 * Logger.
 	 */
+	@SuppressWarnings("null")
 	private static final Logger LOGGER = Logger.getLogger(RecordingPanel.class.getName());
 	/**
 	 * The recording we're dealing with.
 	 */
-	private Recording recording;
+	@Nullable private Recording recording;
 	/**
 	 * A text box for the recording's title.
 	 */
@@ -61,7 +65,7 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 * @param record
 	 *            The recording this window is editing
 	 */
-	public RecordingPanel(final Recording record) {
+	public RecordingPanel(@Nullable final Recording record) {
 		this();
 		recording = record;
 		actionPerformed(new ActionEvent(this, 0, REVERT));
@@ -92,17 +96,20 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 *            The button-press event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent actEvent) {
-		if (REVERT.equals(actEvent.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent actEvent) {
+		if (actEvent == null) {
+			return;
+		} else if (REVERT.equals(actEvent.getActionCommand())) {
 			if (!tunes.isEmpty()) {
 				tunes.clear();
 			}
-			if (recording == null) {
+			final Recording lRecord = recording;
+			if (lRecord == null) {
 				titleField.setText("");
 			} else {
-				titleField.setText(recording.getTitle());
+				titleField.setText(lRecord.getTitle());
 				try {
-					tunes.addAll(recording.getEntries());
+					tunes.addAll(lRecord.getEntries());
 				} catch (IndexOutOfBoundsException except) {
 					LOGGER.log(Level.INFO,
 							"Expected IndexOutOfBoundsException", except);
@@ -126,19 +133,22 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 * made to the event this panel is editing.
 	 */
 	private void apply() {
-		if (recording == null) {
-			recording = new Recording();
-			recording.addAll(tunes);
-			recording.setTitle(titleField.getText());
-			firePropertyChange("recording", null, recording);
+		final Recording lRecord = recording;
+		final String title = titleField.getText();
+		if (lRecord == null) {
+			final Recording nRecord = new Recording();
+			nRecord.addAll(tunes);
+			nRecord.setTitle(title == null ? "" : title);
+			recording = nRecord;
+			firePropertyChange("recording", null, nRecord);
 		} else {
-			recording.setTitle(titleField.getText());
-			for (CollectionEntry entry : recording.getEntries()) {
-				if (!tunes.contains(entry)) {
-					recording.removeEntry(entry);
+			lRecord.setTitle(title == null ? "" : title);
+			for (CollectionEntry entry : lRecord.getEntries()) {
+				if (entry != null && !tunes.contains(entry)) {
+					lRecord.removeEntry(entry);
 				}
 			}
-			recording.addAll(tunes);
+			lRecord.addAll(tunes);
 			firePropertyChange("recording", recording, recording);
 		}
 	}
@@ -146,7 +156,7 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	/**
 	 * @return the Recording this panel is for editing
 	 */
-	public Recording getRecording() {
+	@Nullable public Recording getRecording() {
 		return recording;
 	}
 
@@ -154,8 +164,9 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 * @param record
 	 *            the Recording this panel will edit
 	 */
-	public void setRecording(final Recording record) {
-		if (!recording.equals(record)) {
+	public void setRecording(@Nullable final Recording record) {
+		final Recording lRecord = recording;
+		if (lRecord == null || !lRecord.equals(record)) {
 			recording = record;
 			actionPerformed(new ActionEvent(this, 0, REVERT));
 		}
@@ -166,7 +177,10 @@ public final class RecordingPanel extends JPanel implements ActionListener,
 	 * @param evt An event from a spawned panel.
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
+		if (evt == null) {
+			return;
+		}
 		final Object newValue = evt.getNewValue();
 		if ("entry".equals(evt.getPropertyName()) && evt.getOldValue() == null
 				&& newValue instanceof RecordingEntry) {

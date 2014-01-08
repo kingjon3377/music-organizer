@@ -10,11 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Tune;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 
 /**
  * A panel to create and edit tunes.
- * 
+ *
  * @author Jonathan Lovelace
  */
 public final class TunePanel extends JPanel implements ActionListener {
@@ -41,7 +44,7 @@ public final class TunePanel extends JPanel implements ActionListener {
 	/**
 	 * The tune this panel is editing.
 	 */
-	private transient Tune tune;
+	@Nullable private transient Tune tune;
 
 	/**
 	 * Constructor.
@@ -62,11 +65,11 @@ public final class TunePanel extends JPanel implements ActionListener {
 
 	/**
 	 * Explicit-value constructor.
-	 * 
+	 *
 	 * @param theTune
 	 *            The tune we're editing
 	 */
-	public TunePanel(final Tune theTune) {
+	public TunePanel(@Nullable final Tune theTune) {
 		this();
 		tune = theTune;
 		actionPerformed(new ActionEvent(this, 0, REVERT));
@@ -74,23 +77,26 @@ public final class TunePanel extends JPanel implements ActionListener {
 
 	/**
 	 * Handle button presses.
-	 * 
+	 *
 	 * @param event
 	 *            The event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Apply".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event == null) {
+			return;
+		} else if ("Apply".equals(event.getActionCommand())) {
 			apply();
 		} else if (REVERT.equals(event.getActionCommand())) {
-			if (tune == null) {
+			final Tune lTune = tune;
+			if (lTune == null) {
 				nameBox.setText("");
 				composerBox.setText("");
 				timeBox.setText("");
 			} else {
-				nameBox.setText(tune.getName());
-				composerBox.setText(tune.getComposer());
-				timeBox.setText(tune.getTimeSignature());
+				nameBox.setText(lTune.getName());
+				composerBox.setText(lTune.getComposer());
+				timeBox.setText(lTune.getTimeSignature());
 			}
 		} else if ("Close".equals(event.getActionCommand())) {
 			this.setVisible(false);
@@ -104,16 +110,21 @@ public final class TunePanel extends JPanel implements ActionListener {
 	 * Called when the apply button is pressed.
 	 */
 	private void apply() {
-		if (tune == null) {
-			tune = new Tune();
-			tune.setName(nameBox.getText());
-			tune.setComposer(composerBox.getText());
-			tune.setTimeSignature(timeBox.getText());
-			firePropertyChange("tune", null, tune);
+		final Tune lTune = tune;
+		final String name = nameBox.getText();
+		final String composer = composerBox.getText();
+		final String time = timeBox.getText();
+		if (lTune == null) {
+			final Tune nTune = new Tune();
+			nTune.setName(name == null ? "" : name);
+			nTune.setComposer(composer == null ? "" : composer);
+			nTune.setTimeSignature(time == null ? "" : time);
+			tune = nTune;
+			firePropertyChange("tune", null, nTune);
 		} else {
-			tune.setName(nameBox.getText());
-			tune.setComposer(composerBox.getText());
-			tune.setTimeSignature(timeBox.getText());
+			lTune.setName(name == null ? "" : name);
+			lTune.setComposer(composer == null ? "" : composer);
+			lTune.setTimeSignature(time == null ? "" : time);
 			firePropertyChange("tune", tune, tune);
 		}
 	}

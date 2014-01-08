@@ -11,6 +11,8 @@ import model.CollectionEntry;
 import model.Tune;
 import model.TuneCollection;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A list of tunes, representing a CD.
  * @author Jonathan Lovelace
@@ -67,7 +69,9 @@ public class Recording implements Serializable, TuneCollection {
 	 */
 	@Override
 	public CollectionEntry getEntry(final int index) {
-		return entries.get(index);
+		final CollectionEntry retval = entries.get(index);
+		assert retval != null;
+		return retval;
 	}
 	/**
 	 * Remove an entry from the list.
@@ -106,7 +110,10 @@ public class Recording implements Serializable, TuneCollection {
 	 * @return whether this recording contains all of them
 	 */
 	@Override
-	public boolean containsAll(final Collection<? extends Tune> tunes) {
+	public boolean containsAll(@Nullable final Collection<? extends Tune> tunes) {
+		if (tunes == null) {
+			return true;
+		}
 		final Set<Tune> tunesInRecording = new HashSet<>();
 		for (RecordingEntry entry : entries) {
 			tunesInRecording.add(entry.getTune());

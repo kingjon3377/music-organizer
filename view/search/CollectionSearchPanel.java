@@ -22,6 +22,9 @@ import model.collections.AllBooks;
 import model.collections.AllRecordings;
 import model.collections.AllTunes;
 import model.recording.Recording;
+
+import org.eclipse.jdt.annotation.Nullable;
+
 import utils.ListenerButton;
 import view.BookPane;
 import view.EditWindow;
@@ -78,8 +81,10 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	 *            the event to handle
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent evt) {
-		if ("Search".equals(evt.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent evt) {
+		if (evt == null) {
+			return;
+		} else if ("Search".equals(evt.getActionCommand())) {
 			search();
 		} else if ("Edit Collection".equals(evt.getActionCommand())) {
 			if (list.getSelectedValue() instanceof Book) {
@@ -120,7 +125,7 @@ public class CollectionSearchPanel extends JPanel implements ActionListener,
 	 * @param evt the event to handle
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
 		// Do nothing for now
 	}
 }

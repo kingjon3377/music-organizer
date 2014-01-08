@@ -8,13 +8,15 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 import view.EditWindow;
 
 /**
  * A menu from which to launch search dialogs.
- * 
+ *
  * @author Jonathan Lovelace
- * 
+ *
  */
 public final class SearchMenu extends JMenu implements ActionListener,
 		PropertyChangeListener {
@@ -47,13 +49,15 @@ public final class SearchMenu extends JMenu implements ActionListener,
 
 	/**
 	 * Handle menu item selections.
-	 * 
+	 *
 	 * @param event
 	 *            the event we're handling
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent event) {
-		if ("Tune Name".equals(event.getActionCommand())) {
+	public void actionPerformed(@Nullable final ActionEvent event) {
+		if (event == null) {
+			return;
+		} else if ("Tune Name".equals(event.getActionCommand())) {
 			new EditWindow("Search by Tune Name", new TuneSearchPanel(), this)
 					.setVisible(true);
 		} else if ("Tunes in Collection".equals(event.getActionCommand())) {
@@ -73,13 +77,13 @@ public final class SearchMenu extends JMenu implements ActionListener,
 
 	/**
 	 * Handle events from spawned EditWindows.
-	 * 
+	 *
 	 * @param evt
 	 *            the event to handle.
 	 * @todo Implement?
 	 */
 	@Override
-	public void propertyChange(final PropertyChangeEvent evt) {
+	public void propertyChange(@Nullable final PropertyChangeEvent evt) {
 		// Do nothing at present
 	}
 }
